@@ -39,17 +39,17 @@ class Task(db.Model):
 
 
 
-class GiveToUser(db.Model):
-    __tablename__ = 'giveToUsers'
+# class GiveToUser(db.Model):
+#     __tablename__ = 'giveToUsers'
 
-    id = db.Column(db.Integer, primary_key=True)
-    userId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    taskId = db.Column(db.Integer, db.ForeignKey('tasks.id'), nullable=False)
+#     id = db.Column(db.Integer, primary_key=True)
+#     userId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+#     taskId = db.Column(db.Integer, db.ForeignKey('tasks.id'), nullable=False)
 
-    # associations
-    # TEST THE CASCADE DELETE. remove the cascade if it breaks
-    giveUser = relationship('User', backref=db.backref('giveUserTask'), cascade="all,delete-orphan")
-    giveTask = relationship('Task', backref=db.backref('giveTaskUser'), cascade="all,delete-orphan")
+#     # associations
+#     # TEST THE CASCADE DELETE. remove the cascade if it breaks
+#     giveUser = relationship('User', backref=db.backref('giveUserTask'), cascade="all,delete-orphan")
+#     giveTask = relationship('Task', backref=db.backref('giveTaskUser'), cascade="all,delete-orphan")
 
 
 class Note(db.Model):

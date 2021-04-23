@@ -7,6 +7,7 @@ import LoginFormModal from "../LoginFormModal";
 import SignUpModal from "../SignUpModal";
 import { Nav, Navbar, Button } from "react-bootstrap";
 import * as sessionActions from "../../store/session";
+import ProfileButton from "./ProfileButton";
 
 const Navigation = () => {
 	const history = useHistory();
@@ -18,7 +19,7 @@ const Navigation = () => {
 		sessionLinks = (
 			// if logged in links
 			<>
-				<LogoutButton />
+				<ProfileButton user={sessionUser} />
 			</>
 		);
 	} else {
@@ -32,14 +33,9 @@ const Navigation = () => {
 			</>
 		);
 	}
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
 		setErrors([]);
-		return dispatch(sessionActions.loginThunk({ credential: "demo@user.io", password: "password" }))
-			.then((response) => (response.ok ? history.push("/home") : response))
-			.catch(async (res) => {
-				const data = await res.json();
-				if (data && data.errors) setErrors(data.errors);
-			});
+		await dispatch(sessionActions.login({ credential: "demo@user.io", password: "password" }));
 	};
 
 	return (
