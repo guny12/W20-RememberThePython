@@ -28,6 +28,7 @@ class Task(db.Model):
     completed = db.Column(db.Boolean, default=False)
     startDate = db.Column(db.DateTime)
     dueDate = db.Column(db.DateTime)
+    #attachmentUrl=db.Column(db.Text)
     priority = db.Column(db.Integer, default=0)
     # min max
     createdAt = db.Column(db.DateTime, default=datetime.now())
@@ -35,7 +36,7 @@ class Task(db.Model):
 
     # associations
     taskNote = relationship('Note', backref='noteTask', cascade="all,delete-orphan")
-    
+
 
 
 class GiveToUser(db.Model):

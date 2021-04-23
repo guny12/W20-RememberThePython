@@ -13,9 +13,7 @@ def seed_tasks():
             listId=faker.pyint(min_value=1, max_value=50),
             content=faker.paragraph(nb_sentences=10)
         )
-
         db.session.add(demo)
-
     db.session.commit()
 
 # Uses a raw SQL query to TRUNCATE the tasks table.
@@ -25,7 +23,6 @@ def seed_tasks():
 
 
 def undo_tasks():
-    db.session.execute('''TRUNCATE TABLE tasks
-    CASCADE;''')
+    db.session.execute('''TRUNCATE TABLE tasks CASCADE;''')
     db.session.execute('''ALTER SEQUENCE tasks_id_seq RESTART WITH 1;''')
     db.session.commit()
