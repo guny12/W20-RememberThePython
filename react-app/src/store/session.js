@@ -1,4 +1,4 @@
-import { signUp, logout, login } from "../services/auth";
+import { signUp, logout, login, authenticate } from "../services/auth";
 
 //action type variables
 const SET_SESSION = "session/SET_SESSION";
@@ -24,7 +24,7 @@ export const loginThunk = (user) => async (dispatch) => {
 };
 
 export const restoreUser = () => async (dispatch) => {
-	const response = await fetch("/api/session");
+	const response = await authenticate();
 	const data = await response.json();
 	dispatch(setSessionUser(data.user));
 	return response;

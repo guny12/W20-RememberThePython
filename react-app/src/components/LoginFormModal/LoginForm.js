@@ -15,7 +15,7 @@ const LoginForm = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		setErrors([]);
-		return dispatch(sessionActions.login({ credential, password }))
+		return dispatch(sessionActions.loginThunk({ credential, password }))
 			.then((response) => (response.ok ? history.push("/home") : response))
 			.catch(async (res) => {
 				const data = await res.json();
