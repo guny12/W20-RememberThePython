@@ -5,6 +5,7 @@ from datetime import datetime
 
 db = SQLAlchemy()
 
+
 class List(db.Model):
     __tablename__ = 'lists'
 
@@ -15,14 +16,16 @@ class List(db.Model):
     updatedAt = db.Column(db.DateTime, default=datetime.now())
 
     # associations
-    listTask = relationship('Task', backref='taskList', cascade="all,delete-orphan")
+    listTask = relationship('Task', backref='taskList',
+                            cascade="all,delete-orphan")
 
 
 class Task(db.Model):
     __tablename__ = 'tasks'
 
     id = db.Column(db.Integer, primary_key=True)
-    creatorId = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    creatorId = db.Column(
+        db.Integer, db.ForeignKey('users.id'), nullable=False)
     listId = db.Column(db.Integer, db.ForeignKey('lists.id'), nullable=False)
     content = db.Column(db.Text, nullable=False)
     completed = db.Column(db.Boolean, default=False)
@@ -34,8 +37,8 @@ class Task(db.Model):
     updatedAt = db.Column(db.DateTime, default=datetime.now())
 
     # associations
-    taskNote = relationship('Note', backref='noteTask', cascade="all,delete-orphan")
-    
+    taskNote = relationship('Note', backref='noteTask',
+                            cascade="all,delete-orphan")
 
 
 class GiveToUser(db.Model):
@@ -46,9 +49,10 @@ class GiveToUser(db.Model):
     taskId = db.Column(db.Integer, db.ForeignKey('tasks.id'), nullable=False)
 
     # associations
-    # TEST THE CASCADE DELETE. remove the cascade if it breaks
-    giveUser = relationship('User', backref=db.backref('giveUserTask'), cascade="all,delete-orphan")
-    giveTask = relationship('Task', backref=db.backref('giveTaskUser'), cascade="all,delete-orphan")
+    # cascade delete broke seeding - JT
+    giveUser = relationship('User', backref=db.backref('giveUserTask'))
+    giveTask = relationship('Task', backref=db.backref(
+        'giveTaskUser'))
 
 
 class Note(db.Model):
