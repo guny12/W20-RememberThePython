@@ -3,13 +3,13 @@ const SET_SESSION = "session/SET_SESSION";
 const REMOVE_SESSION = "session/REMOVE_SESSION";
 
 // action creators
+const removeSessionUser = () => ({
+	type: REMOVE_SESSION,
+});
+
 const setSessionUser = (user) => ({
 	type: SET_SESSION,
 	user,
-});
-
-const removeSessionUser = () => ({
-	type: REMOVE_SESSION,
 });
 
 // thunk action creators
