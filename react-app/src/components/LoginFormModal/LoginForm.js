@@ -16,7 +16,7 @@ const LoginForm = () => {
 		e.preventDefault();
 		setErrors([]);
 		const data = await dispatch(sessionActions.login({ credential, password }));
-		if (data.errors) {
+		if (data?.errors) {
 			setErrors(data.errors);
 		}
 	};
