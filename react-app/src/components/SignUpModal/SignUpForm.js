@@ -18,16 +18,14 @@ const SignUpForm = () => {
 
 	if (sessionUser) return <Redirect to="/" />;
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		if (password === confirmPassword) {
 			setErrors([]);
-			return dispatch(sessionActions.signUpThunk({ email, username, password, firstName, lastName })).catch(
-				async (res) => {
-					const data = await res.json();
-					if (data && data.errors) setErrors(data.errors);
-				}
-			);
+			await dispatch(sessionActions.signUp({ email, username, password, firstName, lastName })).catch(async (res) => {
+				const data = await res.json();
+				if (data && data.errors) setErrors(data.errors);
+			});
 		}
 		return setErrors(["Confirm Password field must be the same as the Password field"]);
 	};

@@ -1,5 +1,3 @@
-import { signUp, logout, login, authenticate } from "../services/auth";
-
 //action type variables
 const SET_SESSION = "session/SET_SESSION";
 const REMOVE_SESSION = "session/REMOVE_SESSION";
@@ -17,47 +15,66 @@ const setSessionUser = (user) => ({
 // thunk action creators
 export const loginThunk = (user) => async (dispatch) => {
 	const { credential, password } = user;
-	const response = await login(credential, password);
+	const response = await fetch("/api/auth/login", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({
+			credential,
+			password,
+		}),
+	});
 	const data = await response.json();
-	dispatch(setSessionUser(data.user));
-	return response;
+	if (data.errors) return;
+	dispatch(setSessionUser(data));
+	return;
 };
 
 export const restoreUser = () => async (dispatch) => {
-	const response = await authenticate();
+	const response = await fetch("/api/auth/", {
+		headers: {
+			"Content-Type": "application/json",
+		},
+	});
 	const data = await response.json();
+	if (data.errors) return;
 	dispatch(setSessionUser(data.user));
-	return response;
 };
 
-export const signUpThunk = (user) => async (dispatch) => {
+export const signUp = (user) => async (dispatch) => {
 	const { username, email, password, firstName, lastName } = user;
-	const response = await signUp(username, email, password, firstName, lastName);
+	const response = await fetch("/api/auth/signup", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({ username, email, password, firstName, lastName }),
+	});
 	const data = await response.json();
+	if (data.errors) return;
 	dispatch(setSessionUser(data.user));
 	return response;
 };
 
-export const logoutThunk = () => async (dispatch) => {
-	const response = await logout();
+export const logout = () => async (dispatch) => {
+	const response = await fetch("/api/auth/logout", {
+		headers: {
+			"Content-Type": "application/json",
+		},
+	});
 	dispatch(removeSessionUser());
-	return response;
 };
 
 // reducer
 const initialState = { user: null };
 
 const sessionReducer = (state = initialState, action) => {
-	let newState;
 	switch (action.type) {
 		case SET_SESSION:
-			newState = Object.assign({}, state);
-			newState.user = action.user ? action.user : null;
-			return newState;
+			return { user: action.user };
 		case REMOVE_SESSION:
-			newState = Object.assign({}, state);
-			newState.user = null;
-			return newState;
+			return { user: null };
 		default:
 			return state;
 	}

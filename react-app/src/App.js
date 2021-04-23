@@ -17,11 +17,7 @@ function App() {
 
 	useEffect(() => {
 		(async () => {
-			const user = await authenticate();
-			if (!user.errors) {
-				// setAuthenticated(true);
-				dispatch(sessionActions.restoreUser());
-			}
+			await dispatch(sessionActions.restoreUser());
 			setLoaded(true);
 		})();
 	}, [dispatch]);
@@ -35,18 +31,18 @@ function App() {
 			<Navigation />
 			<Switch>
 				<Route path="/login" exact={true}>
-					<LoginForm authenticated={authenticated} setAuthenticated={setAuthenticated} />
+					<LoginForm />
 				</Route>
 				<Route path="/sign-up" exact={true}>
-					<SignUpForm authenticated={authenticated} setAuthenticated={setAuthenticated} />
+					<SignUpForm />
 				</Route>
-				<ProtectedRoute path="/users" exact={true} authenticated={authenticated}>
+				<ProtectedRoute path="/users" exact={true}>
 					<UsersList />
 				</ProtectedRoute>
-				<ProtectedRoute path="/users/:userId" exact={true} authenticated={authenticated}>
+				<ProtectedRoute path="/users/:userId" exact={true}>
 					<User />
 				</ProtectedRoute>
-				<ProtectedRoute path="/" exact={true} authenticated={authenticated}>
+				<ProtectedRoute path="/" exact={true}>
 					<h1>My Home Page</h1>
 				</ProtectedRoute>
 				<Route path="/">

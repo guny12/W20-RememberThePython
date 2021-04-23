@@ -48,9 +48,6 @@ const Navigation = () => {
 				<NavLink to="/" exact={true} activeClassName="active">
 					Home
 				</NavLink>
-				{/* <NavLink to="/users" exact={true} activeClassName="active">
-					Users
-				</NavLink> */}
 				{sessionLinks}
 			</Nav>
 		</Navbar>

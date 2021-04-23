@@ -12,15 +12,13 @@ const LoginForm = () => {
 	const [credential, setCredential] = useState("");
 	const [password, setPassword] = useState("");
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setErrors([]);
-		return dispatch(sessionActions.loginThunk({ credential, password }))
-			.then((response) => (response.ok ? history.push("/home") : response))
-			.catch(async (res) => {
-				const data = await res.json();
-				if (data && data.errors) setErrors(data.errors);
-			});
+		const data = await dispatch(sessionActions.login({ credential, password }));
+		if (data.errors) {
+			setErrors(data.errors);
+		}
 	};
 
 	return (
