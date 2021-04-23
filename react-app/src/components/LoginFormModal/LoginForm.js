@@ -15,7 +15,6 @@ const LoginForm = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		setErrors([]);
-		console.log(credential, password, "CREDENTIAL AND PASSWORD -------------------");
 		return dispatch(sessionActions.login({ credential, password }))
 			.then((response) => (response.ok ? history.push("/home") : response))
 			.catch(async (res) => {

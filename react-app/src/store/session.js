@@ -1,3 +1,5 @@
+import { signUp, logout, login } from "../services/auth";
+
 //action type variables
 const SET_SESSION = "session/SET_SESSION";
 const REMOVE_SESSION = "session/REMOVE_SESSION";
@@ -13,12 +15,9 @@ const setSessionUser = (user) => ({
 });
 
 // thunk action creators
-export const login = (user) => async (dispatch) => {
+export const loginThunk = (user) => async (dispatch) => {
 	const { credential, password } = user;
-	const response = await fetch("/api/session", {
-		method: "POST",
-		body: JSON.stringify({ credential, password }),
-	});
+	const response = await login(credential, password);
 	const data = await response.json();
 	dispatch(setSessionUser(data.user));
 	return response;
@@ -31,25 +30,16 @@ export const restoreUser = () => async (dispatch) => {
 	return response;
 };
 
-export const signUp = (user) => async (dispatch) => {
+export const signUpThunk = (user) => async (dispatch) => {
 	const { username, email, password, firstName, lastName } = user;
-	const response = await fetch("/api/auth/signup", {
-		method: "POST",
-		body: JSON.stringify({
-			username,
-			email,
-			password,
-			firstName,
-			lastName,
-		}),
-	});
+	const response = await signUp(username, email, password, firstName, lastName);
 	const data = await response.json();
 	dispatch(setSessionUser(data.user));
 	return response;
 };
 
-export const logout = () => async (dispatch) => {
-	const response = await fetch("/api/auth/logout");
+export const logoutThunk = () => async (dispatch) => {
+	const response = await logout();
 	dispatch(removeSessionUser());
 	return response;
 };
