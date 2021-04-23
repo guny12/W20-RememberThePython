@@ -6,8 +6,9 @@ import { BrowserRouter } from "react-router-dom";
 import { Provider as ReduxProvider } from "react-redux";
 import { ModalProvider } from "./context/Modal";
 import configureStore from "./store";
+import { authenticate } from "./services/auth";
+
 import * as sessionActions from "./store/session";
-import authenticate from "./services/auth";
 
 const store = configureStore();
 

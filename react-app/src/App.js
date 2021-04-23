@@ -7,6 +7,7 @@ import NavBar from "./components/NavBar";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import UsersList from "./components/UsersList";
 import User from "./components/User";
+import * as sessionActions from "./store/session";
 import { authenticate } from "./services/auth";
 
 function App() {
@@ -18,11 +19,12 @@ function App() {
 		(async () => {
 			const user = await authenticate();
 			if (!user.errors) {
-				setAuthenticated(true);
+				// setAuthenticated(true);
+				dispatch(sessionActions.restoreUser());
 			}
 			setLoaded(true);
 		})();
-	}, []);
+	}, [dispatch]);
 
 	if (!loaded) {
 		return null;
