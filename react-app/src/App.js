@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
@@ -10,6 +11,7 @@ import { authenticate } from "./services/auth";
 
 function App() {
 	const [authenticated, setAuthenticated] = useState(false);
+	const dispatch = useDispatch();
 	const [loaded, setLoaded] = useState(false);
 
 	useEffect(() => {

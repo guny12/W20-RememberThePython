@@ -33,7 +33,7 @@ export const restoreUser = () => async (dispatch) => {
 
 export const signUp = (user) => async (dispatch) => {
 	const { username, email, password, firstName, lastName } = user;
-	const response = await fetch("/api/users", {
+	const response = await fetch("/api/auth/signup", {
 		method: "POST",
 		body: JSON.stringify({
 			username,
@@ -49,7 +49,7 @@ export const signUp = (user) => async (dispatch) => {
 };
 
 export const logout = () => async (dispatch) => {
-	const response = await fetch("/api/session", { method: "DELETE" });
+	const response = await fetch("/api/auth/logout");
 	dispatch(removeSessionUser());
 	return response;
 };
