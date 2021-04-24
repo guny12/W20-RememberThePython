@@ -1,0 +1,30 @@
+#modal {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#modal-background {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	bottom: 0;
+	background: transparent;
+}
+
+#modal-content {
+	position: absolute;
+	background-color: white;
+	size: Large;
+	border: 1px solid black;
+	border-radius: 5px;
+	height: auto;
+	width: auto;
+	padding: 10px;
+}

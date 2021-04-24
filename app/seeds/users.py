@@ -1,7 +1,3 @@
-#
-# DELETE THIS FILE IF NOTHING BREAKS
-#
-from werkzeug.security import generate_password_hash
 from faker import Faker
 from app.models import db, User
 
@@ -30,6 +26,14 @@ def seed_users():
 
         db.session.add(demo)
 
+    demouser = User(
+            firstName="demo",
+            lastName="user",
+            email="demo@user.io",
+            username="demouser",
+            password="password"
+        )
+    db.session.add(demouser)
     db.session.commit()
 
 # Uses a raw SQL query to TRUNCATE the users table.
