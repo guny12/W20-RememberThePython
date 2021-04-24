@@ -9,11 +9,11 @@ import * as sessionActions from "../../store/session";
 import ProfileButton from "./ProfileButton";
 
 const Navigation = () => {
-	const history = useHistory();
 	const dispatch = useDispatch();
 	const sessionUser = useSelector((state) => state.session.user);
-	const [errors, setErrors] = useState([]);
+
 	let sessionLinks;
+
 	if (sessionUser) {
 		sessionLinks = (
 			// if logged in links
@@ -33,7 +33,6 @@ const Navigation = () => {
 		);
 	}
 	const handleSubmit = async () => {
-		setErrors([]);
 		await dispatch(sessionActions.login({ credential: "demo@user.io", password: "password" }));
 	};
 
