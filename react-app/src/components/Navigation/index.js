@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
-import LogoutButton from "../auth/LogoutButton";
 import LoginFormModal from "../LoginFormModal";
 import SignUpModal from "../SignUpModal";
 import { Nav, Navbar, Button } from "react-bootstrap";
@@ -39,9 +38,9 @@ const Navigation = () => {
 	};
 
 	return (
-		<Navbar bg="primary" variant="light">
+		<Navbar bg="primary" variant="dark">
 			<Nav className="mr-auto">
-				<NavLink to="/" exact={true} activeClassName="active">
+				<NavLink to={"/"} className="nav-link">
 					Home
 				</NavLink>
 				{sessionLinks}
