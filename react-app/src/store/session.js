@@ -52,9 +52,9 @@ export const signUp = (user) => async (dispatch) => {
 		body: JSON.stringify({ username, email, password, firstName, lastName }),
 	});
 	const data = await response.json();
-	if (data.errors) return;
+	if (data.errors) return data;
 	dispatch(setSessionUser(data.user));
-	return response;
+	return data;
 };
 
 export const logout = () => async (dispatch) => {

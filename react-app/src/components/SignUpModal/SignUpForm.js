@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch, useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Redirect, useHistory } from "react-router-dom";
 import "./SignUpForm.css";
 import { Button, Form } from "react-bootstrap";
 
 const SignUpForm = () => {
 	const dispatch = useDispatch();
+	const history = useHistory();
 	const sessionUser = useSelector((state) => state.session.user);
 	const [email, setEmail] = useState("");
 	const [username, setUsername] = useState("");
@@ -15,6 +16,7 @@ const SignUpForm = () => {
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [errors, setErrors] = useState([]);
+	const close = document.querySelector("#modal-background");
 
 	if (sessionUser) return <Redirect to="/" />;
 
@@ -22,12 +24,15 @@ const SignUpForm = () => {
 		e.preventDefault();
 		if (password === confirmPassword) {
 			setErrors([]);
-			await dispatch(sessionActions.signUp({ email, username, password, firstName, lastName })).catch(async (res) => {
-				const data = await res.json();
-				if (data && data.errors) setErrors(data.errors);
-			});
+
+			const response = await dispatch(sessionActions.signUp({ email, username, password, firstName, lastName }));
+			if (response.errors) return setErrors(response.errors);
+			history.push("/home");
+			close.click();
+			return;
+		} else {
+			return setErrors(["Confirm Password field must be the same as the Password field"]);
 		}
-		return setErrors(["Confirm Password field must be the same as the Password field"]);
 	};
 
 	return (

@@ -7,6 +7,14 @@ faker = Faker()
 
 
 def seed_users():
+    demoUser = User(
+        firstName='John',
+        lastName='Doe',
+        email='demoUser@user.io',
+        username='demolition',
+        password='password'
+    )
+    db.session.add(demoUser)
     for i in range(50):
         demo = User(
             firstName=faker.first_name(),

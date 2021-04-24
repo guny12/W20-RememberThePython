@@ -3,6 +3,7 @@ from .users import seed_users, undo_users
 from .lists import seed_lists, undo_lists
 from .tasks import seed_tasks, undo_tasks
 from .notes import seed_notes, undo_notes
+from .giveToUser import seed_giveToUsers, undo_giveToUsers
 
 # Creates a seed group to hold our commands
 # So we can type `flask seed --help`
@@ -16,6 +17,7 @@ def seed():
     seed_lists()
     seed_tasks()
     seed_notes()
+    seed_giveToUsers()
     # Add other seed functions here
 
 
@@ -26,4 +28,5 @@ def undo():
     undo_lists()
     undo_tasks()
     undo_notes()
+    undo_giveToUsers()
     # Add other undo functions here
