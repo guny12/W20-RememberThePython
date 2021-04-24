@@ -1,3 +1,6 @@
+#
+# DELETE THIS FILE IF NOTHING BREAKS
+#
 from werkzeug.security import generate_password_hash
 from faker import Faker
 from app.models import db, User
@@ -8,6 +11,14 @@ faker = Faker()
 
 
 def seed_users():
+    demoUser = User(
+        firstName='John',
+        lastName='Doe',
+        email='demoUser@user.io',
+        username='demolition',
+        password='password'
+    )
+    db.session.add(demoUser)
     for i in range(50):
         demo = User(
             firstName=faker.first_name(),

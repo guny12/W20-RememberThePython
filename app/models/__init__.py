@@ -1,2 +1,2 @@
-from .db import db, List, Task, Note
-from .user import User
+from .db import db, List, Task, Note, User, giveToUser
+# from .user import User
