@@ -7,10 +7,10 @@ faker = Faker()
 
 
 def seed_tasks():
-    for i in range(50):
+    for i in range(1000):
         demo = Task(
-            creatorId=faker.pyint(min_value=1, max_value=50),
-            listId=faker.pyint(min_value=1, max_value=50),
+            creatorId=faker.pyint(min_value=1, max_value=51),
+            listId=faker.pyint(min_value=1, max_value=80),
             content=faker.paragraph(nb_sentences=10)
         )
 
