@@ -33,7 +33,7 @@ const Navigation = () => {
 		);
 	}
 	const handleSubmit = async () => {
-		await dispatch(sessionActions.login({ credential: "demo@user.io", password: "password" }));
+		await dispatch(sessionActions.login({ credential: "demoUser@user.io", password: "password" }));
 	};
 
 	return (
