@@ -39,7 +39,7 @@ export const restoreUser = () => async (dispatch) => {
 	});
 	const data = await response.json();
 	if (data.errors) return;
-	dispatch(setSessionUser(data.user));
+	dispatch(setSessionUser(data));
 };
 
 export const signUp = (user) => async (dispatch) => {
@@ -72,6 +72,7 @@ const initialState = { user: null };
 const sessionReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case SET_SESSION:
+			console.log('TEST');
 			return { user: action.user };
 		case REMOVE_SESSION:
 			return { user: null };

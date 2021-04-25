@@ -66,6 +66,15 @@ class List(db.Model):
     listTask = relationship('Task', backref='taskList',
                             cascade="all, delete")
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'userId': self.userId,
+            'title': self.title,
+            'createdAt': self.createdAt,
+            'updatedAt': self.updatedAt
+        }
+
 
 class Task(db.Model):
     __tablename__ = 'tasks'
@@ -78,7 +87,7 @@ class Task(db.Model):
     completed = db.Column(db.Boolean, default=False)
     startDate = db.Column(db.DateTime)
     dueDate = db.Column(db.DateTime)
-    #attachmentUrl=db.Column(db.Text)
+    # attachmentUrl=db.Column(db.Text)
     priority = db.Column(db.Integer, default=0)
     # min max
     createdAt = db.Column(db.DateTime, default=datetime.now())
@@ -90,6 +99,20 @@ class Task(db.Model):
     taskGive = relationship(
         'User', secondary=giveToUser, back_populates='userGive')
 
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'creatorId': self.creatorId,
+            'listId': self.listId,
+            'content': self.content,
+            'completed': self.completed,
+            'startDate': self.startDate,
+            'dueDate': self.dueDate,
+            'priority': self.priority,
+            'createdAt': self.createdAt,
+            'updatedAt': self.updatedAt
+        }
+
 
 class Note(db.Model):
     __tablename__ = 'notes'
@@ -100,3 +123,13 @@ class Note(db.Model):
     content = db.Column(db.Text, nullable=False)
     createdAt = db.Column(db.DateTime, default=datetime.now())
     updatedAt = db.Column(db.DateTime, default=datetime.now())
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'userId': self.userId,
+            'taskId': self.taskId,
+            'content': self.content,
+            'createdAt': self.createdAt,
+            'updatedAt': self.updatedAt
+        }

@@ -168,29 +168,21 @@ def update_list():
 
 
 # ROUTE WORKS, CHANGE CODE ACCORDINGLY
-# REASSIGNING TASK WORKS (I think??) YAYY
-@test_routes.route('/1')
-def reassign_task():
-    userId = 6
-    taskId = 6
-    newUserId = 13
-
-    db.session.execute(f'''UPDATE givetousers
-    SET user_id={newUserId}
-    WHERE user_id={userId} AND task_id={taskId};''')
-    db.session.commit()
-
-    return redirect('/api/test')
-
-
-# ROUTE WORKS, CHANGE CODE ACCORDINGLY
-# UPDATING TASK INFO WORKS YAYY
+# UPDATING TASK INFO WORKS (haven't tested the assigning part yet sorry!) YAYY
 @test_routes.route('/eh45hj4e56j', methods=['PATCH'])
 def update_task():
+    # newUserId for adding a user to a task
+    # can be 0 to signify no new user is being added
+    # to a task
+    newUserId = 1
+
+    # assignedUserId for determining if task owner
+    # would like to unassign task from currently
+    # assigned user
+    assignedUserId = 4
+
     taskId = 1
     userId = 2
-    taskId = 2
-    newUserId = 1
     content = 'buy milk. almond milk.'
     completed = True
     startDate = datetime.now()
@@ -208,12 +200,14 @@ def update_task():
         currentTask.dueDate = dueDate
     if priority:
         currentTask.priority = priority
-    if newUserId == -1:
-        # raw sql just because dealing with tables (NOT MODELS)
-        # is a headache and I've been reading too much docs
+    if assignedUserId > 0 and newUserId == 0:
+        # unassigning task from currently assigned user
         db.session.execute(f'''DELETE FROM givetousers
-        WHERE user_id={userId} AND task_id={taskId};''')
-    # if newUserId
+        WHERE user_id={assignedUserId} AND task_id={taskId};''')
+    if assignedUserId > 0 and newUserId > 0:
+        # assigning task to a new user
+        db.session.execute(f'''INSERT INTO givetousers (user_id, task_id)
+        VALUES ({newUserId}, {taskId});''')
 
     currentTask.updatedAt = datetime.now()
     db.session.commit()
@@ -233,6 +227,115 @@ def update_note():
     db.session.commit()
 
     return redirect('/api/test')
-
-
 # UPDATE API ROUTEEEEESSSSSSSSSSSSSSS----------------------
+
+
+# READ API ROUTEEEESSSSSSSSSSSSSSSSS-----------------------
+# ROUTE WORKS, CHANGE CODE ACCORDINGLY
+# QUERYING FOR ALL RELEVANT USER INFO FUNCTIONAL HOORAY
+@test_routes.route('/56ij56kje56kjek')
+def get_user_info():
+    userId = 1
+
+    # THIS QUERY WILL JOIN ALL THE TABLES ASSOCIATED WITH
+    # THE GIVEN USER, NOT JUST THE LIST TABLE
+    # PROPERTIES TO ACCESS TABLE INFO::
+    # NOTE::: SEE MODEL ASSOCIATIONS!!!
+    # userList
+    # userTask
+    # userGive
+    # userNote
+    userInfo = db.session.query(User).join(
+        List).filter(List.userId == userId).all()
+
+    # initial "state" of the json object that will be sent
+    user = {
+        'lists': {},
+        'tasks': {},
+        'assignedTasks': {},
+        'notes': {}
+    }
+
+    # THIS IS SO THE userInfo QUERY IS JSON
+    # SERIALIZABLE
+    for userStuff in userInfo:
+        for userList in userStuff.userList:
+            user['lists'][userList.id] = userList.to_dict()
+        for userTask in userStuff.userTask:
+            user['tasks'][userTask.id] = userTask.to_dict()
+        for userGive in userStuff.userGive:
+            user['assignedTasks'][userGive.id] = userGive.id
+        for userNote in userStuff.userNote:
+            user['notes'][userNote.id] = userNote.to_dict()
+
+    return user
+
+
+# ROUTE WORKS, CHANGE CODE ACCORDINGLY
+# QUERYING FOR ALL RELEVANT LIST INFO FUNCTIONAL HOORAY
+@test_routes.route('/g5hg9548hg9h5g')
+def get_list_info():
+    listId = 1
+
+    # SEE List MODEL ASSOCIATIONS
+    listInfo = db.session.query(List).filter(List.id == listId).first()
+
+    userList = {}
+
+    for task in listInfo.listTask:
+        userList[task.id] = task.to_dict()
+        userList[task.id]['notes'] = {}
+        for note in task.taskNote:
+            userList[task.id]['notes'][note.id] = note.to_dict()
+            userList[task.id]['notes'][note.id]['username'] = {}
+            userList[task.id]['notes'][note.id]['username'] = note.noteUser.username
+
+    return userList
+
+
+# ROUTE WORKS, CHANGE CODE ACCORDINGLY
+# QUERYING FOR ALL RELEVANT LIST INFO FUNCTIONAL HOORAY
+@test_routes.route('/458h9584hj98hjh8h')
+def get_task_info():
+    taskId = 1
+
+    # WOW I LOVE SQLALCHEMY
+    # ASSOCIATIONS ARE ALREADY INCLUDE
+    # WITH A SIMPLE QUERY LIKE THIS
+    taskInfo = Task.query.get(taskId)
+
+    task = taskInfo.to_dict()
+    task['notes'] = {}
+
+    for note in taskInfo.taskNote:
+        task['notes'][note.id] = note.to_dict()
+        task['notes'][note.id]['username'] = {}
+        task['notes'][note.id]['username'] = note.noteUser.username
+
+    return task
+
+
+# ROUTE WORKS, CHANGE CODE ACCORDINGLY
+# SEARCH FUNCTIONAL HOORAY
+@test_routes.route('/1/<int:userId>/<string:query>')
+def get_search_results(userId, query):
+    # NOTE ilike PROPERTY, CASE INSENSITIVE
+    taskResults = Task.query.filter(
+        Task.creatorId == userId, Task.content.ilike(f'%{query}%')).all()
+
+    listResults = List.query.filter(
+        List.userId == userId, List.title.ilike(f'%{query}%')).all()
+
+    results = {
+        'taskResults': {},
+        'listResults': {}
+    }
+
+    for result in taskResults:
+        results['taskResults'][result.id] = result.to_dict()
+
+    for result in listResults:
+        results['listResults'][result.id] = result.to_dict()
+
+    return results
+# READ API ROUTEEEESSSSSSSSSSSSSSSSS-----------------------
