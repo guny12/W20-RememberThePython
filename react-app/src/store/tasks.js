@@ -1,20 +1,20 @@
-const LOAD_ALL_TASKS = "task/LOAD_ALL_TASKS"
+const LOAD_ALL_TASKS = "task/LOAD_ALL_TASKS";
 
 const loadAllTasks = (tasks) => ({
-  type: LOAD_ALL_TASKS,
-  payload: tasks
-})
+	type: LOAD_ALL_TASKS,
+	payload: tasks,
+});
 
 // load all Tasks
-export const getTasks = () => async dispatch => {
-  const response = await fetch('/api/task/all');
-  if (response.ok) {
-    const tasks = await response.json();
-    dispatch(loadAllTasks(tasks));
-  }
-}
+export const getTasks = () => async (dispatch) => {
+	const response = await fetch("/api/task/all");
+	if (response.ok) {
+		const tasks = await response.json();
+		dispatch(loadAllTasks(tasks));
+	}
+};
 
-// load single Task 
+// load single Task
 // export const getTask = (taskId) => async dispatch => {
 //   const response = await fetch(`/api/task/${taskId}`);
 
@@ -23,7 +23,6 @@ export const getTasks = () => async dispatch => {
 //     dispatch(loadOneTask(task));
 //   }
 // }
-
 
 // export const newTask = (taskDetails) => async (dispatch) => {
 //   const { listId, content} = taskDetails;
@@ -56,7 +55,7 @@ export const getTasks = () => async dispatch => {
 //       taskId
 // 		}),
 //   })
-  
+
 // 	const data = await response.json();
 // 	if (data.errors) return data;
 // 	dispatch(editTask(data.task));
@@ -75,30 +74,25 @@ export const getTasks = () => async dispatch => {
 //       taskId
 // 		}),
 //   })
-  
+
 // 	const data = await response.json();
 // 	if (data.errors) return data;
 // 	dispatch(editTask(data.task));
 // 	return data;
 // }
 
-
-
-
-
-
 const initialState = { allTasks: {} };
 
 const taskReducer = (state = initialState, action) => {
-  console.log(action.payload, "-------------------------payload!!!")
+	console.log(action.payload, "-------------------------payload!!!");
 	switch (action.type) {
-    // check with rest of the group regarding State
-    case LOAD_ALL_TASKS:
-      let {tasks} = action.payload
-      let normalizeAllTasks = tasks.reduce((newTasks, task) => {
-        return {...newTasks, [task.id]:task}
-      }, {})
-      return {...state, allTasks: normalizeAllTasks}
+		// check with rest of the group regarding State
+		case LOAD_ALL_TASKS:
+			let { tasks } = action.payload;
+			let normalizeAllTasks = tasks.reduce((newTasks, task) => {
+				return { ...newTasks, [task.id]: task };
+			}, {});
+			return { ...state, allTasks: normalizeAllTasks };
 		default:
 			return state;
 	}
