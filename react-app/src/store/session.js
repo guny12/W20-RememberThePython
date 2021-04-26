@@ -26,9 +26,9 @@ export const login = (user) => async (dispatch) => {
 		}),
 	});
 	const data = await response.json();
-	if (data.errors) return;
+	if (data.errors) return data;
 	dispatch(setSessionUser(data));
-	return;
+	return data;
 };
 
 export const restoreUser = () => async (dispatch) => {
@@ -53,12 +53,12 @@ export const signUp = (user) => async (dispatch) => {
 	});
 	const data = await response.json();
 	if (data.errors) return data;
-	dispatch(setSessionUser(data.user));
+	dispatch(setSessionUser(data));
 	return data;
 };
 
 export const logout = () => async (dispatch) => {
-	const response = await fetch("/api/auth/logout", {
+	await fetch("/api/auth/logout", {
 		headers: {
 			"Content-Type": "application/json",
 		},
@@ -72,7 +72,7 @@ const initialState = { user: null };
 const sessionReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case SET_SESSION:
-			console.log('TEST');
+			console.log("TEST");
 			return { user: action.user };
 		case REMOVE_SESSION:
 			return { user: null };

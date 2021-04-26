@@ -11,23 +11,23 @@ const LoginForm = () => {
 	const [errors, setErrors] = useState([]);
 	const [credential, setCredential] = useState("");
 	const [password, setPassword] = useState("");
+	const close = document.querySelector("#modal-background");
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		setErrors([]);
 		const data = await dispatch(sessionActions.login({ credential, password }));
 		if (data?.errors) {
-			setErrors(data.errors);
+			setErrors(["Invalid Credentials"]);
+		} else {
+			history.push("/home");
+			close.click();
+			return;
 		}
 	};
 
 	return (
 		<Form onSubmit={handleSubmit} className="loginform__Form">
-			<ul>
-				{errors.map((error, idx) => (
-					<li key={idx}>{error}</li>
-				))}
-			</ul>
+			{errors.length > 0 && <h2>{errors} </h2>}
 			<Form.Group controlId="formBasicEmail">
 				<Form.Label>Username or Email</Form.Label>
 				<Form.Control
