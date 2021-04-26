@@ -5,6 +5,7 @@ import Navigation from "./components/Navigation";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import ListBrowser from "./components/lists";
 import ListModal from "./components/ListModal";
+import Home from "./components/Home";
 
 import * as sessionActions from "./store/session";
 
@@ -27,7 +28,7 @@ function App() {
       <Navigation />
       <Switch>
         <ProtectedRoute path="/home" exact={true}>
-          <h1>My Home Page</h1>
+          <Home />
           <a href="/lists">show lists</a>
         </ProtectedRoute>
         <ProtectedRoute path="/lists" exact={true}>

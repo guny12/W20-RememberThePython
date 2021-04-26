@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField
-from wtforms.validators import DataRequired, Email, ValidationError
+from wtforms.validators import DataRequired, Email, ValidationError, Length
 from app.models import User
 
 
@@ -25,10 +25,12 @@ class SignUpForm(FlaskForm):
     lastName = StringField('Last name', validators=[DataRequired()])
     email = StringField('Email', validators=[
         DataRequired(),
-        email_exists
+        email_exists,
+        Email(),
     ])
     username = StringField('Username', validators=[
         DataRequired(),
         user_exists
     ])
-    password = StringField('Password', validators=[DataRequired()])
+    password = StringField('Password', validators=[DataRequired(), Length(
+        min=8, message="password must be at least 8 characters")])

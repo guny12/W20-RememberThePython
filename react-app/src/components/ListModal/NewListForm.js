@@ -11,6 +11,7 @@ const NewListForm = () => {
   const user = useSelector((state) => state.session.user);
   const [errors, setErrors] = useState([]);
   const [listName, setListName] = useState("");
+  const close = document.querySelector("#modal-background");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,7 +22,14 @@ const NewListForm = () => {
     };
     await dispatch(createList(submission));
     dispatch(getAllLists());
+    close.click();
     return history.push("/lists");
+  };
+
+  const handleCancel = (e) => {
+    const closed = document.querySelector("#modal-background");
+    e.preventDefault();
+    closed.click();
   };
 
   return (
@@ -45,7 +53,7 @@ const NewListForm = () => {
       <Button variant="primary" type="submit">
         Add
       </Button>
-      <Button variant="outline-dark" type="button">
+      <Button variant="outline-dark" type="button" onClick={handleCancel}>
         Cancel
       </Button>
     </Form>
