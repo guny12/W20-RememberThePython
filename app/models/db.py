@@ -6,7 +6,7 @@ from datetime import datetime
 
 db = SQLAlchemy()
 
-
+# JOINS TABLE
 giveToUser = db.Table('givetousers', db.Model.metadata,
                       db.Column('user_id', db.Integer,
                                 db.ForeignKey('users.id')),
