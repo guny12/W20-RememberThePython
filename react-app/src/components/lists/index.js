@@ -15,7 +15,6 @@ const ListBrowser = () => {
       listId: e.target.id,
     };
     await dispatch(deleteList(toBeDeleted));
-    console.log("++++++++++++++++++++++++++++++++++++++++++");
     dispatch(getAllLists());
     return history.push("/lists");
   };
