@@ -2,6 +2,7 @@ from datetime import datetime
 from flask import Blueprint, request
 from flask_login import login_required, current_user
 from app.models import User, List, Task, Note, db
+from app.forms.task_form import TaskForm
 
 task_routes = Blueprint('task', __name__)
 
@@ -29,19 +30,23 @@ def get_task_info():
 @task_routes.route('/', methods=['POST'])
 @login_required
 def create_task():
-    currentListId = request.json['listId']
-    newContent = request.json['content']
+    form = TaskForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        currentListId = request.json['listId']
+        newContent = request.json['content']
 
-    newTask = Task(
-        creatorId=current_user.id,
-        listId=currentListId,
-        content=newContent
-    )
+        newTask = Task(
+            creatorId=current_user.id,
+            listId=currentListId,
+            content=newContent
+        )
 
-    db.session.add(newTask)
-    db.session.commit()
+        db.session.add(newTask)
+        db.session.commit()
 
-    return {'task': newTask.to_dict()}
+        return {'task': newTask.to_dict()}
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
 # UPDATE Task
