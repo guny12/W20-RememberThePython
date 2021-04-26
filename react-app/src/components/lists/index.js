@@ -1,14 +1,19 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editList, getAllLists } from "../../store/lists";
-import ListModal from "../ListModal";
+import EditListModal from "../EditListModal";
+import deleteList from "../../store/lists";
 
 const ListBrowser = () => {
   const dispatch = useDispatch();
   const lists = useSelector((state) => state.lists.allLists);
 
-  const showEditForm = () => {
-    return;
+  const handleDelete = (e) => {
+    e.preventDefault();
+    console.log("target Id----------------", e.target.id);
+    const toBeDeleted = {
+      listId: e.target.id,
+    };
   };
 
   useEffect(() => {
@@ -24,7 +29,10 @@ const ListBrowser = () => {
         {lists?.map((lis) => (
           <div key={lis.id}>
             {lis.title}
-            <ListModal title="Rename list" />
+            <EditListModal title="Rename list" id={lis.id} />
+            <button id={lis.id} onClick={handleDelete()}>
+              DELETE
+            </button>
           </div>
         ))}
       </div>
