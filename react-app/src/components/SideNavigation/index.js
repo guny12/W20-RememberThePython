@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import { Nav, Navbar, Button, TabContainer, Tab, Col, Row } from "react-bootstrap";
 import ListBrowser from "../lists";
+import AllTasks from "./allTasks";
 
 import "./SideNavigation.css";
 
@@ -46,7 +47,7 @@ const SideNavigation = () => {
 							<p> test</p>
 						</Tab.Pane>
 						<Tab.Pane eventKey="allTasks">
-							<ListBrowser />
+							<AllTasks />
 							{/* SWAP THIS OUT WITH ALL TASK LISTS WHEN IT COMES  */}
 						</Tab.Pane>
 						<Tab.Pane eventKey="today">
