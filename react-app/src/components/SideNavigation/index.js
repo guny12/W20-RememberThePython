@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import { Nav, Navbar, Button, TabContainer, Tab, Col, Row } from "react-bootstrap";
-import * as sessionActions from "../../store/session";
 import ListBrowser from "../lists";
 
 import "./SideNavigation.css";
@@ -16,7 +15,7 @@ const SideNavigation = () => {
 	return (
 		<Tab.Container id="left-tabs-example" defaultActiveKey="first">
 			<Row>
-				<Col sm={3}>
+				<Col sm={1.5}>
 					<Nav variant="pills" className="flex-column">
 						<Nav.Item>
 							<Nav.Link eventKey="inbox">Inbox</Nav.Link>
@@ -41,7 +40,7 @@ const SideNavigation = () => {
 						</Nav.Item>
 					</Nav>
 				</Col>
-				<Col sm={9}>
+				<Col sm={8}>
 					<Tab.Content>
 						<Tab.Pane eventKey="inbox">
 							<p> test</p>
