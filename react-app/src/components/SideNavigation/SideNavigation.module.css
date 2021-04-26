@@ -1,0 +1,7 @@
+.deleteBtn{
+  float: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: none;
+}

@@ -1,0 +1,10 @@
+.editBtn{
+  float: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.editBtn:hover {
+  background-color: #d7e7f5;
+}
