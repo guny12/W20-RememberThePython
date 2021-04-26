@@ -2,15 +2,20 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
+import { Nav, Navbar, Button } from "react-bootstrap";
+
+import ProfileButton from "./ProfileButton";
 import LoginFormModal from "../LoginFormModal";
 import SignUpModal from "../SignUpModal";
-import { Nav, Navbar, Button } from "react-bootstrap";
 import * as sessionActions from "../../store/session";
-import ProfileButton from "./ProfileButton";
+import { searchQuery } from "../../store/search";
+
+import "./Navigation.css";
 
 const Navigation = () => {
 	const dispatch = useDispatch();
 	const sessionUser = useSelector((state) => state.session.user);
+	const [search, setSearch] = useState("");
 
 	let sessionLinks;
 
@@ -32,8 +37,15 @@ const Navigation = () => {
 			</>
 		);
 	}
+
 	const handleSubmit = async () => {
 		await dispatch(sessionActions.login({ credential: "demoUser@user.io", password: "password" }));
+	};
+
+	const handleSearch = async (e) => {
+		e.preventDefault();
+		await dispatch(searchQuery(search));
+		setSearch("");
 	};
 
 	return (
@@ -44,6 +56,16 @@ const Navigation = () => {
 				</NavLink>
 				{sessionLinks}
 			</Nav>
+			<form
+				className="nav-search-bar"
+				onSubmit={handleSearch}
+			>
+				<input
+					type="text"
+					value={search}
+					onChange={(e) => setSearch(e.target.value)}
+				/>
+			</form>
 		</Navbar>
 	);
 };
