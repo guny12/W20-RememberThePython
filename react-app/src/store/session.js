@@ -53,7 +53,7 @@ export const signUp = (user) => async (dispatch) => {
 	});
 	const data = await response.json();
 	if (data.errors) return data;
-	dispatch(setSessionUser(data.user));
+	dispatch(setSessionUser(data));
 	return data;
 };
 
