@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
+import Home from "./components/Home";
 
 import * as sessionActions from "./store/session";
 
@@ -25,7 +26,7 @@ function App() {
 			<Navigation />
 			<Switch>
 				<ProtectedRoute path="/home" exact={true}>
-					<h1>My Home Page</h1>
+					<Home />
 				</ProtectedRoute>
 				<Route path="/">
 					<Redirect to="/home" />

@@ -43,7 +43,7 @@ def login():
         user = User.query.filter(
             User.email == form.data['credential']).first()
         if not user:
-            user = User.query.filter(User.username == credential).first()
+            user = User.query.filter(User.username == form.data['credential']).first()
         login_user(user)
         return user.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401

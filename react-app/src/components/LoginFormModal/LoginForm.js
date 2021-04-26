@@ -11,13 +11,19 @@ const LoginForm = () => {
 	const [errors, setErrors] = useState([]);
 	const [credential, setCredential] = useState("");
 	const [password, setPassword] = useState("");
+	const close = document.querySelector("#modal-background");
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setErrors([]);
 		const data = await dispatch(sessionActions.login({ credential, password }));
+		console.log(data, "DATA------------");
 		if (data?.errors) {
 			setErrors(data.errors);
+		} else {
+			history.push("/home");
+			close.click();
+			return;
 		}
 	};
 
