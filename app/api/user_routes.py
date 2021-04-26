@@ -65,6 +65,7 @@ def get_user_info():
 def update_user():
     if current_user.id == 1:
         return
+
     userId = current_user.id
     newFirstName = request.json['firstName']
     newLastName = request.json['lastName']
@@ -96,7 +97,11 @@ def update_user():
 @user_routes.route('/', methods=['DELETE'])
 @login_required
 def del_user():
-    oldUser = User.query.filter(User.username == 'demolition').first()
+    if current_user.id == 1:
+        return
+
+    userId = current_user.id
+    oldUser = User.query.get(userId)
     db.session.delete(oldUser)
     db.session.commit()
 
