@@ -8,13 +8,13 @@ const ListBrowser = () => {
   const dispatch = useDispatch();
   const lists = useSelector((state) => state.lists.allLists);
 
-  const handleDelete = (e) => {
-    e.preventDefault();
-    console.log("target Id----------------", e.target.id);
-    const toBeDeleted = {
-      listId: e.target.id,
-    };
-  };
+  // const handleDelete = (e) => {
+  //   e.preventDefault();
+  //   console.log("target Id----------------", e.target.id);
+  //   const toBeDeleted = {
+  //     listId: e.target.id,
+  //   };
+  // };
 
   useEffect(() => {
     dispatch(getAllLists());
@@ -30,9 +30,9 @@ const ListBrowser = () => {
           <div key={lis.id}>
             {lis.title}
             <EditListModal title="Rename list" id={lis.id} />
-            <button id={lis.id} onClick={handleDelete()}>
+            {/* <button id={lis.id} onClick={handleDelete()}>
               DELETE
-            </button>
+            </button> */}
           </div>
         ))}
       </div>
