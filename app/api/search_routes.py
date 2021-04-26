@@ -6,6 +6,7 @@ search_routes = Blueprint('search', __name__)
 
 
 @search_routes.route('/<string:query>')
+@login_required
 def get_search_results(query):
     userId = current_user.id
 
