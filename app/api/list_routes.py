@@ -68,23 +68,23 @@ def del_list():
 # # IF THERE ARE ANY ISSUES WITH REQUEST BODY, MODIFY
 # # THE API URL TO PASS INFO IN AS PARAMETERS
 # # QUERY FOR List DETAILS
-@list_routes.route('/test')
-@login_required
-def get_list_info():
-    # FETCH BODY EXPECTED TO HAVE listId AS A PROPERTY
-    listId = request.json['listId']
-    print(listId, "LIST ID---------------------------")
-    # SEE List MODEL ASSOCIATIONS
-    listInfo = db.session.query(List).filter(List.id == listId).first()
+# @list_routes.route('/')
+# @login_required
+# def get_list_info():
+#     # FETCH BODY EXPECTED TO HAVE listId AS A PROPERTY
+#     listId = request.json['listId']
+#     print(listId, "LIST ID---------------------------")
+#     # SEE List MODEL ASSOCIATIONS
+#     listInfo = db.session.query(List).filter(List.id == listId).first()
 
-    userList = {}
+#     userList = {}
 
-    for task in listInfo.listTask:
-        userList[task.id] = task.to_dict()
-        userList[task.id]['notes'] = {}
-        for note in task.taskNote:
-            userList[task.id]['notes'][note.id] = note.to_dict()
-            userList[task.id]['notes'][note.id]['username'] = {}
-            userList[task.id]['notes'][note.id]['username'] = note.noteUser.username
+#     for task in listInfo.listTask:
+#         userList[task.id] = task.to_dict()
+#         userList[task.id]['notes'] = {}
+#         for note in task.taskNote:
+#             userList[task.id]['notes'][note.id] = note.to_dict()
+#             userList[task.id]['notes'][note.id]['username'] = {}
+#             userList[task.id]['notes'][note.id]['username'] = note.noteUser.username
 
-    return {'list': userList}
+#     return {'list': userList}
