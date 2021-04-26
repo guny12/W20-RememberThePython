@@ -8,6 +8,7 @@ def user_exists(form, field):
     print("Checking if user exists", field.data)
     credential = field.data
     user = User.query.filter(User.email == credential).first()
+
     if not user:
         user = User.query.filter(User.username == credential).first()
         if not user:
