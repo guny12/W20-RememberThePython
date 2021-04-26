@@ -3,36 +3,43 @@ import { useDispatch } from "react-redux";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
+import ListBrowser from "./components/lists";
+import ListModal from "./components/ListModal";
 
 import * as sessionActions from "./store/session";
 
 function App() {
-	const dispatch = useDispatch();
-	const [loaded, setLoaded] = useState(false);
+  const dispatch = useDispatch();
+  const [loaded, setLoaded] = useState(false);
 
-	useEffect(() => {
-		(async () => {
-			await dispatch(sessionActions.restoreUser());
-			setLoaded(true);
-		})();
-	}, [dispatch]);
+  useEffect(() => {
+    (async () => {
+      await dispatch(sessionActions.restoreUser());
+      setLoaded(true);
+    })();
+  }, [dispatch]);
 
-	if (!loaded) {
-		return null;
-	}
-	return (
-		<BrowserRouter>
-			<Navigation />
-			<Switch>
-				<ProtectedRoute path="/home" exact={true}>
-					<h1>My Home Page</h1>
-				</ProtectedRoute>
-				<Route path="/">
-					<Redirect to="/home" />
-				</Route>
-			</Switch>
-		</BrowserRouter>
-	);
+  if (!loaded) {
+    return null;
+  }
+  return (
+    <BrowserRouter>
+      <Navigation />
+      <Switch>
+        <ProtectedRoute path="/home" exact={true}>
+          <h1>My Home Page</h1>
+          <a href="/lists">show lists</a>
+        </ProtectedRoute>
+        <ProtectedRoute path="/lists" exact={true}>
+          <ListModal title="Create List" />
+          <ListBrowser />
+        </ProtectedRoute>
+        <Route path="/">
+          <Redirect to="/home" />
+        </Route>
+      </Switch>
+    </BrowserRouter>
+  );
 }
 
 export default App;
