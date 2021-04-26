@@ -1,6 +1,5 @@
 const ADD_TASK = "task/ADD_TASK";
 const EDIT_TASK = "task/EDIT_TASK"
-const REMOVE_TASK = "task/REMOVE_TASK"
 
 const LOAD_ALL_TASKS = "task/LOAD_ALL_TASKS"
 const LOAD_ONE_TASK = "task/LOAD_ONE_TASK"
@@ -14,11 +13,6 @@ const addTask = (taskObj) => ({
 const editTask = (taskObj) => ({
   type: EDIT_TASK,
   taskObj
-})
-
-const removeTask = (taskId) => ({
-  type: REMOVE_TASK,
-  taskId
 })
 
 
@@ -93,6 +87,24 @@ export const editedTask = (taskDetails) => async (dispatch) => {
 }
 
 // for deletetask?
+export const removedTask = (taskId) => async (dispatch) => {
+
+  const response = await fetch("/api/task/", {
+    method: "DELETE",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({
+      taskId
+		}),
+  })
+  
+	const data = await response.json();
+	if (data.errors) return data;
+	dispatch(editTask(data.task));
+	return data;
+}
+
 
 
 
