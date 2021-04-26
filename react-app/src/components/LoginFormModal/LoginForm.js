@@ -15,11 +15,9 @@ const LoginForm = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		setErrors([]);
 		const data = await dispatch(sessionActions.login({ credential, password }));
-		console.log(data, "DATA------------");
 		if (data?.errors) {
-			setErrors(data.errors);
+			setErrors(["Invalid Credentials"]);
 		} else {
 			history.push("/home");
 			close.click();
@@ -29,11 +27,7 @@ const LoginForm = () => {
 
 	return (
 		<Form onSubmit={handleSubmit} className="loginform__Form">
-			<ul>
-				{errors.map((error, idx) => (
-					<li key={idx}>{error}</li>
-				))}
-			</ul>
+			{errors.length > 0 && <p>{errors} </p>}
 			<Form.Group controlId="formBasicEmail">
 				<Form.Label>Username or Email</Form.Label>
 				<Form.Control
