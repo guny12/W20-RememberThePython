@@ -1,20 +1,24 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editList, getAllLists } from "../../store/lists";
+import { useHistory } from "react-router-dom";
+import { getAllLists, deleteList } from "../../store/lists";
 import EditListModal from "../EditListModal";
-import deleteList from "../../store/lists";
 
 const ListBrowser = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const lists = useSelector((state) => state.lists.allLists);
 
-  // const handleDelete = (e) => {
-  //   e.preventDefault();
-  //   console.log("target Id----------------", e.target.id);
-  //   const toBeDeleted = {
-  //     listId: e.target.id,
-  //   };
-  // };
+  const handleDelete = async (e) => {
+    e.preventDefault();
+    const toBeDeleted = {
+      listId: e.target.id,
+    };
+    await dispatch(deleteList(toBeDeleted));
+    console.log("++++++++++++++++++++++++++++++++++++++++++");
+    dispatch(getAllLists());
+    return history.push("/lists");
+  };
 
   useEffect(() => {
     dispatch(getAllLists());
@@ -30,9 +34,9 @@ const ListBrowser = () => {
           <div key={lis.id}>
             {lis.title}
             <EditListModal title="Rename list" id={lis.id} />
-            {/* <button id={lis.id} onClick={handleDelete()}>
+            <button id={lis.id} onClick={handleDelete}>
               DELETE
-            </button> */}
+            </button>
           </div>
         ))}
       </div>

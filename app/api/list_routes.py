@@ -32,11 +32,15 @@ def create_list():
 @list_routes.route('/', methods=['PATCH'])
 @login_required
 def update_list():
+    userId = current_user.id
     listId = request.json['listId']
+
     newTitle = request.json['title']
     print(newTitle)
 
     currentList = List.query.get(listId)
+    if currentList.userId != userId:
+        return {'list': 'You are not the owner of this list item'}
     currentList.title = newTitle
     currentList.updatedAt = datetime.now()
 
@@ -49,10 +53,12 @@ def update_list():
 @login_required
 def del_list():
     # .get() function is essentially 'findByPk()'
+    userId = current_user.id
     listId = request.json['listId']
 
     oldList = List.query.get(listId)
-
+    if oldList.userId != userId:
+        return {'list': 'You are not the owner of this list item'}
     db.session.delete(oldList)
     db.session.commit()
 

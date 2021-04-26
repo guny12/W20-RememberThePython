@@ -65,8 +65,6 @@ const listsReducer = (state = {}, action) => {
   switch (action.type) {
     case ALL_LISTS:
       return { ...state, allLists: action.lists };
-    // case GET_LIST:
-    //   return { ...state, currentList: action.list };
     default:
       return state;
   }
