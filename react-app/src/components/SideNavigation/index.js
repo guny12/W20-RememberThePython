@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import { Nav, Navbar, Button, TabContainer, Tab, Col, Row } from "react-bootstrap";
 import * as sessionActions from "../../store/session";
+import ListBrowser from "../lists";
 
 import "./SideNavigation.css";
 
@@ -11,6 +12,7 @@ const SideNavigation = () => {
 	const dispatch = useDispatch();
 	const sessionUser = useSelector((state) => state.session.user);
 
+	if (!sessionUser) return null;
 	return (
 		<Tab.Container id="left-tabs-example" defaultActiveKey="first">
 			<Row>
@@ -45,7 +47,7 @@ const SideNavigation = () => {
 							<p> test</p>
 						</Tab.Pane>
 						<Tab.Pane eventKey="allTasks">
-							<p> test</p>
+							<ListBrowser />
 						</Tab.Pane>
 						<Tab.Pane eventKey="today">
 							<p> test</p>
