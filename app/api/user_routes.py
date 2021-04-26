@@ -63,6 +63,8 @@ def get_user_info():
 @user_routes.route('/', methods=['PATCH'])
 @login_required
 def update_user():
+    if current_user.id == 1:
+        return
     userId = current_user.id
     newFirstName = request.json['firstName']
     newLastName = request.json['lastName']
