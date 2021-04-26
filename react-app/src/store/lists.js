@@ -31,11 +31,15 @@ export const createList = (newList) => async (dispatch) => {
   return newLi;
 };
 
-export const editList = (editedList, listId) => async (dispatch) => {
-  const res = await fetch(`/api/lists/${listId}/edit/`, {
-    method: "POST",
+export const editList = (editedList) => async (dispatch) => {
+  const { title, listId } = editedList;
+  const res = await fetch(`/api/lists/`, {
+    method: "PATCH",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(editedList),
+    body: JSON.stringify({
+      title,
+      listId,
+    }),
   });
 
   const list = await res.json();
@@ -43,12 +47,24 @@ export const editList = (editedList, listId) => async (dispatch) => {
   return list;
 };
 
+export const deleteList = (list) => async (dispatch) => {
+  const { listId } = list;
+  const res = await fetch(`/api/lists/`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      listId,
+    }),
+  });
+  const deletedList = await res.json();
+  dispatch(loadOne(deletedList));
+  return deletedList;
+};
+
 const listsReducer = (state = {}, action) => {
   switch (action.type) {
     case ALL_LISTS:
       return { ...state, allLists: action.lists };
-    case GET_LIST:
-      return { ...state, newList: action.list };
     default:
       return state;
   }

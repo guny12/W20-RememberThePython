@@ -11,7 +11,7 @@ list_routes = Blueprint("lists", __name__)
 # @login_required
 def all_list():
     userId = current_user.id
-    lists = List.query.filter(List.userId == userId).all()
+    lists = List.query.filter(List.userId == userId).order_by(List.id).all()
     return {"lists": [lis.to_dict() for lis in lists]}
 
 
@@ -28,6 +28,41 @@ def create_list():
         return li.to_dict()
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
+# UPDATING EXISTING List DETAILS
+@list_routes.route('/', methods=['PATCH'])
+@login_required
+def update_list():
+    userId = current_user.id
+    listId = request.json['listId']
+
+    newTitle = request.json['title']
+    print(newTitle)
+
+    currentList = List.query.get(listId)
+    if currentList.userId != userId:
+        return {'list': 'You are not the owner of this list item'}
+    currentList.title = newTitle
+    currentList.updatedAt = datetime.now()
+
+    db.session.commit()
+
+    return {'list': currentList.to_dict()}
+
+# # DELETING A List
+@list_routes.route('/', methods=['DELETE'])
+@login_required
+def del_list():
+    # .get() function is essentially 'findByPk()'
+    userId = current_user.id
+    listId = request.json['listId']
+
+    oldList = List.query.get(listId)
+    if oldList.userId != userId:
+        return {'list': 'You are not the owner of this list item'}
+    db.session.delete(oldList)
+    db.session.commit()
+
+    return {'message': 'success'}
 # =----------------------------------------------------------------------------------------------------
 
 # # IF THERE ARE ANY ISSUES WITH REQUEST BODY, MODIFY
@@ -53,37 +88,3 @@ def create_list():
 #             userList[task.id]['notes'][note.id]['username'] = note.noteUser.username
 
 #     return {'list': userList}
-
-
-
-
-
-# # UPDATING EXISTING List DETAILS
-# @list_routes.route('/', methods=['PATCH'])
-# @login_required
-# def update_list():
-#     listId = request.json['listId']
-#     newTitle = request.json['title']
-
-#     currentList = List.query.get(listId)
-#     currentList.title = newTitle
-#     currentList.updatedAt = datetime.now()
-
-#     db.session.commit()
-
-#     return {'list': currentList.to_dict()}
-
-
-# # DELETING A List
-# @list_routes.route('/', methods=['DELETE'])
-# @login_required
-# def del_list():
-#     # .get() function is essentially 'findByPk()'
-#     listId = request.json['listId']
-
-#     oldList = List.query.get(listId)
-
-#     db.session.delete(oldList)
-#     db.session.commit()
-
-#     return {'message': 'success'}
