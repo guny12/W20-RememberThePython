@@ -47,6 +47,7 @@ const SideNavigation = () => {
 						</Tab.Pane>
 						<Tab.Pane eventKey="allTasks">
 							<ListBrowser />
+							{/* SWAP THIS OUT WITH ALL TASK LISTS WHEN IT COMES  */}
 						</Tab.Pane>
 						<Tab.Pane eventKey="today">
 							<p> test</p>
