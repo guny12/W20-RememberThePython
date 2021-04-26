@@ -27,7 +27,7 @@ const LoginForm = () => {
 
 	return (
 		<Form onSubmit={handleSubmit} className="loginform__Form">
-			{errors.length > 0 && <p>{errors} </p>}
+			{errors.length > 0 && <h2>{errors} </h2>}
 			<Form.Group controlId="formBasicEmail">
 				<Form.Label>Username or Email</Form.Label>
 				<Form.Control
