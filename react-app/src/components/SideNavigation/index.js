@@ -5,6 +5,8 @@ import { Nav, Navbar, Button, TabContainer, Tab, Col, Row, } from "react-bootstr
 import { getAllLists, deleteList } from "../../store/lists";
 import ListBrowser from "../lists";
 import EditListModal from "../EditListModal"
+import ListModal from "../../components/ListModal";
+
 
 import styles from "./SideNavigation.module.css"
 
@@ -55,15 +57,18 @@ const SideNavigation = () => {
 						<Nav.Item>
 							<Nav.Link eventKey="trash">Trash</Nav.Link>
 						</Nav.Item>
+						<div className={styles.list_div}>
+							<h3>-Lists</h3>
+							<ListModal />
+						</div>
 						{lists?.map(lis => (
 							<Nav.Item key={lis.id} className={styles.list_div}>
-								<Nav.Link eventKey={lis.title}>{lis.title}
+								<Nav.Link eventKey={lis.title} className={styles.listName}>{lis.title}
+								</Nav.Link>
+								<EditListModal title={lis.title} id={lis.id} />
 								<button id={lis.id} onClick={handleDelete} className={styles.deleteBtn}>
 									<i className="far fa-trash-alt"></i>
 								</button>
-								</Nav.Link>
-								<EditListModal title="Rename list" id={lis.id} />
-
 							</Nav.Item>
 						))}
 					</Nav>

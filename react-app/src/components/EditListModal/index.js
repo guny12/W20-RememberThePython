@@ -6,7 +6,6 @@ import styles from "./EditList.module.css"
 
 function EditListModal({ title, id }) {
   const [showModal, setShowModal] = useState(false);
-
   return (
     <>
       <Button variant="Light" className={styles.editBtn} onClick={() => setShowModal(true)}>
@@ -14,7 +13,7 @@ function EditListModal({ title, id }) {
       </Button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <EditListForm id={id} />
+          <EditListForm id={id} title={title}/>
         </Modal>
       )}
     </>

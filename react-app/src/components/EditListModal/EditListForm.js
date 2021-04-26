@@ -8,7 +8,7 @@ const EditListForm = (id) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [errors, setErrors] = useState([]);
-  const [listName, setListName] = useState("");
+  const [listName, setListName] = useState(id.title);
   const close = document.querySelector("#modal-background");
 
   const handleSubmit = async (e) => {
@@ -16,7 +16,7 @@ const EditListForm = (id) => {
     setErrors([]);
     const submission = {
       title: listName,
-      listId: id,
+      listId: id.id,
     };
     await dispatch(editList(submission));
     dispatch(getAllLists());
