@@ -56,13 +56,14 @@ const SideNavigation = () => {
 							<Nav.Link eventKey="trash">Trash</Nav.Link>
 						</Nav.Item>
 						{lists?.map(lis => (
-							<Nav.Item key={lis.id}>
+							<Nav.Item key={lis.id} className={styles.list_div}>
 								<Nav.Link eventKey={lis.title}>{lis.title}
-									<Button id={lis.id} onClick={handleDelete} className={styles.deleteBtn}>
-										<i className="far fa-trash-alt"></i>
-									</Button>
-									<EditListModal title="Rename list" id={lis.id} className={styles.editBtn}/>
+								<button id={lis.id} onClick={handleDelete} className={styles.deleteBtn}>
+									<i className="far fa-trash-alt"></i>
+								</button>
 								</Nav.Link>
+								<EditListModal title="Rename list" id={lis.id} />
+
 							</Nav.Item>
 						))}
 					</Nav>
@@ -73,7 +74,7 @@ const SideNavigation = () => {
 							<p> test</p>
 						</Tab.Pane>
 						<Tab.Pane eventKey="allTasks">
-							<p> test</p>
+							<ListBrowser />
 							{/* SWAP THIS OUT WITH ALL TASK LISTS WHEN IT COMES  */}
 						</Tab.Pane>
 						<Tab.Pane eventKey="today">
