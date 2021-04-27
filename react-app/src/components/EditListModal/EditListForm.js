@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 import { editList, getAllLists } from "../../store/lists";
+import styles from "./EditList.module.css"
 
 const EditListForm = (id) => {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const EditListForm = (id) => {
       title: listName,
       listId: id.id,
     };
-    await dispatch(editList(submission));
+    await dispatch(editList(submission))
     dispatch(getAllLists());
     close.click();
     return history.push("/lists");
@@ -42,7 +43,7 @@ const EditListForm = (id) => {
         <Form.Text>List name</Form.Text>
         <Form.Control
           type="text"
-          // autoComplete="username"
+          maxLength="100"
           value={listName}
           onChange={(e) => setListName(e.target.value)}
           required

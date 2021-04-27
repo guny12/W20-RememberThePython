@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 import { createList, getAllLists } from "../../store/lists";
+import styles from "./ListForm.module.css";
+import './ListForm.css'
 
 const NewListForm = () => {
   const dispatch = useDispatch();
@@ -14,17 +16,22 @@ const NewListForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrors([]);
+    let newErrors = [];
     const submission = {
       title: listName,
       userId: user.id,
     };
-    await dispatch(createList(submission));
-    dispatch(getAllLists());
-    close.click();
-    return history.push("/lists");
+    console.log('1')
+    const data = await dispatch(createList(submission))
+    if (data.errors) {
+      newErrors = data.errors
+      setErrors([newErrors[0].split(':')[1]])
+    }else {
+      dispatch(getAllLists());
+      close.click();
+      return history.push("/lists");
+    }
   };
-
   const handleCancel = (e) => {
     const closed = document.querySelector("#modal-background");
     e.preventDefault();
@@ -32,23 +39,23 @@ const NewListForm = () => {
   };
 
   return (
-    <Form onSubmit={handleSubmit} className="NewListForm__Form">
-      <ul>
-        {errors.map((error, idx) => (
-          <li key={idx}>{error}</li>
-        ))}
-      </ul>
+    <Form onSubmit={handleSubmit}>
       <Form.Group controlId="formBasicEmail">
         <Form.Label>Add a list</Form.Label>
-        <Form.Text>Please enter a new list name:</Form.Text>
+        <Form.Text className={styles.form_text}>Please enter a new list name:</Form.Text>
         <Form.Control
           type="text"
-          // autoComplete="username"
           value={listName}
+          maxLength="100"
           onChange={(e) => setListName(e.target.value)}
           required
         />
       </Form.Group>
+      <div className={styles.div_error}>
+        {errors.map((error, idx) => (
+          <p key={idx}>{error}</p>
+        ))}
+      </div>
       <Button variant="primary" type="submit">
         Add
       </Button>
