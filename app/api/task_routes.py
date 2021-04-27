@@ -4,6 +4,18 @@ from flask_login import login_required, current_user
 from app.models import User, List, Task, Note, db
 from app.forms.task_form import TaskForm
 
+
+def validation_errors_to_error_messages(validation_errors):
+    """
+    Simple function that turns the WTForms validation errors into a simple list
+    """
+    errorMessages = []
+    for field in validation_errors:
+        for error in validation_errors[field]:
+            errorMessages.append(f"{field} : {error}")
+    return errorMessages
+
+
 task_routes = Blueprint("task", __name__)
 
 
@@ -44,11 +56,14 @@ def create_task():
     form["csrf_token"].data = request.cookies["csrf_token"]
     if form.validate_on_submit():
         currentListId = request.json["listId"]
+        targetList = List.query.get(currentListId)
+        if targetList.userId != current_user.id:
+            return {"errors": "Must be List creator to create a Task there"}, 401
         newContent = request.json["content"]
-        newCompleted = request.json["completed"]
-        newStartDate = request.json["startDate"]
-        newDueDate = request.json["dueDate"]
-        newPriority = request.json["priority"]
+        newCompleted = getattr(request.json, "completed", None)
+        newStartDate = getattr(request.json, "startDate", None)
+        newDueDate = getattr(request.json, "dueDate", None)
+        newPriority = getattr(request.json, "priority", None)
 
         newTask = Task(
             creatorId=current_user.id,
@@ -64,7 +79,6 @@ def create_task():
         db.session.commit()
 
         return {"task": newTask.to_dict()}
-    print(form.__dir__, "FORM DIR ")
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
