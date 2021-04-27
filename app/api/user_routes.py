@@ -100,7 +100,6 @@ def del_user():
     if current_user.id == 1:
         return {'message': 'failed'}, 401
 
-    print("SUCCESSSSSSSSSSSSSSSSSS")
     userId = current_user.id
     oldUser = User.query.get(userId)
     db.session.delete(oldUser)
