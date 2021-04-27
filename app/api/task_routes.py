@@ -41,9 +41,13 @@ def get_all_tasks():
 @task_routes.route("/", methods=["POST"])
 @login_required
 def create_task():
+    print("BEFORE HITS")
     form = TaskForm()
+    print("AFTER HITS")
+
     form["csrf_token"].data = request.cookies["csrf_token"]
     if form.validate_on_submit():
+        print(request.json, "\n \n ================= \n \n")
         currentListId = request.json["listId"]
         targetList = List.query.get(currentListId)
         if targetList.userId != current_user.id:

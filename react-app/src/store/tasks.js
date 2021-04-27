@@ -17,7 +17,8 @@ export const getTasks = () => async (dispatch) => {
 // create a new task
 export const newTask = (taskDetails) => async (dispatch) => {
 	const { listId, content, completed, startDate, dueDate, priority } = taskDetails;
-	const response = await fetch("/api/task", {
+	console.log(typeof listId)
+	const response = await fetch("/api/task/", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -31,6 +32,7 @@ export const newTask = (taskDetails) => async (dispatch) => {
 			priority,
 		}),
 	});
+	console.log(response, "THIS IS HITTING!!!")
 	const data = await response.json();
 	if (data.errors) return data;
 	dispatch(getTasks());

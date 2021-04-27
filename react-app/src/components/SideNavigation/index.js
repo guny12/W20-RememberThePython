@@ -87,7 +87,8 @@ const SideNavigation = () => {
 							<p> test</p>
 						</Tab.Pane>
 						<Tab.Pane eventKey="allTasks">
-							<AllTasks />
+							<AllTasks listId = {0}/>
+							{/* SWAP THIS OUT WITH ALL TASK LISTS WHEN IT COMES  */}
 						</Tab.Pane>
 						<Tab.Pane eventKey="today">
 							<p> test</p>
@@ -107,6 +108,9 @@ const SideNavigation = () => {
 						{lists?.map((lis) => (
 							<Tab.Pane eventKey={lis.title} key={lis.id}>
 								<p id={lis.id}>{lis.title}</p>
+								<Tab.Pane>
+									<AllTasks listId={lis.id}/>
+								</Tab.Pane>
 							</Tab.Pane>
 						))}
 						<Tab.Pane eventKey="search">
