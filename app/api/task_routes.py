@@ -30,22 +30,7 @@ def get_task_info():
 def get_all_tasks():
     userId = current_user.id
     tasks = Task.query.filter(Task.creatorId == userId).order_by(Task.createdAt).all()
-    #grab all tasks assigned to me 
     return {"tasks": [task.to_dict() for task in tasks]}
-
-
-    taskInfo = Task.query.get(taskId)
-
-    task = taskInfo.to_dict()
-    task['notes'] = {}
-
-    for note in taskInfo.taskNote:
-        task['notes'][note.id] = note.to_dict()
-        task['notes'][note.id]['username'] = {}
-        task['notes'][note.id]['username'] = note.noteUser.username
-
-    return {'task': task}
-
 
 
 # CREATE Task
@@ -133,8 +118,9 @@ def del_task():
     taskId = request.json['taskId']
 
     oldTask = Task.query.get(taskId)
+    if oldTask.creatorId != current_user.id:
+        return {'errors': "Must be Task creator to delete a Task"}
 
     db.session.delete(oldTask)
     db.session.commit()
-
-    return {'message': success}
+    return {'message': "success"}

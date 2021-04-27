@@ -81,7 +81,6 @@ const SideNavigation = () => {
 						</Tab.Pane>
 						<Tab.Pane eventKey="allTasks">
 							<AllTasks />
-							{/* SWAP THIS OUT WITH ALL TASK LISTS WHEN IT COMES  */}
 						</Tab.Pane>
 						<Tab.Pane eventKey="today">
 							<p> test</p>

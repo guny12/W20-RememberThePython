@@ -62,26 +62,24 @@ export const getTasks = () => async (dispatch) => {
 // 	return data;
 // }
 
-// for deletetask?
-// export const removedTask = (taskId) => async (dispatch) => {
+// for deletetask
+export const removeTask = (taskId) => async (dispatch) => {
+	const response = await fetch("/api/task/", {
+		method: "DELETE",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({
+			taskId,
+		}),
+	});
 
-//   const response = await fetch("/api/task/", {
-//     method: "DELETE",
-// 		headers: {
-// 			"Content-Type": "application/json",
-// 		},
-// 		body: JSON.stringify({
-//       taskId
-// 		}),
-//   })
+	const data = await response.json();
+	if (data.errors) return data;
+	dispatch(getTasks());
+};
 
-// 	const data = await response.json();
-// 	if (data.errors) return data;
-// 	dispatch(editTask(data.task));
-// 	return data;
-// }
-
-const initialState = { allTasks: {} };
+const initialState = { allTasks: {}, selectedTasks: {} };
 
 const taskReducer = (state = initialState, action) => {
 	switch (action.type) {
