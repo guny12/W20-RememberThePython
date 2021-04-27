@@ -1,0 +1,25 @@
+.nav-search-bar > .fa-search {
+  position: sticky;
+  left: 35px;
+  color: rgba(0, 0, 0, 0.466);
+}
+
+.nav-search-bar > input {
+  width: 272px;
+  height: 25px;
+  margin: 0px;
+  padding: 0px;
+  padding-left: 22px;
+  background-color: rgba(255, 255, 255, 0.253);
+  border: none;
+  border-radius: 4px;
+  transition: background-color 0.5s ease;
+}
+
+.nav-search-bar > input:focus {
+  background-color: white;
+}
+
+/* .mr-auto {
+  margin-left: 500px;
+} */
