@@ -66,7 +66,9 @@ const SideNavigation = () => {
 								<Nav.Link eventKey={lis.title} className={styles.listName}>
 									{lis.title}
 								</Nav.Link>
-								<EditListModal title={lis.title} id={lis.id} />
+								<div className={styles.editBtn}>
+									<EditListModal title={lis.title} id={lis.id} />
+								</div>
 								<Button id={lis.id} onClick={handleDelete} className={`${styles.deleteBtn}`}>
 									<i id={lis.id} className="far fa-trash-alt"></i>
 								</Button>

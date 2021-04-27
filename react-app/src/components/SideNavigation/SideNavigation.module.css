@@ -13,6 +13,11 @@
 	background-color: #6da2ce91;
 }
 
+.navItem:hover .deleteBtn,
+.navItem:hover .editBtn{
+	display: block;
+}
+
 .deleteBtn {
 	float: right;
 	display: flex;
@@ -21,6 +26,12 @@
 	border: none;
 	color: black;
 	background-color: transparent;
+	display: none;
+}
+
+.editBtn {
+	padding-top: 3px;
+	display: none;
 }
 
 .list_div {
