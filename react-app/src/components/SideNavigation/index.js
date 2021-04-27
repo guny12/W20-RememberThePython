@@ -57,6 +57,9 @@ const SideNavigation = () => {
 						<Nav.Item className={styles.navItem}>
 							<Nav.Link eventKey="trash">Trash</Nav.Link>
 						</Nav.Item >
+						<Nav.Item className={styles.navItem}>
+							<Nav.Link eventKey="search">Search</Nav.Link>
+						</Nav.Item>
 						<div className={styles.list_div}>
 							<h3>Lists</h3>
 							<ListModal />
@@ -104,6 +107,10 @@ const SideNavigation = () => {
 								<p id={lis.id}>{lis.title}</p>
 							</Tab.Pane>
 						))}
+						<Tab.Pane eventKey="search">
+							{/* -1 VALUE TO REPRESENT DISPLAYING SEARCH RESULTS IN COMPONENT */}
+							<AllTasks listId={-1} />
+						</Tab.Pane>
 					</Tab.Content>
 				</Col>
 			</Row>
