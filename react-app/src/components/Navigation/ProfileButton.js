@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import * as sessionActions from "../../store/session";
 import { Button } from "react-bootstrap";
 
+import "./Navigation.css";
+
 function ProfileButton({ user }) {
 	const dispatch = useDispatch();
 	const [showMenu, setShowMenu] = useState(false);
@@ -21,15 +23,19 @@ function ProfileButton({ user }) {
 		return () => document.removeEventListener("click", closeMenu);
 	}, [showMenu]);
 
-	const logout = async (e) => {
-		e.preventDefault();
+	const logout = async () => {
 		await dispatch(sessionActions.logout());
+	};
+
+	const deleteUser = async () => {
+		// WIP
+		console.log("WIP");
 	};
 
 	return (
 		<>
 			<Button className="btn btn-dark" onClick={openMenu}>
-				<i className="fas fa-user-circle" />
+				<i className="fas fa-cog" />
 			</Button>
 			{showMenu && (
 				<ul className="profile-dropdown">
@@ -37,6 +43,9 @@ function ProfileButton({ user }) {
 					<li>{user.email}</li>
 					<li>
 						<button onClick={logout}>Log Out</button>
+					</li>
+					<li>
+						<button onClick={deleteUser}>Delete Account</button>
 					</li>
 				</ul>
 			)}
