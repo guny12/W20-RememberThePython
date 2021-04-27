@@ -5,6 +5,7 @@ import Navigation from "./components/Navigation";
 import SideNavigation from "./components/SideNavigation";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import Home from "./components/Home";
+import Search from "./components/Search";
 
 import * as sessionActions from "./store/session";
 
@@ -30,6 +31,9 @@ function App() {
 				<ProtectedRoute path="/home" exact={true}>
 					<Home />
 				</ProtectedRoute>
+				<Route path="/home/search/:query" exact={true}>
+					<Search />
+				</Route>
 				<Route path="/">
 					<Redirect to="/home" />
 				</Route>
