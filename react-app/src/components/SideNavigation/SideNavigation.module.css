@@ -8,6 +8,19 @@
 	color: black;
 	font-size: .8125rem;
 }
+.logo_div{
+	display: flex;
+	background-color: #d7e7f5;
+	width: 215px;
+	justify-content: center;
+	padding-top: 15px;
+}
+
+.logo {
+	max-width: 200px;
+	max-height: 100px;
+	border-radius: 100%;
+}
 
 .navItem:hover {
 	background-color: #6da2ce91;

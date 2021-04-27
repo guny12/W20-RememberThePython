@@ -6,6 +6,7 @@ import { getAllLists, deleteList } from "../../store/lists";
 import EditListModal from "../EditListModal";
 import ListModal from "../../components/ListModal";
 import AllTasks from "./allTasks";
+import Logo from "./Logo"
 
 import styles from "./SideNavigation.module.css";
 import './SideNavigation.css'
@@ -33,6 +34,7 @@ const SideNavigation = () => {
 	if (!sessionUser) return null;
 	return (
 		<Tab.Container id="left-tabs-example" defaultActiveKey="first" >
+			<Logo />
 			<Row >
 				<Col sm={1.5} className={styles.tabContainer}>
 					<Nav variant="pills" className="flex-column">
