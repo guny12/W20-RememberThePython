@@ -43,9 +43,7 @@ def create_list():
 def update_list():
     userId = current_user.id
     listId = request.json['listId']
-
     newTitle = request.json['title']
-    print(newTitle)
 
     currentList = List.query.get(listId)
     if currentList.userId != userId:

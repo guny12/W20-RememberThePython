@@ -21,7 +21,6 @@ const NewListForm = () => {
       title: listName,
       userId: user.id,
     };
-    console.log('1')
     const data = await dispatch(createList(submission))
     if (data.errors) {
       newErrors = data.errors

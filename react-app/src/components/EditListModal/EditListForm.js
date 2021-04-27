@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 import { editList, getAllLists } from "../../store/lists";
+import styles from './EditList.module.css'
 import './EditList.css'
 
 const EditListForm = (id) => {
@@ -12,17 +13,33 @@ const EditListForm = (id) => {
   const [listName, setListName] = useState(id.title);
   const close = document.querySelector("#modal-background");
 
+  const allLists = useSelector((state) => {
+    return state.lists.allLists
+  })
+
+  console.log(allLists)
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrors([]);
-    const submission = {
-      title: listName,
-      listId: id.id,
-    };
-    await dispatch(editList(submission))
-    dispatch(getAllLists());
-    close.click();
-    return history.push("/lists");
+    let newError;
+    allLists.map(list => {
+      if (list.title === listName){
+        newError= ["You already have a list with this name. Please choose another name."]
+      }
+    })
+    console.log(newError)
+    if (newError) {
+      setErrors(newError)
+    }else {
+      const submission = {
+        title: listName,
+        listId: id.id,
+      };
+      await dispatch(editList(submission))
+      dispatch(getAllLists());
+      close.click();
+      return history.push("/lists");
+    }
   };
 
   const handleCancel = (e) => {
@@ -33,11 +50,7 @@ const EditListForm = (id) => {
 
   return (
     <Form onSubmit={handleSubmit} className="NewListForm__Form">
-      <ul>
-        {errors.map((error, idx) => (
-          <li key={idx}>{error}</li>
-        ))}
-      </ul>
+
       <Form.Group controlId="formBasicEmail">
         <Form.Label>Rename list</Form.Label>
         <Form.Text>List name</Form.Text>
@@ -49,6 +62,11 @@ const EditListForm = (id) => {
           required
         />
       </Form.Group>
+      <div className={styles.div_error}>
+        {errors.map((error, idx) => (
+          <p key={idx}>{error}</p>
+        ))}
+      </div>
       {listName !== id.title? <Button variant="primary" type="submit">
         Save
       </Button> : ''}
