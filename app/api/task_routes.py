@@ -45,13 +45,26 @@ def create_task():
     if form.validate_on_submit():
         currentListId = request.json["listId"]
         newContent = request.json["content"]
+        newCompleted = request.json["completed"]
+        newStartDate = request.json["startDate"]
+        newDueDate = request.json["dueDate"]
+        newPriority = request.json["priority"]
 
-        newTask = Task(creatorId=current_user.id, listId=currentListId, content=newContent)
+        newTask = Task(
+            creatorId=current_user.id,
+            listId=currentListId,
+            content=newContent,
+            completed=newCompleted,
+            startDate=newStartDate,
+            dueDate=newDueDate,
+            priority=newPriority,
+        )
 
         db.session.add(newTask)
         db.session.commit()
 
         return {"task": newTask.to_dict()}
+    print(form.__dir__, "FORM DIR ")
     return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
@@ -120,12 +133,6 @@ def update_task():
 def del_task():
     taskId = request.json["taskId"]
     oldTask = Task.query.get(taskId)
-    print(
-        current_user.id,
-        "OLDTASCREATOR ID ",
-        oldTask.creatorId,
-        "CURRENT USER ----------------------------------------------------------------------------------------",
-    )
 
     if oldTask.creatorId != current_user.id:
         return {"errors": "Must be Task creator to delete a Task"}, 401
