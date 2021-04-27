@@ -81,17 +81,16 @@ export const removeTask = (taskId) => async (dispatch) => {
 
 const initialState = { allTasks: {}, selectedTasks: {} };
 
-const taskReducer = (state = initialState, action) => {
+const taskReducer = (taskState = initialState, action) => {
 	switch (action.type) {
-		// check with rest of the group regarding State
 		case LOAD_ALL_TASKS:
 			let { tasks } = action.payload;
 			let normalizeAllTasks = tasks.reduce((newTasks, task) => {
 				return { ...newTasks, [task.id]: task };
 			}, {});
-			return { ...state, allTasks: normalizeAllTasks };
+			return { ...taskState, allTasks: normalizeAllTasks };
 		default:
-			return state;
+			return taskState;
 	}
 };
 
