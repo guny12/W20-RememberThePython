@@ -18,25 +18,7 @@ const Navigation = () => {
 	const [search, setSearch] = useState("");
 
 	let sessionLinks;
-
-	if (sessionUser) {
-		sessionLinks = (
-			// if logged in links
-			<>
-				<ProfileButton user={sessionUser} />
-			</>
-		);
-	} else {
-		sessionLinks = (
-			<>
-				<LoginFormModal />
-				<SignUpModal />
-				<Button variant="dark" onClick={() => handleSubmit()}>
-					Demo User
-				</Button>
-			</>
-		);
-	}
+	let searchBar;
 
 	const handleSubmit = async () => {
 		await dispatch(sessionActions.login({ credential: "demoUser@user.io", password: "password" }));
@@ -48,25 +30,48 @@ const Navigation = () => {
 		setSearch("");
 	};
 
-	return (
-		<Navbar bg="primary" variant="dark">
-			<Nav className="mr-auto">
-				<NavLink to={"/"} className="nav-link">
-					Home
-				</NavLink>
-				{sessionLinks}
-			</Nav>
+	if (sessionUser) {
+		sessionLinks = (
+			// if logged in links
+			<>
+				<ProfileButton user={sessionUser} />
+			</>
+		);
+
+		searchBar = (
 			<form
 				className="nav-search-bar"
 				onSubmit={handleSearch}
 			>
+				<i className="fas fa-search"></i>
 				<input
 					type="text"
 					value={search}
 					onChange={(e) => setSearch(e.target.value)}
 				/>
 			</form>
-		</Navbar>
+		);
+	} else {
+		sessionLinks = (
+			<>
+				<LoginFormModal />
+				<SignUpModal />
+				<Button variant="dark" onClick={() => handleSubmit()}>
+					Demo User
+				</Button>
+			</>
+		);
+
+		searchBar = (<></>);
+	}
+
+	return (
+		<Navbar bg="primary" variant="dark" className="nav-container">
+			{searchBar}
+			<Nav className="mr-auto" id="nav-profile">
+				{sessionLinks}
+			</Nav>
+		</Navbar >
 	);
 };
 
