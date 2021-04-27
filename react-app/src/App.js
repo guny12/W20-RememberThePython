@@ -29,7 +29,7 @@ function App() {
 			<SideNavigation />
 			<Switch>
 				<ProtectedRoute path="/home" exact={true}>
-					<Home />
+					{/* <Home /> */}
 				</ProtectedRoute>
 				<Route path="/home/search/:query" exact={true}>
 					<Search />

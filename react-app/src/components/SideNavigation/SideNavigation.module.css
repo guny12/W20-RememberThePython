@@ -12,7 +12,6 @@
 .logo_div{
 	display: flex;
 	background-color: none;
-	width: 215px;
 	justify-content: center;
 	padding: 5px 0 15px 0;
 }
