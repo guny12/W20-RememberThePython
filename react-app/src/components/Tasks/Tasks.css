@@ -1,0 +1,7 @@
+.task-container {
+  display: flex
+}
+
+.task-container h1 {
+  font-size: small;
+}
