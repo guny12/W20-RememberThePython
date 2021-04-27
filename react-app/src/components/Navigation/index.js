@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
-import { NavLink, useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { Nav, Navbar, Button } from "react-bootstrap";
 
 import ProfileButton from "./ProfileButton";
@@ -14,6 +13,7 @@ import "./Navigation.css";
 
 const Navigation = () => {
 	const dispatch = useDispatch();
+	const history = useHistory();
 	const sessionUser = useSelector((state) => state.session.user);
 	const [search, setSearch] = useState("");
 
@@ -27,7 +27,7 @@ const Navigation = () => {
 	const handleSearch = async (e) => {
 		e.preventDefault();
 		await dispatch(searchQuery(search));
-		setSearch("");
+		history.push(`/home/search/${search}`);
 	};
 
 	if (sessionUser) {
@@ -45,6 +45,7 @@ const Navigation = () => {
 			>
 				<i className="fas fa-search"></i>
 				<input
+					id="search-bar"
 					type="text"
 					value={search}
 					onChange={(e) => setSearch(e.target.value)}
@@ -68,7 +69,7 @@ const Navigation = () => {
 	return (
 		<Navbar bg="primary" variant="dark" className="nav-container">
 			{searchBar}
-			<Nav className="mr-auto" id="nav-profile">
+			<Nav className="mr-auto1" id="nav-profile">
 				{sessionLinks}
 			</Nav>
 		</Navbar >

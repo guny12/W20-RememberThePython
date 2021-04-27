@@ -1,3 +1,20 @@
+.btn-dark {
+  background-color: transparent;
+  border: none;
+}
+
+.btn-dark:hover {
+  background-color: rgba(0, 0, 255, 0.253);
+}
+
+.btn-dark:focus {
+  background-color: rgba(0, 0, 255, 0.253);
+}
+
+.btn-dark > i.fa-cog {
+  font-size: 1.4rem;
+}
+
 .nav-search-bar > .fa-search {
   position: sticky;
   left: 35px;
@@ -16,10 +33,47 @@
   transition: background-color 0.5s ease;
 }
 
+.profile-dropdown {
+  list-style: none;
+  height: 155px;
+  width: 150px;
+  background-color: white;
+  box-shadow: 0px 0px 5px 1px gray;
+}
+
+.profile-dropdown > li {
+  margin: 0;
+  padding: 0;
+  margin-left: -37.5px;
+  margin-right: 2px;
+  padding-top: 8px;
+  padding-bottom: 5px;
+  text-align: center;
+}
+
+.profile-dropdown > li > button {
+  border: none;
+  background-color: transparent;
+}
+
+.profile-dropdown > li:hover {
+  background-color: #d7e7f5;
+  cursor: default;
+}
+
 .nav-search-bar > input:focus {
   background-color: white;
 }
 
-/* .mr-auto {
-  margin-left: 500px;
-} */
+#nav-profile ul {
+  position: absolute;
+  margin-top: 3rem;
+  right: 0.3rem;
+  z-index: 2;
+}
+
+.nav-container {
+  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+}
