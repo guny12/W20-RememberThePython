@@ -1,25 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import * as taskActions from "../../store/tasks";
 import Task from "../Tasks/index"
 
 const AllTasks = ({listId}) => {
   console.log(listId, "ID--------------------------")
   const dispatch = useDispatch();
-  const history = useHistory();
+  // const history = useHistory();
   const tasks = useSelector((state) => state.tasks.allTasks);
   const listTasks = {}
   if (listId > 0) {
     for (const task in tasks) {
-      console.log(task, "LIST ID!!!!!!!!!!!", typeof parseInt(task, 10), typeof listId)
       if (tasks[task].listId === listId) {
-        console.log("INSIDE FOR LOOP!!!!")
         listTasks[task] = tasks[task]
       }
     }
   }
-  console.log(tasks, "------------------------TASKS");
   // const handleDelete = async (e) => {
   //   e.preventDefault();
   //   const toBeDeleted = {
@@ -29,6 +26,34 @@ const AllTasks = ({listId}) => {
   //   dispatch(getAllLists());
   //   return history.push("/lists");
   // };
+
+	const sessionUser = useSelector((state) => state.session.user);
+
+
+  const [content, setContent] = useState("")
+  const [completed, setCompleted] = useState(false)
+  const [startDate, setStartDate] = useState(null)
+  const [dueDate, setDueDate] = useState(null)
+  const [priority, setPriority] = useState(0)
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const payload = {
+      content,
+      creatorId: sessionUser.id,
+      listId,
+      completed,
+      startDate,
+      dueDate,
+      priority,
+      // createdAt,
+      // updatedAt
+  };
+
+  // const newTask = await dispatch(createTask(payload));
+  
+}
 
   useEffect(() => {
     dispatch(taskActions.getTasks());
@@ -43,8 +68,17 @@ const AllTasks = ({listId}) => {
  
   return (
     <div>
-      <input placeholder="Add a task..."></input>
-      <button>Add Task</button>
+      <form onSubmit={handleSubmit}>
+        <input 
+        type="text"
+        placeholder="Add a task..."
+        required
+        value={content}
+        onChange={(e) => setContent(e.target.value)}
+        >
+        </input>
+        <button type="submit">Add Task</button>
+      </form>
       {tasksDiv?.map((task) => (
         <Task task={task}/>
         // <div key={task.id}>{task.id}</div>
