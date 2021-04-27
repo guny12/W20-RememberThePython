@@ -1,3 +1,18 @@
+.tabContainer{
+	background-color: #d7e7f5;
+	padding: 10px 10px 0 25px;
+	width: 230px;
+}
+
+.tabContainer a{
+	color: black;
+	font-size: .8125rem;
+}
+
+.navItem:hover {
+	background-color: #6da2ce91;
+}
+
 .deleteBtn {
 	float: right;
 	display: flex;
@@ -12,9 +27,17 @@
 	display: flex;
 }
 
+.list_div h3 {
+	border-top: 1px solid #4f7899dc;
+	padding: 15px 110px 0 15px;
+	font-size: 20px;
+}
+
+
+
 .deleteBtn:hover {
-	background-color: red;
-	color: black;
+	background-color: #4f7899dc;
+	color: white;
 }
 
 .listName {

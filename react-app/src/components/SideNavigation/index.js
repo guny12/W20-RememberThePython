@@ -32,42 +32,42 @@ const SideNavigation = () => {
 
 	if (!sessionUser) return null;
 	return (
-		<Tab.Container id="left-tabs-example" defaultActiveKey="first">
-			<Row>
-				<Col sm={1.5}>
+		<Tab.Container id="left-tabs-example" defaultActiveKey="first" >
+			<Row >
+				<Col sm={1.5} className={styles.tabContainer}>
 					<Nav variant="pills" className="flex-column">
-						<Nav.Item>
+						<Nav.Item className={styles.navItem}>
 							<Nav.Link eventKey="inbox">Inbox</Nav.Link>
-						</Nav.Item>
-						<Nav.Item>
+						</Nav.Item >
+						<Nav.Item className={styles.navItem}>
 							<Nav.Link eventKey="allTasks">All Tasks</Nav.Link>
 						</Nav.Item>
-						<Nav.Item>
+						<Nav.Item className={styles.navItem}>
 							<Nav.Link eventKey="today">Today</Nav.Link>
 						</Nav.Item>
-						<Nav.Item>
+						<Nav.Item className={styles.navItem}>
 							<Nav.Link eventKey="tomorrow">Tomorrow</Nav.Link>
 						</Nav.Item>
-						<Nav.Item>
+						<Nav.Item className={styles.navItem}>
 							<Nav.Link eventKey="thisWeek">This Week</Nav.Link>
 						</Nav.Item>
-						<Nav.Item>
+						<Nav.Item className={styles.navItem}>
 							<Nav.Link eventKey="givenToOthers">Given to others</Nav.Link>
 						</Nav.Item>
-						<Nav.Item>
+						<Nav.Item className={styles.navItem}>
 							<Nav.Link eventKey="trash">Trash</Nav.Link>
-						</Nav.Item>
+						</Nav.Item >
 						<div className={styles.list_div}>
-							<h3>-Lists</h3>
+							<h3>Lists</h3>
 							<ListModal />
 						</div>
 						{lists?.map((lis) => (
-							<Nav.Item key={lis.id} className={styles.list_div}>
+							<Nav.Item key={lis.id} className={`${styles.list_div} ${styles.navItem}`}>
 								<Nav.Link eventKey={lis.title} className={styles.listName}>
 									{lis.title}
 								</Nav.Link>
 								<EditListModal title={lis.title} id={lis.id} />
-								<Button id={lis.id} onClick={handleDelete} className={styles.deleteBtn}>
+								<Button id={lis.id} onClick={handleDelete} className={`${styles.deleteBtn}`}>
 									<i id={lis.id} className="far fa-trash-alt"></i>
 								</Button>
 							</Nav.Item>

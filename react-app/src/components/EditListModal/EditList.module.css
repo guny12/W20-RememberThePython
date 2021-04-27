@@ -7,5 +7,6 @@
 }
 
 .editBtn:hover {
-  background-color: #d7e7f5;
+  background-color: #4f7899dc;
+  color: white;
 }
