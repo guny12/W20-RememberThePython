@@ -3,3 +3,7 @@
   color: #1c6cae;
   font-weight: bold;
 }
+
+.nav-pills .nav-link, .nav-pills .show>.nav-link {
+  width: 100%;
+}
