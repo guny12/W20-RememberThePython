@@ -38,19 +38,14 @@ const AllTasks = ({listId}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     const payload = {
       content,
-      creatorId: sessionUser.id,
       listId,
       completed,
       startDate,
       dueDate,
       priority,
-      // createdAt,
-      // updatedAt
   };
-
   const newTask = await dispatch(taskActions.newTask(payload));
   
 }
