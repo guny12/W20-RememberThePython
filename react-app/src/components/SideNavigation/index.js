@@ -6,6 +6,7 @@ import { getAllLists, deleteList } from "../../store/lists";
 import ListBrowser from "../lists";
 import EditListModal from "../EditListModal"
 import ListModal from "../../components/ListModal";
+import AllTasks from "./allTasks";
 
 
 import styles from "./SideNavigation.module.css"
@@ -79,7 +80,7 @@ const SideNavigation = () => {
 							<p> test</p>
 						</Tab.Pane>
 						<Tab.Pane eventKey="allTasks">
-							<ListBrowser />
+							<AllTasks />
 							{/* SWAP THIS OUT WITH ALL TASK LISTS WHEN IT COMES  */}
 						</Tab.Pane>
 						<Tab.Pane eventKey="today">

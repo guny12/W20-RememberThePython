@@ -73,7 +73,7 @@ def del_list():
 # def get_list_info():
 #     # FETCH BODY EXPECTED TO HAVE listId AS A PROPERTY
 #     listId = request.json['listId']
-
+#     print(listId, "LIST ID---------------------------")
 #     # SEE List MODEL ASSOCIATIONS
 #     listInfo = db.session.query(List).filter(List.id == listId).first()
 
