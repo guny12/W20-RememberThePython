@@ -1,0 +1,23 @@
+.deleteBtn{
+  float: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: none;
+  border: none;
+}
+
+.list_div{
+  display: flex;
+}
+
+.deleteBtn:hover {
+  background-color: #d7e7f5;
+}
+
+.listName {
+  white-space: nowrap;
+  max-width: 16ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

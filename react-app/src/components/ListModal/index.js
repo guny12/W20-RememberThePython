@@ -3,13 +3,13 @@ import { Modal } from "../../context/Modal";
 import NewListForm from "./NewListForm";
 import { Button } from "react-bootstrap";
 
-function ListModal({ title }) {
+function ListModal() {
   const [showModal, setShowModal] = useState(false);
 
   return (
     <>
-      <Button variant="dark" onClick={() => setShowModal(true)}>
-        {title}
+      <Button variant="light" onClick={() => setShowModal(true)}>
+        <i className="fas fa-plus"></i>
       </Button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>

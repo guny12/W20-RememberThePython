@@ -32,7 +32,7 @@ const ListBrowser = () => {
         {lists?.map((lis) => (
           <div key={lis.id}>
             {lis.title}
-            <EditListModal title="Rename list" id={lis.id} />
+            <EditListModal title={lis.title} id={lis.id} />
             <button id={lis.id} onClick={handleDelete}>
               DELETE
             </button>
