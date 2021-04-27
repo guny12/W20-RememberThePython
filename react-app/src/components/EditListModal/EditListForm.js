@@ -48,9 +48,9 @@ const EditListForm = (id) => {
           required
         />
       </Form.Group>
-      <Button variant="primary" type="submit">
+      {listName !== id.title? <Button variant="primary" type="submit">
         Save
-      </Button>
+      </Button> : ''}
       <Button variant="outline-dark" type="button" onClick={handleCancel}>
         Cancel
       </Button>
