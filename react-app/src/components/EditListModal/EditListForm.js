@@ -26,6 +26,7 @@ const EditListForm = (id) => {
       if (list.title === listName){
         newError= ["You already have a list with this name. Please choose another name."]
       }
+      return newError
     })
     console.log(newError)
     if (newError) {
