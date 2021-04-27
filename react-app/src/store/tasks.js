@@ -16,7 +16,7 @@ export const getTasks = () => async (dispatch) => {
 
 // create a new task
 export const newTask = (taskDetails) => async (dispatch) => {
-	const { listId, content, completed, startDate, duedate, priority } = taskDetails;
+	const { listId, content, completed, startDate, dueDate, priority } = taskDetails;
 	const response = await fetch("/api/task", {
 		method: "POST",
 		headers: {
