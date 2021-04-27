@@ -34,7 +34,7 @@ const AllTasks = ({listId}) => {
   const [completed, setCompleted] = useState(false)
   const [startDate, setStartDate] = useState(null)
   const [dueDate, setDueDate] = useState(null)
-  const [priority, setPriority] = useState(0)
+  const [priority, setPriority] = useState(null)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,7 +51,7 @@ const AllTasks = ({listId}) => {
       // updatedAt
   };
 
-  // const newTask = await dispatch(createTask(payload));
+  const newTask = await dispatch(taskActions.newTask(payload));
   
 }
 
@@ -78,6 +78,7 @@ const AllTasks = ({listId}) => {
         >
         </input>
         <button type="submit">Add Task</button>
+        
       </form>
       {tasksDiv?.map((task) => (
         <Task task={task}/>
