@@ -7,7 +7,6 @@ faker = Faker()
 # Adds a demo giveToUser, you can add other giveToUsers here if you want
 def seed_giveToUsers():
     for i in range(50):
-
         db.session.execute(f'''INSERT INTO givetousers (user_id, task_id)
       VALUES ({i + 1}, {i + 1});''')
 
