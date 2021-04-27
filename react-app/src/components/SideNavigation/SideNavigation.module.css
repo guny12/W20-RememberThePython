@@ -1,23 +1,25 @@
-.deleteBtn{
-  float: right;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: none;
-  border: none;
+.deleteBtn {
+	float: right;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: none;
+	color: black;
+	background-color: transparent;
 }
 
-.list_div{
-  display: flex;
+.list_div {
+	display: flex;
 }
 
 .deleteBtn:hover {
-  background-color: #d7e7f5;
+	background-color: red;
+	color: black;
 }
 
 .listName {
-  white-space: nowrap;
-  max-width: 16ch;
-  overflow: hidden;
-  text-overflow: ellipsis;
+	white-space: nowrap;
+	max-width: 16ch;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
