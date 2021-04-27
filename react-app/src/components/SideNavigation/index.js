@@ -3,12 +3,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
 import { Nav, Navbar, Button, TabContainer, Tab, Col, Row } from "react-bootstrap";
 import { getAllLists, deleteList } from "../../store/lists";
-import ListBrowser from "../lists";
 import EditListModal from "../EditListModal";
 import ListModal from "../../components/ListModal";
 import AllTasks from "./allTasks";
 
 import styles from "./SideNavigation.module.css";
+import './SideNavigation.css'
 
 const SideNavigation = () => {
 	const dispatch = useDispatch();

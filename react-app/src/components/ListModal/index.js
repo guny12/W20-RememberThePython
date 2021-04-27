@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Modal } from "../../context/Modal";
 import NewListForm from "./NewListForm";
-import { Button } from "react-bootstrap";
 import styles from "./ListForm.module.css";
 
 function ListModal() {
