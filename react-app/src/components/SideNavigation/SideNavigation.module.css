@@ -11,6 +11,7 @@
 
 .navItem:hover {
 	background-color: #6da2ce91;
+	border-radius: 2px;
 }
 
 .navItem:hover .deleteBtn,

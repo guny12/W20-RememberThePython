@@ -1,0 +1,16 @@
+#modal-content {
+  padding: 15px 30px;
+}
+
+.form-group label {
+  font-weight: 600;
+}
+
+.form-text {
+  padding-bottom: 10px;
+}
+
+.form-control {
+  width: 300px;
+  margin-bottom: 30px;
+}
