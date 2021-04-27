@@ -84,7 +84,6 @@ export const getTasks = () => async (dispatch) => {
 const initialState = { allTasks: {} };
 
 const taskReducer = (state = initialState, action) => {
-	console.log(action.payload, "-------------------------payload!!!");
 	switch (action.type) {
 		// check with rest of the group regarding State
 		case LOAD_ALL_TASKS:

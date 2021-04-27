@@ -6,8 +6,8 @@ from app.models import List
 
 def list_exists(form, field):
     title = field.data
-    listQuery = List.query.filter(List.title == title).first()
-
+    listQuery = List.query.filter(
+        List.title == title, List.userId == current_user.id).first()
     if listQuery:
         raise ValidationError(
             'A list with this name already exists. Please try another name.')

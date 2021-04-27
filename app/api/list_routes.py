@@ -18,7 +18,6 @@ def all_list():
 @list_routes.route("/", methods=["POST"])
 # @login_required
 def create_list():
-    print(current_user, '-------------------------------------')
     form = ListForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
     if form.validate_on_submit():

@@ -1,35 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useHistory } from "react-router-dom";
-import { Nav, Navbar, Button, TabContainer, Tab, Col, Row, } from "react-bootstrap";
+import { Nav, Navbar, Button, TabContainer, Tab, Col, Row } from "react-bootstrap";
 import { getAllLists, deleteList } from "../../store/lists";
 import ListBrowser from "../lists";
-import EditListModal from "../EditListModal"
+import EditListModal from "../EditListModal";
 import ListModal from "../../components/ListModal";
 import AllTasks from "./allTasks";
 
-
-import styles from "./SideNavigation.module.css"
+import styles from "./SideNavigation.module.css";
 
 const SideNavigation = () => {
 	const dispatch = useDispatch();
-  const history = useHistory();
+	const history = useHistory();
 	const sessionUser = useSelector((state) => state.session.user);
 	const lists = useSelector((state) => state.lists.allLists);
 
 	const handleDelete = async (e) => {
-    e.preventDefault();
-    const toBeDeleted = {
-      listId: e.target.id,
-    };
-    await dispatch(deleteList(toBeDeleted));
-    dispatch(getAllLists());
-    return history.push("/lists");
-  };
+		e.preventDefault();
+		const toBeDeleted = {
+			listId: e.target.id,
+		};
+		await dispatch(deleteList(toBeDeleted));
+		dispatch(getAllLists());
+		return history.push("/lists");
+	};
 
 	useEffect(() => {
-    dispatch(getAllLists());
-  }, [dispatch]);
+		dispatch(getAllLists());
+	}, [dispatch]);
 
 	if (!sessionUser) return null;
 	return (
@@ -62,14 +61,15 @@ const SideNavigation = () => {
 							<h3>-Lists</h3>
 							<ListModal />
 						</div>
-						{lists?.map(lis => (
+						{lists?.map((lis) => (
 							<Nav.Item key={lis.id} className={styles.list_div}>
-								<Nav.Link eventKey={lis.title} className={styles.listName}>{lis.title}
+								<Nav.Link eventKey={lis.title} className={styles.listName}>
+									{lis.title}
 								</Nav.Link>
 								<EditListModal title={lis.title} id={lis.id} />
-								<button id={lis.id} onClick={handleDelete} className={styles.deleteBtn}>
-									<i className="far fa-trash-alt"></i>
-								</button>
+								<Button id={lis.id} onClick={handleDelete} className={styles.deleteBtn}>
+									<i id={lis.id} className="far fa-trash-alt"></i>
+								</Button>
 							</Nav.Item>
 						))}
 					</Nav>
@@ -98,8 +98,8 @@ const SideNavigation = () => {
 						<Tab.Pane eventKey="trash">
 							<p> test</p>
 						</Tab.Pane>
-						{lists?.map(lis => (
-							<Tab.Pane  eventKey={lis.title} key={lis.id}>
+						{lists?.map((lis) => (
+							<Tab.Pane eventKey={lis.title} key={lis.id}>
 								<p id={lis.id}>{lis.title}</p>
 							</Tab.Pane>
 						))}
