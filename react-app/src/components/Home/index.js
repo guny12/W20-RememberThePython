@@ -7,13 +7,8 @@ const Home = () => {
 	const userName = useSelector((state) => state.session.user?.username);
 
 	return (
-		<div>
-			{loggedIn && (
-				<>
-					<h2>{` Welcome ${userName}!`}</h2>
-				</>
-			)}
-		</div>
+		<>
+		</>
 	);
 };
 

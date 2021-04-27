@@ -6,6 +6,7 @@ import { getAllLists, deleteList } from "../../store/lists";
 import EditListModal from "../EditListModal";
 import ListModal from "../../components/ListModal";
 import AllTasks from "./allTasks";
+import Logo from "./Logo"
 
 import styles from "./SideNavigation.module.css";
 import './SideNavigation.css'
@@ -35,6 +36,7 @@ const SideNavigation = () => {
 		<Tab.Container id="left-tabs-example" defaultActiveKey="first" >
 			<Row >
 				<Col sm={1.5} className={styles.tabContainer}>
+					<Logo />
 					<Nav variant="pills" className="flex-column">
 						<Nav.Item className={styles.navItem}>
 							<Nav.Link eventKey="inbox">Inbox</Nav.Link>
@@ -57,6 +59,9 @@ const SideNavigation = () => {
 						<Nav.Item className={styles.navItem}>
 							<Nav.Link eventKey="trash">Trash</Nav.Link>
 						</Nav.Item >
+						<Nav.Item className={styles.navItem}>
+							<Nav.Link eventKey="search">Search</Nav.Link>
+						</Nav.Item>
 						<div className={styles.list_div}>
 							<h3>Lists</h3>
 							<ListModal />
@@ -108,6 +113,10 @@ const SideNavigation = () => {
 								</Tab.Pane>
 							</Tab.Pane>
 						))}
+						<Tab.Pane eventKey="search">
+							{/* -1 VALUE TO REPRESENT DISPLAYING SEARCH RESULTS IN COMPONENT */}
+							<AllTasks listId={-1} />
+						</Tab.Pane>
 					</Tab.Content>
 				</Col>
 			</Row>

@@ -10,3 +10,12 @@
   background-color: #4f7899dc;
   color: white;
 }
+
+.div_error {
+  color: #b84a47;
+  width: 340px;
+}
+
+.div_error p {
+  font-size: 14px;
+}
