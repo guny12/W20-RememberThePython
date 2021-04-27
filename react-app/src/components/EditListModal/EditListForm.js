@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 import { editList, getAllLists } from "../../store/lists";
-import styles from "./EditList.module.css"
+import './EditList.css'
 
 const EditListForm = (id) => {
   const dispatch = useDispatch();
