@@ -8,12 +8,13 @@
 	color: black;
 	font-size: .8125rem;
 }
+
 .logo_div{
 	display: flex;
-	background-color: #d7e7f5;
+	background-color: none;
 	width: 215px;
 	justify-content: center;
-	padding-top: 15px;
+	padding: 5px 0 15px 0;
 }
 
 .logo {

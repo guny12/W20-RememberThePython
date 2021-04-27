@@ -34,9 +34,9 @@ const SideNavigation = () => {
 	if (!sessionUser) return null;
 	return (
 		<Tab.Container id="left-tabs-example" defaultActiveKey="first" >
-			<Logo />
 			<Row >
 				<Col sm={1.5} className={styles.tabContainer}>
+					<Logo />
 					<Nav variant="pills" className="flex-column">
 						<Nav.Item className={styles.navItem}>
 							<Nav.Link eventKey="inbox">Inbox</Nav.Link>
