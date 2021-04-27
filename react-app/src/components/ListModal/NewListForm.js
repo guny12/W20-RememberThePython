@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import "./ListForm.css";
 import { Button, Form } from "react-bootstrap";
 import { createList, getAllLists } from "../../store/lists";
 
