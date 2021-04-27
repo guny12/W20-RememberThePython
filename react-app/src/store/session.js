@@ -66,13 +66,18 @@ export const logout = () => async (dispatch) => {
 	dispatch(removeSessionUser());
 };
 
+export const deleteUser = () => async (dispatch) => {
+	await fetch("/api/users/", {
+		method: "DELETE"
+	});
+};
+
 // reducer
 const initialState = { user: null };
 
 const sessionReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case SET_SESSION:
-			console.log("TEST");
 			return { user: action.user };
 		case REMOVE_SESSION:
 			return { user: null };
