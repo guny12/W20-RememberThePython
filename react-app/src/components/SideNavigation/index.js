@@ -8,6 +8,7 @@ import ListModal from "../../components/ListModal";
 import AllTasks from "./allTasks";
 import Logo from "./Logo";
 import { getTasks } from "../../store/tasks";
+import TaskDisplay from "../Tasks"
 
 import styles from "./SideNavigation.module.css";
 import "./SideNavigation.css";
@@ -114,7 +115,7 @@ const SideNavigation = () => {
 							<Tab.Pane eventKey={lis.title} key={lis.id}>
 								<p id={lis.id}>{lis.title}</p>
 								<Tab.Pane>
-									<AllTasks listId={lis.id} />
+									<TaskDisplay listId={lis.id} />
 								</Tab.Pane>
 							</Tab.Pane>
 						))}
