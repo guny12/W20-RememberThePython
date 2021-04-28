@@ -1,3 +1,9 @@
+.task {
+  border-bottom: 1px dotted gray;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
 .task-container {
   display: flex
 }
@@ -5,3 +11,8 @@
 .task-container h1 {
   font-size: small;
 }
+
+.task-container input {
+ vertical-align: middle;
+}
+
