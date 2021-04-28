@@ -6,6 +6,7 @@ import SideNavigation from "./components/SideNavigation";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import Home from "./components/Home";
 import Search from "./components/Search";
+import Landing from "./components/Landing";
 
 import * as sessionActions from "./store/session";
 
@@ -36,8 +37,11 @@ function App() {
 				<Route path="/home/search/:query" exact={true}>
 					<Search />
 				</Route>
+				<Route path="/" exact={true}>
+					<Landing />
+				</Route>
 				<Route path="/">
-					<Redirect to="/home" />
+					<Redirect to="/" />
 				</Route>
 			</Switch>
 		</BrowserRouter>
