@@ -33,7 +33,8 @@ function ProfileButton({ user }) {
 		// history.go(0) refuses to do that depending on
 		// your initial route when server restarts
 		// or browser refreshes
-		history.push("/");
+		history.push("/landing");
+		history.go(0);
 	};
 
 	const deleteUser = async () => {

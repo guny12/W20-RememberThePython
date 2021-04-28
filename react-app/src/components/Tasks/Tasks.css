@@ -1,28 +1,29 @@
 .task-page-container {
-  background-color: white;
-  padding: 20px;
-  width: 700px;
-  max-height: 100vh;
-  border-radius: 10px;
-  margin-top: 15px;
+	background-color: white;
+	padding: 20px;
+	width: 700px;
+	max-height: 100vh;
+	border-radius: 10px;
+	margin-top: 15px;
 }
 
 .task-list-container {
-  max-height: 80vh;
-  overflow-y: scroll;
+	max-height: 80vh;
+	overflow-y: scroll;
 }
 
 .task-page-container > .task-container {
-  margin: 10px;
-  border-bottom: 1px solid black;
-  height: 30px;
-  overflow: hidden;
+	margin: 10px;
+	border-bottom: 1px solid black;
+	height: 30px;
+	overflow: hidden;
 }
 
 .task-container {
-  display: flex
+	display: flex;
+	border: 1px solid black;
 }
 
 .task-container h1 {
-  font-size: small;
+	font-size: small;
 }
