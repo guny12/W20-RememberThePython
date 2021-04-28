@@ -7,7 +7,7 @@ import EditListModal from "../EditListModal";
 import ListModal from "../../components/ListModal";
 import AllTasks from "./allTasks";
 import Logo from "./Logo";
-import * as taskActions from "../../store/tasks";
+import { getTasks } from "../../store/tasks";
 
 import styles from "./SideNavigation.module.css";
 import "./SideNavigation.css";
@@ -24,15 +24,16 @@ const SideNavigation = () => {
 			listId: e.target.id,
 		};
 		await dispatch(deleteList(toBeDeleted));
-		dispatch(getAllLists());
+		await dispatch(getAllLists());
 		// return history.push("/lists");
 		// where is this supposed to go? there is no /lists route in url at the moment...
 	};
 
 	useEffect(() => {
-		dispatch(getAllLists());
-		dispatch(taskActions.getTasks());
-	}, [dispatch]);
+		// // line of code already existing somewhere that already loads all lists
+		// (async () => await dispatch(getAllLists()))();
+		(async () => await dispatch(getTasks()))();
+	}, [dispatch, sessionUser]);
 
 	if (!sessionUser) return null;
 	return (
@@ -93,7 +94,6 @@ const SideNavigation = () => {
 						</Tab.Pane>
 						<Tab.Pane eventKey="allTasks">
 							<AllTasks listId={0} />
-							{/* SWAP THIS OUT WITH ALL TASK LISTS WHEN IT COMES  */}
 						</Tab.Pane>
 						<Tab.Pane eventKey="today">
 							<p> test</p>

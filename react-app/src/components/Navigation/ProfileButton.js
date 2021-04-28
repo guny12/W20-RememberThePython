@@ -28,7 +28,12 @@ function ProfileButton({ user }) {
 
 	const logout = async () => {
 		await dispatch(sessionActions.logout());
-		history.go(0);
+
+		// explicitly kick the user to the landing page
+		// history.go(0) refuses to do that depending on
+		// your initial route when server restarts
+		// or browser refreshes
+		history.push("/");
 	};
 
 	const deleteUser = async () => {
