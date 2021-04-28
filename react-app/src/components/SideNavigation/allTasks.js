@@ -2,10 +2,22 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as taskActions from "../../store/tasks";
 import Task from "../Tasks/index";
+import "./AllTasks.css"
+
+const TaskSub = () => {
+};
 
 const AllTasks = ({ listId }) => {
 	const dispatch = useDispatch();
 	const tasks = useSelector((state) => state.tasks.allTasks);
+	const lists = useSelector((state) => state.lists.allLists);
+	console.log(lists, "LISTS!!!!!")
+	
+	let currentList;
+	// const [currentList] = lists?.filter(list => list.id === listId)
+	// console.log(currentList)
+	// const list = lists.map(listId => listId ===list.)
+
 	const tasksQuery = useSelector((state) => state.search.results);
 	const listTasks = {};
 
@@ -15,6 +27,8 @@ const AllTasks = ({ listId }) => {
 				listTasks[task] = tasks[task];
 			}
 		}
+		currentList = lists.filter(list => list.id === listId)
+		currentList = currentList[0]
 	} else if (listId === -1 && tasksQuery) {
 		for (const key in tasksQuery.taskResults) {
 			listTasks[key] = tasksQuery.taskResults[key];
@@ -36,6 +50,8 @@ const AllTasks = ({ listId }) => {
 	const [startDate, setStartDate] = useState(null);
 	const [dueDate, setDueDate] = useState(null);
 	const [priority, setPriority] = useState(null);
+	const [selected, setSelected] = useState(true)
+	const [selectedTask, setSelectedTask] = useState({})
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -59,23 +75,63 @@ const AllTasks = ({ listId }) => {
 		tasksDiv = Object.values(tasks);
 	}
 
+	const test = (task) => {
+		console.log(task)
+		setSelectedTask(task)
+		setSelected(!selected)
+		// currentList = lists.filter(list => list.id === listId)
+		// currentList = currentList[0]
+		// console.log(currentList)
+	}
+
 	return (
-		<div className="task-page-container">
-			<form onSubmit={handleSubmit}>
-				<input
-					type="text"
-					placeholder="Add a task..."
-					required
-					value={content}
-					onChange={(e) => setContent(e.target.value)}
-				></input>
-				<button type="submit">Add Task</button>
-			</form>
-			<div className="task-list-container">
-				{tasksDiv?.map((task) => (
-					<Task task={task} key={task.id} />
-				))}
+		<div className="outer">
+			<div className="task-page-container">
+				<form onSubmit={handleSubmit}>
+					<input
+						type="text"
+						placeholder="Add a task..."
+						required
+						value={content}
+						onChange={(e) => setContent(e.target.value)}
+					></input>
+					<button type="submit">Add Task</button>
+				</form>
+
+				<div className="task-list-container">
+					{tasksDiv?.map((task) => (
+						<div onClick={() => test(task)}>
+							<Task task={task} key={task.id} />
+						</div>
+					))}
+				</div>
 			</div>
+				
+			<div className="task-sub-container">
+				{!selected &&				
+					<div>
+						<h4>{currentList && currentList.title}</h4>
+						<p>{Object.keys(tasks).length} tasks</p>
+						<p>0 completed</p>
+					</div>
+				}
+				{selected &&
+					<div className="task-details-page">
+						<h2>{selectedTask.content}</h2>
+						<select>
+							<option>{selectedTask.dueDate}</option>
+						</select>
+						<select>
+							{/* <option>{lists[selectedTask.listId].title}</option> */}
+						</select>
+						<p>Notes </p>
+						<input type="text" placeholder="Add a Note.."></input>
+						<p>Note 1</p>
+					</div>
+				}
+			</div>
+
+			{/* {selected && <TaskSub />} */}
 		</div>
 	);
 };

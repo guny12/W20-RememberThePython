@@ -21,7 +21,9 @@
 
 .task-container {
 	display: flex;
-	border: 1px solid black;
+  flex-direction: row;
+	border-bottom: 1px dotted black;
+  padding-top: 4px;
 }
 
 .task-container h1 {
