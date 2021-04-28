@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink, useHistory } from "react-router-dom";
-import { Nav, Navbar, Button, TabContainer, Tab, Col, Row } from "react-bootstrap";
+// import { useHistory } from "react-router-dom";
+import { Nav, Button, Tab, Col, Row } from "react-bootstrap";
 import { getAllLists, deleteList } from "../../store/lists";
 import EditListModal from "../EditListModal";
 import ListModal from "../../components/ListModal";
@@ -14,7 +14,7 @@ import "./SideNavigation.css";
 
 const SideNavigation = () => {
 	const dispatch = useDispatch();
-	const history = useHistory();
+	// const history = useHistory();
 	const sessionUser = useSelector((state) => state.session.user);
 	const lists = useSelector((state) => state.lists.allLists);
 

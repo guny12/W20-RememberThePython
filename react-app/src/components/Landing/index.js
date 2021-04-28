@@ -1,11 +1,9 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { getAllLists } from "../../store/lists";
 
 const Landing = () => {
 	const history = useHistory();
-	const dispatch = useDispatch();
 	const currentUser = useSelector((state) => state.session.user?.id);
 
 	if (currentUser) history.push("/home");

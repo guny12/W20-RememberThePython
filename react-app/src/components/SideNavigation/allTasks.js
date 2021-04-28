@@ -31,8 +31,6 @@ const AllTasks = ({ listId }) => {
 	//   return history.push("/lists");
 	// };
 
-	const sessionUser = useSelector((state) => state.session.user);
-
 	const [content, setContent] = useState("");
 	const [completed, setCompleted] = useState(false);
 	const [startDate, setStartDate] = useState(null);
