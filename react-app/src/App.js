@@ -20,21 +20,18 @@ function App() {
 	useEffect(() => {
 		(async () => {
 			let response = await dispatch(sessionActions.restoreUser());
-			if (response.message == "success") {
+			if (response.message === "success") {
 				(async () => {
-					await dispatch(listActions.getAllLists());
-					setListLoaded(true);
+					let lists = await dispatch(listActions.getAllLists());
+					if (lists) setListLoaded(true);
 				})();
 			}
 			setLoaded(true);
 		})();
 	}, [dispatch]);
 
-	if (!loaded) {
-		return null;
-	}
+	if (!loaded) return null;
 
-	// PLEASE DO NOT COMMENT OUT HOME COMPONENT
 	return (
 		<BrowserRouter>
 			<Navigation />
