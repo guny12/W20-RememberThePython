@@ -1,13 +1,30 @@
 const LOAD_ALL_TASKS = "task/LOAD_ALL_TASKS";
+const CLEAR_TASKS = "task/CLEAR_TASKS";
 
 const loadAllTasks = (tasks) => ({
 	type: LOAD_ALL_TASKS,
 	payload: tasks,
 });
 
+const clearTasks = () => ({
+	type: CLEAR_TASKS
+});
+
 // load all Tasks
 export const getTasks = () => async (dispatch) => {
 	const response = await fetch("/api/task/all");
+	if (response.ok) {
+		const tasks = await response.json();
+		dispatch(loadAllTasks(tasks));
+	}
+};
+
+// load all tasks related to listId
+// even if the backend accepts a GET request body
+// react will throw an error :(
+export const getListTasks = (listId) => async (dispatch) => {
+	const response = await fetch(`/api/task/${listId}/all`);
+
 	if (response.ok) {
 		const tasks = await response.json();
 		dispatch(loadAllTasks(tasks));
@@ -32,7 +49,6 @@ export const newTask = (taskDetails) => async (dispatch) => {
 			priority,
 		}),
 	});
-	console.log(response, "THIS IS HITTING!!!")
 	const data = await response.json();
 	if (data.errors) return data;
 	dispatch(getTasks());
@@ -75,6 +91,11 @@ export const removeTask = (taskId) => async (dispatch) => {
 	dispatch(getTasks());
 };
 
+// clear all tasks
+export const clearAllTasks = () => async (dispatch) => {
+	dispatch(clearTasks());
+};
+
 //========== TASK slice of state reducer
 const initialState = { allTasks: {}, selectedTasks: {} };
 
@@ -86,6 +107,8 @@ const taskReducer = (taskState = initialState, action) => {
 				return { ...newTasks, [task.id]: task };
 			}, {});
 			return { ...taskState, allTasks: normalizeAllTasks };
+		case CLEAR_TASKS:
+			return initialState;
 		default:
 			return taskState;
 	}
