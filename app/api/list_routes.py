@@ -8,6 +8,17 @@ from . import validation_errors_to_error_messages
 list_routes = Blueprint("lists", __name__)
 
 
+def validation_errors_to_error_messages(validation_errors):
+    """
+    Simple function that turns the WTForms validation errors into a simple list
+    """
+    errorMessages = []
+    for field in validation_errors:
+        for error in validation_errors[field]:
+            errorMessages.append(f"{field} : {error}")
+    return errorMessages
+
+
 @list_routes.route("/")
 # @login_required
 def all_list():
@@ -35,9 +46,7 @@ def create_list():
 def update_list():
     userId = current_user.id
     listId = request.json["listId"]
-
     newTitle = request.json["title"]
-    print(newTitle)
 
     currentList = List.query.get(listId)
     if currentList.userId != userId:

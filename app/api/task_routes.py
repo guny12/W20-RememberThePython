@@ -27,8 +27,6 @@ def get_task_info():
 
 
 # GET All Tasks
-
-
 @task_routes.route("/all")
 @login_required
 def get_all_tasks():
@@ -41,7 +39,10 @@ def get_all_tasks():
 @task_routes.route("/", methods=["POST"])
 @login_required
 def create_task():
+    print("BEFORE HITS")
     form = TaskForm()
+    print("AFTER HITS")
+
     form["csrf_token"].data = request.cookies["csrf_token"]
     if form.validate_on_submit():
         body = request.json

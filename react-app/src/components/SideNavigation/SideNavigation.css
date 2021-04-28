@@ -7,3 +7,12 @@
 .nav-pills .nav-link, .nav-pills .show>.nav-link {
   width: 100%;
 }
+
+.SideNavigation_tabContainer__3nUod {
+  height: 92.5vh;
+  overflow: scroll;
+}
+
+.SideNavigation_tabContainer__3nUod::-webkit-scrollbar {
+  display: none;
+}

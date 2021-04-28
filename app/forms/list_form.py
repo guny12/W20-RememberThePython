@@ -11,7 +11,7 @@ def list_exists(form, field):
         List.title == title, List.userId == current_user.id).first()
     if listQuery:
         raise ValidationError(
-            'A list with this name already exists. Please try another name.')
+            'You already have a list with this name. Please choose another name.')
 
 
 class ListForm(FlaskForm):
