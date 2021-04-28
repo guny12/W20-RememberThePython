@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { getAllLists } from "../../store/lists";
 
 const Home = () => {
 	const dispatch = useDispatch();
+	const currentUser = useSelector((state) => state.session.user?.firstName);
 
 	useEffect(() => {
 		(async () => {
@@ -12,10 +13,7 @@ const Home = () => {
 		})();
 	}, [dispatch]);
 
-	return (
-		<>
-		</>
-	);
+	return <></>;
 };
 
 export default Home;

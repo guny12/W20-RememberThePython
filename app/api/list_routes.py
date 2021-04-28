@@ -18,6 +18,7 @@ def validation_errors_to_error_messages(validation_errors):
             errorMessages.append(f"{field} : {error}")
     return errorMessages
 
+
 @list_routes.route("/")
 # @login_required
 def all_list():

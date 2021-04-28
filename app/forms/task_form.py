@@ -7,6 +7,6 @@ from app.models import Task
 class TaskForm(FlaskForm):
     content = StringField("content", validators=[DataRequired()])
     completed = BooleanField("completed", default=False)
-    # startDate = DateField("startDate", default="False)
-    # dueDate = DateField("dueDate")
-    # priority = IntegerField("priority", default=None)
+    startDate = DateField("startDate")
+    dueDate = DateField("dueDate")
+    priority = IntegerField("priority")

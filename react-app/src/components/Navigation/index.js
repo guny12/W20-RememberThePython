@@ -22,6 +22,7 @@ const Navigation = () => {
 
 	const handleSubmit = async () => {
 		await dispatch(sessionActions.login({ credential: "demoUser@user.io", password: "password" }));
+		history.push("/home");
 	};
 
 	const handleSearch = async (e) => {
@@ -41,17 +42,9 @@ const Navigation = () => {
 		);
 
 		searchBar = (
-			<form
-				className="nav-search-bar"
-				onSubmit={handleSearch}
-			>
+			<form className="nav-search-bar" onSubmit={handleSearch}>
 				<i className="fas fa-search"></i>
-				<input
-					id="search-bar"
-					type="text"
-					value={search}
-					onChange={(e) => setSearch(e.target.value)}
-				/>
+				<input id="search-bar" type="text" value={search} onChange={(e) => setSearch(e.target.value)} />
 			</form>
 		);
 	} else {
@@ -65,7 +58,7 @@ const Navigation = () => {
 			</>
 		);
 
-		searchBar = (<></>);
+		searchBar = <></>;
 	}
 
 	return (
@@ -74,7 +67,7 @@ const Navigation = () => {
 			<Nav className="mr-auto1" id="nav-profile">
 				{sessionLinks}
 			</Nav>
-		</Navbar >
+		</Navbar>
 	);
 };
 
