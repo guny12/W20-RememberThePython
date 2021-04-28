@@ -4,19 +4,25 @@ import { useDispatch, useSelector } from "react-redux";
 import * as taskActions from "../../store/tasks";
 import Task from "../Tasks/index"
 
-const AllTasks = ({listId}) => {
-  console.log(listId, "ID--------------------------")
+const AllTasks = ({ listId }) => {
   const dispatch = useDispatch();
   // const history = useHistory();
   const tasks = useSelector((state) => state.tasks.allTasks);
+  const tasksQuery = useSelector((state) => state.search.results);
   const listTasks = {}
+
   if (listId > 0) {
     for (const task in tasks) {
       if (tasks[task].listId === listId) {
         listTasks[task] = tasks[task]
       }
     }
+  } else if (listId === -1 && tasksQuery) {
+    for (const key in tasksQuery.taskResults) {
+      listTasks[key] = tasksQuery.taskResults[key];
+    }
   }
+
   // const handleDelete = async (e) => {
   //   e.preventDefault();
   //   const toBeDeleted = {
@@ -27,7 +33,7 @@ const AllTasks = ({listId}) => {
   //   return history.push("/lists");
   // };
 
-	const sessionUser = useSelector((state) => state.session.user);
+  const sessionUser = useSelector((state) => state.session.user);
 
 
   const [content, setContent] = useState("")
@@ -45,10 +51,10 @@ const AllTasks = ({listId}) => {
       startDate,
       dueDate,
       priority,
-  };
-  const newTask = await dispatch(taskActions.newTask(payload));
-  
-}
+    };
+    const newTask = await dispatch(taskActions.newTask(payload));
+
+  }
 
   useEffect(() => {
     dispatch(taskActions.getTasks());
@@ -56,29 +62,31 @@ const AllTasks = ({listId}) => {
   let tasksDiv;
   if (listId > 0) {
     tasksDiv = Object.values(listTasks)
+  } else if (listId === -1 && tasksQuery) {
+    tasksDiv = Object.values(listTasks)
   } else {
     tasksDiv = Object.values(tasks);
   }
 
- 
+
   return (
-    <div>
+    <div className="task-page-container">
       <form onSubmit={handleSubmit}>
-        <input 
-        type="text"
-        placeholder="Add a task..."
-        required
-        value={content}
-        onChange={(e) => setContent(e.target.value)}
+        <input
+          type="text"
+          placeholder="Add a task..."
+          required
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
         >
         </input>
         <button type="submit">Add Task</button>
-        
       </form>
-      {tasksDiv?.map((task) => (
-        <Task task={task}/>
-        // <div key={task.id}>{task.id}</div>
-      ))}
+      <div className="task-list-container">
+        {tasksDiv?.map((task) => (
+          <Task task={task} key={task.id} />
+        ))}
+      </div>
     </div>
   );
 };
