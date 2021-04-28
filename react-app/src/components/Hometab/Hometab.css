@@ -9,7 +9,7 @@
 	box-sizing: border-box;
 	position: relative;
 	height: auto;
-	display: flex;
+	flex: 0 1 24%;
 	background-color: rgb(255, 255, 255);
 	z-index: 0;
 	width: 200px;
@@ -21,9 +21,28 @@
 }
 
 .card-footer-Quicklook {
-	font-size: 12px;
+	font-size: 11px;
+	width: auto;
 }
 
 .card-footer-Tasks {
-	font-size: 12px;
+	font-size: 11px;
 }
+
+#sideNav-tabpane-home {
+	display: flex;
+	/* flex-direction: row; */
+	flex-wrap: wrap;
+	justify-content: space-between;
+	overflow-y: auto;
+	overscroll-behavior: none;
+	height: 90vh;
+}
+
+/* #sideNav-tabpane-home {
+	display: grid;
+	grid-template-columns: ;
+	overflow-y: auto;
+	overscroll-behavior: none;
+	height: 90vh;
+} */

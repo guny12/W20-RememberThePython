@@ -10,7 +10,7 @@ const Hometab = () => {
 
 	let cards = Object.values(allCurrentLists).map((list) => (
 		<div key={`card-list#${list.id}`}>
-			<Card>
+			<Card className="listCard">
 				<Card.Body>
 					<Card.Title>{list.title}</Card.Title>
 				</Card.Body>
@@ -23,7 +23,7 @@ const Hometab = () => {
 		</div>
 	));
 
-	return <div>{cards}</div>;
+	return <>{cards}</>;
 };
 
 export default Hometab;
