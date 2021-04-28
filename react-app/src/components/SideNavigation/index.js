@@ -7,6 +7,7 @@ import EditListModal from "../EditListModal";
 import ListModal from "../../components/ListModal";
 import AllTasks from "./allTasks";
 import Logo from "./Logo";
+import * as taskActions from "../../store/tasks";
 
 import styles from "./SideNavigation.module.css";
 import "./SideNavigation.css";
@@ -24,11 +25,13 @@ const SideNavigation = () => {
 		};
 		await dispatch(deleteList(toBeDeleted));
 		dispatch(getAllLists());
+		dispatch();
 		return history.push("/lists");
 	};
 
 	useEffect(() => {
 		dispatch(getAllLists());
+		dispatch(taskActions.getTasks());
 	}, [dispatch]);
 
 	if (!sessionUser) return null;

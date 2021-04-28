@@ -42,6 +42,7 @@ function ProfileButton({ user }) {
 
 		await dispatch(sessionActions.deleteUser());
 		await dispatch(sessionActions.logout());
+		history.go(0);
 	};
 
 	return (
