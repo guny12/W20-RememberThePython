@@ -79,7 +79,7 @@ const SideNavigation = () => {
 						</div>
 					</Nav>
 				</Col>
-				<Col sm={8}>
+				<Col sm={8} id="tabs-center">
 					<Tab.Content>
 						<Tab.Pane eventKey="inbox">
 							<p> test</p>
