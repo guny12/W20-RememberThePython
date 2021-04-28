@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Nav, Button, Tab, Col, Row } from "react-bootstrap";
 import { getAllLists, deleteList } from "../../store/lists";
@@ -28,8 +28,7 @@ const SideNavigation = () => {
 	};
 
 	const loadTasks = async (list) => {
-		// await dispatch(clearAllTasks());
-		// moved to App.js
+		await dispatch(clearAllTasks());
 
 		if (list !== "search") {
 			await dispatch(clearAllResults());

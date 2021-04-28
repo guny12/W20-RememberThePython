@@ -6,6 +6,7 @@ import SideNavigation from "./components/SideNavigation";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import Search from "./components/Search";
 import Landing from "./components/Landing";
+import Home from "./components/Home";
 
 import * as sessionActions from "./store/session";
 import * as taskActions from "./store/tasks";
@@ -14,12 +15,16 @@ import * as listActions from "./store/lists";
 function App() {
 	const dispatch = useDispatch();
 	const [loaded, setLoaded] = useState(false);
+	const [listLoaded, setListLoaded] = useState(false);
+
 	useEffect(() => {
 		(async () => {
 			let response = await dispatch(sessionActions.restoreUser());
 			if (response.message == "success") {
-				(async () => await dispatch(taskActions.clearAllTasks()))();
-				(async () => await dispatch(listActions.getAllLists()))();
+				(async () => {
+					await dispatch(listActions.getAllLists());
+					setListLoaded(true);
+				})();
 			}
 			setLoaded(true);
 		})();
@@ -33,10 +38,10 @@ function App() {
 	return (
 		<BrowserRouter>
 			<Navigation />
-			{/* <SideNavigation /> */}
+			<SideNavigation />
 			<Switch>
 				<ProtectedRoute path="/home" exact={true}>
-					<SideNavigation />
+					<Home listLoaded={listLoaded} />
 				</ProtectedRoute>
 				<Route path="/home/search/:query" exact={true}>
 					<Search />

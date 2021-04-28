@@ -8,9 +8,6 @@ const Hometab = () => {
 	// const dispatch = useDispatch();
 	const allCurrentLists = useSelector((state) => state?.lists?.allLists);
 
-	const hometab = document.getElementById("sideNav-tab-home");
-	if (hometab) hometab.click();
-
 	// let userLists;
 	// if (allCurrentLists && allCurrentLists.length > 0) {
 	// 	userLists = <h1> You have lists</h1>;
@@ -18,7 +15,7 @@ const Hometab = () => {
 	// 	userLists = <h1> You Don't have any lists, go make some</h1>;
 	// }
 
-	return <></>;
+	return <h1> home</h1>;
 };
 
 export default Hometab;
