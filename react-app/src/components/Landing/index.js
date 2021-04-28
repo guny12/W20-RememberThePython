@@ -6,11 +6,9 @@ import { getAllLists } from "../../store/lists";
 const Landing = () => {
 	const history = useHistory();
 	const dispatch = useDispatch();
-	const currentUser = useSelector((state) => state.session.user?.firstName);
+	const currentUser = useSelector((state) => state.session.user?.id);
 
-	if (currentUser) {
-		history.push("/home");
-	}
+	if (currentUser) history.push("/home");
 
 	return (
 		<h1>

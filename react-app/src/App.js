@@ -37,11 +37,11 @@ function App() {
 				<Route path="/home/search/:query" exact={true}>
 					<Search />
 				</Route>
-				<Route path="/" exact={true}>
+				<Route path="/landing" exact={true}>
 					<Landing />
 				</Route>
 				<Route path="/">
-					<Redirect to="/" />
+					<Redirect to="/landing" />
 				</Route>
 			</Switch>
 		</BrowserRouter>
