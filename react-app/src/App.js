@@ -27,8 +27,8 @@ function App() {
 
 	useEffect(() => {
 		if (sessionUser) {
+			(async () => await dispatch(taskActions.clearAllTasks()))();
 			(async () => await dispatch(listActions.getAllLists()))();
-			(async () => await dispatch(taskActions.getTasks()))();
 		}
 	}, [dispatch, sessionUser]);
 

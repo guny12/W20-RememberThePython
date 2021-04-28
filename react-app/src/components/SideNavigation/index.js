@@ -27,7 +27,8 @@ const SideNavigation = () => {
 	};
 
 	const loadTasks = async (list) => {
-		await dispatch(clearAllTasks());
+		// await dispatch(clearAllTasks());
+		// moved to App.js
 
 		if (list !== "search") {
 			await dispatch(clearAllResults());

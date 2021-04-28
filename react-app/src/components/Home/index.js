@@ -12,7 +12,6 @@ const Home = () => {
 	let userLists;
 	if (allCurrentLists && allCurrentLists.length > 0 && centerDiv) {
 		userLists = <h1> You have lists</h1>;
-		centerDiv.replaceWith(userLists);
 	} else {
 		userLists = <h1> You Don't have any lists, go make some</h1>;
 	}
