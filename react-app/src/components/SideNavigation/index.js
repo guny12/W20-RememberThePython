@@ -6,10 +6,10 @@ import { getAllLists, deleteList } from "../../store/lists";
 import EditListModal from "../EditListModal";
 import ListModal from "../../components/ListModal";
 import AllTasks from "./allTasks";
-import Logo from "./Logo"
+import Logo from "./Logo";
 
 import styles from "./SideNavigation.module.css";
-import './SideNavigation.css'
+import "./SideNavigation.css";
 
 const SideNavigation = () => {
 	const dispatch = useDispatch();
@@ -33,14 +33,14 @@ const SideNavigation = () => {
 
 	if (!sessionUser) return null;
 	return (
-		<Tab.Container id="left-tabs-example" defaultActiveKey="first" >
-			<Row >
+		<Tab.Container id="left-tabs-example" defaultActiveKey="first">
+			<Row>
 				<Col sm={1.5} className={styles.tabContainer}>
 					<Logo />
 					<Nav variant="pills" className="flex-column">
 						<Nav.Item className={styles.navItem}>
 							<Nav.Link eventKey="inbox">Inbox</Nav.Link>
-						</Nav.Item >
+						</Nav.Item>
 						<Nav.Item className={styles.navItem}>
 							<Nav.Link eventKey="allTasks">All Tasks</Nav.Link>
 						</Nav.Item>
@@ -58,7 +58,7 @@ const SideNavigation = () => {
 						</Nav.Item>
 						<Nav.Item className={styles.navItem}>
 							<Nav.Link eventKey="trash">Trash</Nav.Link>
-						</Nav.Item >
+						</Nav.Item>
 						<Nav.Item className={styles.navItem}>
 							<Nav.Link eventKey="search">Search</Nav.Link>
 						</Nav.Item>
@@ -66,19 +66,21 @@ const SideNavigation = () => {
 							<h3>Lists</h3>
 							<ListModal />
 						</div>
-						{lists?.map((lis) => (
-							<Nav.Item key={lis.id} className={`${styles.list_div} ${styles.navItem}`}>
-								<Nav.Link eventKey={lis.title} className={styles.listName}>
-									{lis.title}
-								</Nav.Link>
-								<div className={styles.editBtn}>
-									<EditListModal title={lis.title} id={lis.id} />
-								</div>
-								<Button id={lis.id} onClick={handleDelete} className={`${styles.deleteBtn}`}>
-									<i id={lis.id} className="far fa-trash-alt"></i>
-								</Button>
-							</Nav.Item>
-						))}
+						<div className={styles.lists_container} id="lists_container">
+							{lists?.map((lis) => (
+								<Nav.Item key={lis.id} className={`${styles.list_div} ${styles.navItem}`}>
+									<Nav.Link eventKey={lis.title} className={styles.listName}>
+										{lis.title}
+									</Nav.Link>
+									<div className={styles.editBtn}>
+										<EditListModal title={lis.title} id={lis.id} />
+									</div>
+									<Button id={lis.id} onClick={handleDelete} className={`${styles.deleteBtn}`}>
+										<i id={lis.id} className="far fa-trash-alt"></i>
+									</Button>
+								</Nav.Item>
+							))}
+						</div>
 					</Nav>
 				</Col>
 				<Col sm={8}>
@@ -87,7 +89,7 @@ const SideNavigation = () => {
 							<p> test</p>
 						</Tab.Pane>
 						<Tab.Pane eventKey="allTasks">
-							<AllTasks listId = {0}/>
+							<AllTasks listId={0} />
 							{/* SWAP THIS OUT WITH ALL TASK LISTS WHEN IT COMES  */}
 						</Tab.Pane>
 						<Tab.Pane eventKey="today">
@@ -109,7 +111,7 @@ const SideNavigation = () => {
 							<Tab.Pane eventKey={lis.title} key={lis.id}>
 								<p id={lis.id}>{lis.title}</p>
 								<Tab.Pane>
-									<AllTasks listId={lis.id}/>
+									<AllTasks listId={lis.id} />
 								</Tab.Pane>
 							</Tab.Pane>
 						))}
