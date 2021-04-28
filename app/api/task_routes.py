@@ -27,8 +27,6 @@ def get_task_info():
 
 
 # GET All Tasks
-
-
 @task_routes.route("/all")
 @login_required
 def get_all_tasks():
@@ -47,16 +45,16 @@ def create_task():
 
     form["csrf_token"].data = request.cookies["csrf_token"]
     if form.validate_on_submit():
-        print(request.json, "\n \n ================= \n \n")
+        body = request.json
         currentListId = request.json["listId"]
         targetList = List.query.get(currentListId)
         if targetList.userId != current_user.id:
             return {"errors": "Must be List creator to create a Task there"}, 401
-        newContent = request.json["content"]
-        newCompleted = getattr(request.json, "completed", None)
-        newStartDate = getattr(request.json, "startDate", None)
-        newDueDate = getattr(request.json, "dueDate", None)
-        newPriority = getattr(request.json, "priority", None)
+        newContent = body["content"]
+        newCompleted = body["completed"] if "completed" in body else False
+        newStartDate = body["startDate"] if "startDate" in body else None
+        newDueDate = body["dueDate"] if "dueDate" in body else None
+        newPriority = body["priority"] if "priority" in body else None
 
         newTask = Task(
             creatorId=current_user.id,

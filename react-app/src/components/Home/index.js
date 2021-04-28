@@ -1,15 +1,19 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import "./Home.css";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { getAllLists } from "../../store/lists";
 
 const Home = () => {
-	const loggedIn = useSelector((state) => state.session.user?.id);
-	const userName = useSelector((state) => state.session.user?.username);
+	const dispatch = useDispatch();
+	const currentUser = useSelector((state) => state.session.user?.firstName);
 
-	return (
-		<>
-		</>
-	);
+	useEffect(() => {
+		(async () => {
+			await dispatch(getAllLists());
+		})();
+	}, [dispatch]);
+
+	return <></>;
 };
 
 export default Home;

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import { Button } from "react-bootstrap";
 
@@ -7,6 +8,7 @@ import "./Navigation.css";
 
 function ProfileButton({ user }) {
 	const dispatch = useDispatch();
+	const history = useHistory();
 	const currentUser = useSelector((state) => state.session.user);
 	const [showMenu, setShowMenu] = useState(false);
 
@@ -26,19 +28,26 @@ function ProfileButton({ user }) {
 
 	const logout = async () => {
 		await dispatch(sessionActions.logout());
+
+		// explicitly kick the user to the landing page
+		// history.go(0) refuses to do that depending on
+		// your initial route when server restarts
+		// or browser refreshes
+		history.push("/");
 	};
 
 	const deleteUser = async () => {
 		if (currentUser.id === 1) {
 			window.alert(`Please make an account if you want to delete an account!
 
-			Redirecting to 30min. ad videos...`)
+			Redirecting to 30min. ad videos...`);
 
 			return;
 		}
 
 		await dispatch(sessionActions.deleteUser());
 		await dispatch(sessionActions.logout());
+		history.go(0);
 	};
 
 	return (

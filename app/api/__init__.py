@@ -1,3 +1,4 @@
+# utility function for routes
 def validation_errors_to_error_messages(validation_errors):
     """
     Simple function that turns the WTForms validation errors into a simple list
