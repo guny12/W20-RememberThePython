@@ -28,7 +28,7 @@ const Navigation = () => {
 	const handleSearch = async (e) => {
 		e.preventDefault();
 		await dispatch(searchQuery(search));
-		document.querySelector("#left-tabs-example-tab-search").click();
+		document.querySelector("#sideNav-tab-search").click();
 		document.querySelector("#search-bar").value = "";
 		document.querySelector("#search-bar").blur();
 	};

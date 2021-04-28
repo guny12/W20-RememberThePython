@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import SideNavigation from "./components/SideNavigation";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
-import Home from "./components/Home";
 import Search from "./components/Search";
 import Landing from "./components/Landing";
 
@@ -15,20 +14,16 @@ import * as listActions from "./store/lists";
 function App() {
 	const dispatch = useDispatch();
 	const [loaded, setLoaded] = useState(false);
-	const sessionUser = useSelector((state) => state.session.user);
 	useEffect(() => {
 		(async () => {
-			await dispatch(sessionActions.restoreUser());
+			let response = await dispatch(sessionActions.restoreUser());
+			if (response.message == "success") {
+				(async () => await dispatch(taskActions.clearAllTasks()))();
+				(async () => await dispatch(listActions.getAllLists()))();
+			}
 			setLoaded(true);
 		})();
 	}, [dispatch]);
-
-	useEffect(() => {
-		if (sessionUser) {
-			(async () => await dispatch(taskActions.clearAllTasks()))();
-			(async () => await dispatch(listActions.getAllLists()))();
-		}
-	}, [dispatch, sessionUser]);
 
 	if (!loaded) {
 		return null;
@@ -38,10 +33,10 @@ function App() {
 	return (
 		<BrowserRouter>
 			<Navigation />
-			<SideNavigation />
+			{/* <SideNavigation /> */}
 			<Switch>
 				<ProtectedRoute path="/home" exact={true}>
-					<Home />
+					<SideNavigation />
 				</ProtectedRoute>
 				<Route path="/home/search/:query" exact={true}>
 					<Search />
