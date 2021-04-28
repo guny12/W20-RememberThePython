@@ -29,6 +29,12 @@ const SideNavigation = () => {
 	const loadTasks = async (list) => {
 		await dispatch(clearAllTasks());
 
+		// this is for unchecking all "master checkboxes"
+		document.querySelectorAll(".master-checkbox").forEach((checkbox) => {
+			checkbox.checked = false
+			checkbox.indeterminate = false
+		});
+
 		if (list !== "search") {
 			await dispatch(clearAllResults());
 		}

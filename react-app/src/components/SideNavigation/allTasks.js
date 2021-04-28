@@ -59,9 +59,24 @@ const AllTasks = ({ listId }) => {
 		tasksDiv = Object.values(tasks);
 	}
 
+	const taskSelect = (e) => {
+		const allTasks = document.querySelectorAll(".task-checkbox");
+
+		if (e.target.checked) {
+			allTasks.forEach((task) => task.checked = true);
+		} else {
+			allTasks.forEach((task) => task.checked = false);
+		}
+	};
+
 	return (
 		<div className="task-page-container">
-			<form onSubmit={handleSubmit}>
+			<input
+				type="checkbox"
+				className={`master-checkbox master-checkbox-listId-${listId}`}
+				onClick={(e) => taskSelect(e)}
+			/>
+			{/* <form onSubmit={handleSubmit}>
 				<input
 					type="text"
 					placeholder="Add a task..."
@@ -70,7 +85,7 @@ const AllTasks = ({ listId }) => {
 					onChange={(e) => setContent(e.target.value)}
 				></input>
 				<button type="submit">Add Task</button>
-			</form>
+			</form> */}
 			<div className="task-list-container">
 				{tasksDiv?.map((task) => (
 					<Task task={task} key={task.id} />
