@@ -1,0 +1,29 @@
+.card-body {
+	overflow: hidden;
+}
+
+.card {
+	padding: 0px;
+	background-clip: padding-box;
+	background-size: cover;
+	box-sizing: border-box;
+	position: relative;
+	height: auto;
+	display: flex;
+	background-color: rgb(255, 255, 255);
+	z-index: 0;
+	width: 200px;
+	border-radius: 20px;
+}
+
+.card-footer {
+	background-color: transparent;
+}
+
+.card-footer-Quicklook {
+	font-size: 12px;
+}
+
+.card-footer-Tasks {
+	font-size: 12px;
+}
