@@ -15,15 +15,13 @@ import * as listActions from "./store/lists";
 function App() {
 	const dispatch = useDispatch();
 	const [loaded, setLoaded] = useState(false);
-
+	const sessionUser = useSelector((state) => state.session.user);
 	useEffect(() => {
 		(async () => {
 			await dispatch(sessionActions.restoreUser());
 			setLoaded(true);
 		})();
 	}, [dispatch]);
-
-	const sessionUser = useSelector((state) => state.session.user);
 
 	useEffect(() => {
 		if (sessionUser) {

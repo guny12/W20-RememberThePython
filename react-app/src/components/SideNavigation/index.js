@@ -58,7 +58,7 @@ const SideNavigation = () => {
 		}
 	};
 
-	if (!sessionUser) return null;
+	if (!sessionUser || !lists) return null;
 	return (
 		<Tab.Container id="left-tabs-example" defaultActiveKey="first">
 			<Row>
