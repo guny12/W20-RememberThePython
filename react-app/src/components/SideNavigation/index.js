@@ -1,20 +1,19 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-// import { useHistory } from "react-router-dom";
 import { Nav, Button, Tab, Col, Row } from "react-bootstrap";
 import { getAllLists, deleteList } from "../../store/lists";
 import EditListModal from "../EditListModal";
 import ListModal from "../../components/ListModal";
 import AllTasks from "./allTasks";
 import Logo from "./Logo";
-import { getTasks } from "../../store/tasks";
+import { getTasks, clearAllTasks, getListTasks } from "../../store/tasks";
+import { clearAllResults } from "../../store/search";
 
 import styles from "./SideNavigation.module.css";
 import "./SideNavigation.css";
 
 const SideNavigation = () => {
 	const dispatch = useDispatch();
-	// const history = useHistory();
 	const sessionUser = useSelector((state) => state.session.user);
 	const lists = useSelector((state) => state.lists.allLists);
 
@@ -27,13 +26,36 @@ const SideNavigation = () => {
 		await dispatch(getAllLists());
 	};
 
-	useEffect(() => {
-		// // line of code already existing somewhere that already loads all lists
-		// (async () => await dispatch(getAllLists()))();
-		if (sessionUser) {
-			(async () => await dispatch(getTasks()))();
+	const loadTasks = async (list) => {
+		await dispatch(clearAllTasks());
+
+		if (list !== "search") {
+			await dispatch(clearAllResults());
 		}
-	}, [dispatch, sessionUser]);
+
+		switch (list) {
+			case "inbox":
+				return;
+			case "allTasks":
+				await dispatch(getTasks());
+				return;
+			case "today":
+				return;
+			case "tomorrow":
+				return;
+			case "thisWeek":
+				return;
+			case "givenToOthers":
+				return;
+			case "trash":
+				return;
+			default:
+				if (list === "search") return;
+				const [currentList] = lists.filter((singleList) => singleList.title === list);
+				await dispatch(getListTasks(currentList.id));
+				return;
+		}
+	};
 
 	if (!sessionUser) return null;
 	return (
@@ -43,28 +65,28 @@ const SideNavigation = () => {
 					<Logo />
 					<Nav variant="pills" className="flex-column">
 						<Nav.Item className={styles.navItem}>
-							<Nav.Link eventKey="inbox">Inbox</Nav.Link>
+							<Nav.Link onClick={() => loadTasks("inbox")} eventKey="inbox">Inbox</Nav.Link>
 						</Nav.Item>
 						<Nav.Item className={styles.navItem}>
-							<Nav.Link eventKey="allTasks">All Tasks</Nav.Link>
+							<Nav.Link onClick={() => loadTasks("allTasks")} eventKey="allTasks">All Tasks</Nav.Link>
 						</Nav.Item>
 						<Nav.Item className={styles.navItem}>
-							<Nav.Link eventKey="today">Today</Nav.Link>
+							<Nav.Link onClick={() => loadTasks("today")} eventKey="today">Today</Nav.Link>
 						</Nav.Item>
 						<Nav.Item className={styles.navItem}>
-							<Nav.Link eventKey="tomorrow">Tomorrow</Nav.Link>
+							<Nav.Link onClick={() => loadTasks("tomorrow")} eventKey="tomorrow">Tomorrow</Nav.Link>
 						</Nav.Item>
 						<Nav.Item className={styles.navItem}>
-							<Nav.Link eventKey="thisWeek">This Week</Nav.Link>
+							<Nav.Link onClick={() => loadTasks("thisWeek")} eventKey="thisWeek">This Week</Nav.Link>
 						</Nav.Item>
 						<Nav.Item className={styles.navItem}>
-							<Nav.Link eventKey="givenToOthers">Given to others</Nav.Link>
+							<Nav.Link onClick={() => loadTasks("givenToOthers")} eventKey="givenToOthers">Given to others</Nav.Link>
 						</Nav.Item>
 						<Nav.Item className={styles.navItem}>
-							<Nav.Link eventKey="trash">Trash</Nav.Link>
+							<Nav.Link onClick={() => loadTasks("trash")} eventKey="trash">Trash</Nav.Link>
 						</Nav.Item>
 						<Nav.Item className={styles.navItem}>
-							<Nav.Link eventKey="search">Search</Nav.Link>
+							<Nav.Link onClick={() => loadTasks("search")} eventKey="search">Search</Nav.Link>
 						</Nav.Item>
 						<div className={styles.list_div}>
 							<h3>Lists</h3>
@@ -73,7 +95,7 @@ const SideNavigation = () => {
 						<div className={styles.lists_container} id="lists_container">
 							{lists?.map((lis) => (
 								<Nav.Item key={lis.id} className={`${styles.list_div} ${styles.navItem}`}>
-									<Nav.Link eventKey={lis.title} className={styles.listName}>
+									<Nav.Link onClick={() => loadTasks(`${lis.title}`)} eventKey={lis.title} className={styles.listName}>
 										{lis.title}
 									</Nav.Link>
 									<div className={styles.editBtn}>
