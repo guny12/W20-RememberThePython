@@ -25,14 +25,14 @@ const SideNavigation = () => {
 		};
 		await dispatch(deleteList(toBeDeleted));
 		await dispatch(getAllLists());
-		// return history.push("/lists");
-		// where is this supposed to go? there is no /lists route in url at the moment...
 	};
 
 	useEffect(() => {
 		// // line of code already existing somewhere that already loads all lists
 		// (async () => await dispatch(getAllLists()))();
-		(async () => await dispatch(getTasks()))();
+		if (sessionUser) {
+			(async () => await dispatch(getTasks()))();
+		}
 	}, [dispatch, sessionUser]);
 
 	if (!sessionUser) return null;
