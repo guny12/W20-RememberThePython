@@ -27,14 +27,6 @@ const SideNavigation = () => {
 		await dispatch(getAllLists());
 	};
 
-	useEffect(() => {
-		// // line of code already existing somewhere that already loads all lists
-		// (async () => await dispatch(getAllLists()))();
-		if (sessionUser) {
-			(async () => await dispatch(getTasks()))();
-		}
-	}, [dispatch, sessionUser]);
-
 	if (!sessionUser) return null;
 	return (
 		<Tab.Container id="left-tabs-example" defaultActiveKey="first">

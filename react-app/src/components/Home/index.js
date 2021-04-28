@@ -1,17 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
-import { getAllLists } from "../../store/lists";
+import { Card } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 
 const Home = () => {
-	const dispatch = useDispatch();
-	const currentUser = useSelector((state) => state.session.user?.firstName);
-
-	useEffect(() => {
-		(async () => {
-			await dispatch(getAllLists());
-		})();
-	}, [dispatch]);
+	// const dispatch = useDispatch();
 
 	return <></>;
 };

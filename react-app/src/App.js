@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import SideNavigation from "./components/SideNavigation";
@@ -9,6 +9,8 @@ import Search from "./components/Search";
 import Landing from "./components/Landing";
 
 import * as sessionActions from "./store/session";
+import * as taskActions from "./store/tasks";
+import * as listActions from "./store/lists";
 
 function App() {
 	const dispatch = useDispatch();
@@ -20,6 +22,15 @@ function App() {
 			setLoaded(true);
 		})();
 	}, [dispatch]);
+
+	const sessionUser = useSelector((state) => state.session.user);
+
+	useEffect(() => {
+		if (sessionUser) {
+			(async () => await dispatch(listActions.getAllLists()))();
+			(async () => await dispatch(taskActions.getTasks()))();
+		}
+	}, [dispatch, sessionUser]);
 
 	if (!loaded) {
 		return null;
