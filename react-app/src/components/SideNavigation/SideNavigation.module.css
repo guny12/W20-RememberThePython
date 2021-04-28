@@ -73,6 +73,6 @@
 .lists_container {
 	overflow-y: auto;
 	overscroll-behavior: none;
-	height: 33rem;
+	height: 32rem;
 	width: 12rem;
 }
