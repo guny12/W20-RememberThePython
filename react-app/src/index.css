@@ -1,1 +1,7 @@
-/* TODO Add site wide styles */
+body {
+  background-color: #d7e7f5;
+}
+
+.row {
+  margin: 0;
+}

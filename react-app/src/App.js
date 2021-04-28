@@ -23,13 +23,15 @@ function App() {
 	if (!loaded) {
 		return null;
 	}
+
+	// PLEASE DO NOT COMMENT OUT HOME COMPONENT
 	return (
 		<BrowserRouter>
 			<Navigation />
 			<SideNavigation />
 			<Switch>
 				<ProtectedRoute path="/home" exact={true}>
-					{/* <Home /> */}
+					<Home />
 				</ProtectedRoute>
 				<Route path="/home/search/:query" exact={true}>
 					<Search />
