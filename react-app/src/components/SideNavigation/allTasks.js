@@ -1,25 +1,21 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import * as taskActions from "../../store/tasks";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import Task from "../Tasks/index";
-import "./AllTasks.css"
 import AddTask from "../Tasks/AddTask";
+import EditTasks from "../Tasks/EditTasks";
+
+import "./AllTasks.css"
 
 
 const AllTasks = ({ listId }) => {
-	const dispatch = useDispatch();
 	const tasks = useSelector((state) => state.tasks.allTasks);
 	const lists = useSelector((state) => state.lists.allLists);
-	console.log(lists, "LISTS!!!!!")
-	
+	const [selected, setSelected] = useState(false);
+	const [selectedTask, setSelectedTask] = useState({});
+
 	let currentList;
-	// const [currentList] = lists?.filter(list => list.id === listId)
-	// console.log(currentList)
-	// const list = lists.map(listId => listId ===list.)
 
 	const tasksQuery = useSelector((state) => state.search.results);
-	const checkedTasks = useSelector((state) => state.tasks.checkedTasks);
-	const currentListTasks = useSelector((state) => state.lists.currentListTasks);
 	const listTasks = {};
 
 	if (listId > 0) {
@@ -36,24 +32,6 @@ const AllTasks = ({ listId }) => {
 		}
 	}
 
-	// const handleDelete = async (e) => {
-	//   e.preventDefault();
-	//   const toBeDeleted = {
-	//     listId: e.target.id,
-	//   };
-	//   await dispatch(deleteList(toBeDeleted));
-	//   dispatch(getAllLists());
-	//   return history.push("/lists");
-	// };
-
-	const [completed, setCompleted] = useState(false);
-	const [startDate, setStartDate] = useState(null);
-	const [dueDate, setDueDate] = useState(null);
-	const [priority, setPriority] = useState(null);
-	const [selected, setSelected] = useState(false)
-	const [selectedTask, setSelectedTask] = useState({})
-
-
 	let tasksDiv;
 	if (listId > 0) {
 		tasksDiv = Object.values(listTasks);
@@ -64,28 +42,19 @@ const AllTasks = ({ listId }) => {
 	}
 
 	const test = (task) => {
-		console.log(task)
-		setSelectedTask(task)
-		setSelected(!selected)
-		// currentList = lists.filter(list => list.id === listId)
-		// currentList = currentList[0]
-		// console.log(currentList)
+		setSelectedTask(task);
+		setSelected(!selected);
 	}
-
-	// onChange = (e) => {
-	// 	e.preventDefault()
-
-	// 	dispatch(editTask(e.target.value, taskId))
-	// }
 
 	return (
 		<div className="outer-shell">
 
 			<div className="task-page-container">
-				<div className="task-form-container">
-					<AddTask listId={listId}/>
-				</div>
-
+				<EditTasks listId={listId} />
+				{listId > 0 &&
+					<div className="task-form-container">
+						<AddTask listId={listId} />
+					</div>}
 				<div className="task-list-container">
 					{tasksDiv?.map((task) => (
 						<div onClick={() => test(task)}>
@@ -94,9 +63,9 @@ const AllTasks = ({ listId }) => {
 					))}
 				</div>
 			</div>
-				
+
 			<div className="task-sub-container">
-				{!selected &&				
+				{!selected &&
 					<div>
 						<h4>{currentList && currentList.title}</h4>
 						<div className="num-display">
@@ -113,7 +82,7 @@ const AllTasks = ({ listId }) => {
 				}
 				{selected &&
 					<div className="task-details-page">
-						<h2>{selectedTask.content}</h2>
+						<h2 className="task-content-header">{selectedTask.content}</h2>
 						<div className="dropdowns">
 							<div className="dropdown-due-date">
 								<label>due</label>
@@ -124,8 +93,8 @@ const AllTasks = ({ listId }) => {
 							<div className="dropdown-list">
 								<label>list</label>
 								<select>
-									{lists?.map(list =>(<option value={list.id}>{list.title}</option>)
-										)}
+									{lists?.map(list => (<option value={list.id}>{list.title}</option>)
+									)}
 								</select>
 							</div>
 						</div>

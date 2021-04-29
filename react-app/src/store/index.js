@@ -4,12 +4,14 @@ import sessionReducer from "./session";
 import listsReducer from "./lists";
 import searchReducer from "./search";
 import taskReducer from "./tasks";
+import checkboxesReducer from "./checkboxes";
 
 const rootReducer = combineReducers({
 	session: sessionReducer,
 	lists: listsReducer,
 	search: searchReducer,
 	tasks: taskReducer,
+	checkboxes: checkboxesReducer,
 });
 
 let enhancer;

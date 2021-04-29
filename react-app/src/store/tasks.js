@@ -3,12 +3,12 @@ const CLEAR_TASKS = "task/CLEAR_TASKS";
 const CHECK_TASK = "task/CHECK_TASK";
 const UNCHECK_TASK = "task/UNCHECK_TASK";
 
-const checkTask = (taskId) => ({
+export const checkTask = (taskId) => ({
 	type: CHECK_TASK,
 	payload: taskId
 });
 
-const uncheckTask = (taskId) => ({
+export const uncheckTask = (taskId) => ({
 	type: UNCHECK_TASK,
 	payload: taskId
 });
@@ -65,25 +65,25 @@ export const newTask = (taskDetails) => async (dispatch) => {
 	dispatch(getTasks());
 };
 
-// taskDetails is the object that is submitted, when you click 'Edit Task' -> *form appears with fields populated* -> click 'OK'
-// export const editedTask = (taskDetails) => async (dispatch) => {
-// 	const { content, taskId } = taskDetails;
-// 	const response = await fetch("/api/task", {
-// 		method: "PATCH",
-// 		headers: {
-// 			"Content-Type": "application/json",
-// 		},
-// 		body: JSON.stringify({
-// 			content,
-// 			taskId,
-// 		}),
-// 	});
+// edit task
+export const editedTask = (taskDetails) => async (dispatch) => {
+	const { content, taskId } = taskDetails;
+	const response = await fetch("/api/task", {
+		method: "PATCH",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({
+			content,
+			taskId,
+		}),
+	});
 
-// 	const data = await response.json();
-// 	if (data.errors) return data;
-// 	dispatch(editTask(data.task));
-// 	return data;
-// };
+	const data = await response.json();
+	if (data.errors) return data;
+	// dispatch(editTask(data.task));
+	return data;
+};
 
 // for deletetask
 export const removeTask = (taskId) => async (dispatch) => {
