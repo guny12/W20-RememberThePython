@@ -119,9 +119,11 @@ const AllTasks = ({ listId }) => {
 					<div className="task-details-page">
 						<h2>{selectedTask.content}</h2>
 						<select>
-							<option>{selectedTask.dueDate}</option>
+							<option>{selectedTask.dueDate}due date</option>
 						</select>
 						<select>
+							{lists?.map(list =>(<option>{list.title}</option>)
+								)}
 							{/* <option>{lists[selectedTask.listId].title}</option> */}
 						</select>
 						<p>Notes </p>
