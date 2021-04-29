@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 import { createList, getAllLists } from "../../store/lists";
 import styles from "./ListForm.module.css";
@@ -8,7 +7,6 @@ import "./ListForm.css";
 
 const NewListForm = () => {
 	const dispatch = useDispatch();
-	const history = useHistory();
 	const user = useSelector((state) => state.session.user);
 	const [errors, setErrors] = useState([]);
 	const [listName, setListName] = useState("");
