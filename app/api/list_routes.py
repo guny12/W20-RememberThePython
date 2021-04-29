@@ -20,15 +20,23 @@ def validation_errors_to_error_messages(validation_errors):
 
 
 @list_routes.route("/")
-# @login_required
+@login_required
 def all_list():
     userId = current_user.id
     lists = List.query.filter(List.userId == userId).order_by(List.id).all()
     return {"lists": [lis.to_dict() for lis in lists]}
 
 
+@list_routes.route("/<int:listId>")
+@login_required
+def get_list_taskIds(listId):
+    currentList = List.query.get(listId)
+    listTasks = {f"{lis.id}": lis.id for lis in currentList.listTask}
+    return {"length": listTasks}
+
+
 @list_routes.route("/", methods=["POST"])
-# @login_required
+@login_required
 def create_list():
     form = ListForm()
     form["csrf_token"].data = request.cookies["csrf_token"]

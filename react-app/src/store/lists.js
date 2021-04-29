@@ -1,16 +1,15 @@
-import { LOAD_ALL_TASKS } from "./tasks";
 const ALL_LISTS = "lists/ALL_LISTS";
-const GET_LIST = "lists/GET_LIST";
+const GET_LIST_LENGTH = "lists/GET_LIST_LENGTH";
 
 const loadAll = (lists) => ({
 	type: ALL_LISTS,
 	lists,
 });
 
-// what is this for? there's no GET_LIST action in reducer. same for where this is dispatched -Jim
-const loadOne = (list) => ({
-	type: GET_LIST,
-	list,
+// repurposed for getting current list's length (or # of tasks)
+const getListLength = (length) => ({
+	type: GET_LIST_LENGTH,
+	length,
 });
 
 export const getAllLists = () => async (dispatch) => {
@@ -63,10 +62,20 @@ export const deleteList = (list) => async (dispatch) => {
 	return deletedList;
 };
 
-const listsReducer = (state = {}, action) => {
+export const getListTaskIds = (listId) => async (dispatch) => {
+	const res = await fetch(`/api/lists/${listId}`);
+	const data = await res.json();
+	dispatch(getListLength(data.length));
+};
+
+const initialState = { allLists: [], currentListTasks: {} };
+
+const listsReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case ALL_LISTS:
 			return { ...state, allLists: action.lists };
+		case GET_LIST_LENGTH:
+			return { ...state, currentListTasks: action.length };
 		default:
 			return state;
 	}

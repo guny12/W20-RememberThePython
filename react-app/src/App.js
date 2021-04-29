@@ -9,18 +9,18 @@ import Landing from "./components/Landing";
 import Home from "./components/Home";
 
 import * as sessionActions from "./store/session";
-import * as taskActions from "./store/tasks";
 import * as listActions from "./store/lists";
 
 function App() {
 	const dispatch = useDispatch();
 	const [loaded, setLoaded] = useState(false);
 	const [listLoaded, setListLoaded] = useState(false);
+	const allCurrentLists = useSelector((state) => state?.lists?.allLists);
 
 	useEffect(() => {
 		(async () => {
 			let response = await dispatch(sessionActions.restoreUser());
-			if (response.message === "success") {
+			if (response.message === "success" && allCurrentLists?.length === 0) {
 				(async () => {
 					let lists = await dispatch(listActions.getAllLists());
 					if (lists) setListLoaded(true);
@@ -28,7 +28,7 @@ function App() {
 			}
 			setLoaded(true);
 		})();
-	}, [dispatch]);
+	}, [dispatch, allCurrentLists]);
 
 	if (!loaded) return null;
 

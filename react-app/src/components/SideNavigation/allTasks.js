@@ -3,9 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import * as taskActions from "../../store/tasks";
 import Task from "../Tasks/index";
 import "./AllTasks.css"
+import AddTask from "../Tasks/AddTask";
 
-const TaskSub = () => {
-};
 
 const AllTasks = ({ listId }) => {
 	const dispatch = useDispatch();
@@ -19,6 +18,8 @@ const AllTasks = ({ listId }) => {
 	// const list = lists.map(listId => listId ===list.)
 
 	const tasksQuery = useSelector((state) => state.search.results);
+	const checkedTasks = useSelector((state) => state.tasks.checkedTasks);
+	const currentListTasks = useSelector((state) => state.lists.currentListTasks);
 	const listTasks = {};
 
 	if (listId > 0) {
@@ -45,27 +46,13 @@ const AllTasks = ({ listId }) => {
 	//   return history.push("/lists");
 	// };
 
-	const [content, setContent] = useState("");
 	const [completed, setCompleted] = useState(false);
 	const [startDate, setStartDate] = useState(null);
 	const [dueDate, setDueDate] = useState(null);
 	const [priority, setPriority] = useState(null);
 	const [selected, setSelected] = useState(false)
 	const [selectedTask, setSelectedTask] = useState({})
-	const [inputSelected, setInputSelected] = useState(false)
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		const payload = {
-			content,
-			listId,
-			completed,
-			startDate,
-			dueDate,
-			priority,
-		};
-		const newTask = await dispatch(taskActions.newTask(payload));
-	};
 
 	let tasksDiv;
 	if (listId > 0) {
@@ -96,19 +83,7 @@ const AllTasks = ({ listId }) => {
 
 			<div className="task-page-container">
 				<div className="task-form-container">
-					<form onSubmit={handleSubmit}>
-						<input
-							type="text"
-							placeholder="Add a task..."
-							required
-							value={content}
-							onChange={(e) => setContent(e.target.value)}
-							onClick={(e) => setInputSelected(!inputSelected)}
-						></input>
-						{inputSelected &&
-							<button type="submit">Add Task</button>
-						}
-					</form>
+					<AddTask listId={listId}/>
 				</div>
 
 				<div className="task-list-container">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React /*{ useEffect, useState }*/ from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Nav, Button, Tab, Col, Row } from "react-bootstrap";
 import { getAllLists, deleteList } from "../../store/lists";
@@ -32,8 +32,8 @@ const SideNavigation = () => {
 
 		// this is for unchecking all "master checkboxes"
 		document.querySelectorAll(".master-checkbox").forEach((checkbox) => {
-			checkbox.checked = false
-			checkbox.indeterminate = false
+			checkbox.checked = false;
+			checkbox.indeterminate = false;
 		});
 
 		if (list !== "search") {
@@ -78,11 +78,11 @@ const SideNavigation = () => {
 								Home
 							</Nav.Link>
 						</Nav.Item>
-						<Nav.Item className={styles.navItem}>
+						{/* <Nav.Item className={styles.navItem}>
 							<Nav.Link onClick={() => loadTasks("inbox")} eventKey="inbox">
 								Inbox
 							</Nav.Link>
-						</Nav.Item>
+						</Nav.Item> */}
 						<Nav.Item className={styles.navItem}>
 							<Nav.Link onClick={() => loadTasks("allTasks")} eventKey="allTasks">
 								All Tasks
@@ -103,11 +103,11 @@ const SideNavigation = () => {
 								This Week
 							</Nav.Link>
 						</Nav.Item>
-						<Nav.Item className={styles.navItem}>
+						{/* <Nav.Item className={styles.navItem}>
 							<Nav.Link onClick={() => loadTasks("givenToOthers")} eventKey="givenToOthers">
 								Given to others
 							</Nav.Link>
-						</Nav.Item>
+						</Nav.Item> */}
 						<Nav.Item className={styles.navItem}>
 							<Nav.Link onClick={() => loadTasks("trash")} eventKey="trash">
 								Trash
@@ -144,9 +144,9 @@ const SideNavigation = () => {
 						<Tab.Pane eventKey="home">
 							<Hometab />
 						</Tab.Pane>
-						<Tab.Pane eventKey="inbox">
+						{/* <Tab.Pane eventKey="inbox">
 							<p> test</p>
-						</Tab.Pane>
+						</Tab.Pane> */}
 						<Tab.Pane eventKey="allTasks">
 							<AllTasks listId={0} />
 						</Tab.Pane>
@@ -159,9 +159,9 @@ const SideNavigation = () => {
 						<Tab.Pane eventKey="thisWeek">
 							<p> test</p>
 						</Tab.Pane>
-						<Tab.Pane eventKey="givenToOthers">
+						{/* <Tab.Pane eventKey="givenToOthers">
 							<p> test</p>
-						</Tab.Pane>
+						</Tab.Pane> */}
 						<Tab.Pane eventKey="trash">
 							<p> test</p>
 						</Tab.Pane>
