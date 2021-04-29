@@ -1,10 +1,15 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { checkATask, uncheckATask } from "../../store/tasks";
 import './Tasks.css';
 
 function Task({ task }) {
   const dispatch = useDispatch();
+  const checkedTasks = useSelector((state) => state.tasks.checkedTasks);
+
+  useEffect(() => {
+
+  }, [checkedTasks[task.id]]);
 
   const test = async (e) => {
     if (e.target.checked) {
@@ -13,6 +18,7 @@ function Task({ task }) {
       await dispatch(uncheckATask(e.target.value));
     }
   };
+
   return (
     <div className="task-container">
       <input

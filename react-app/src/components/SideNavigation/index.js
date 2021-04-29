@@ -8,6 +8,7 @@ import AllTasks from "./allTasks";
 import Logo from "./Logo";
 import { getTasks, clearAllTasks, getListTasks } from "../../store/tasks";
 import { clearAllResults } from "../../store/search";
+import { resetCheckboxState } from "../../store/checkboxes";
 import Hometab from "../Hometab";
 
 import styles from "./SideNavigation.module.css";
@@ -167,7 +168,6 @@ const SideNavigation = () => {
 						</Tab.Pane>
 						{lists?.map((lis) => (
 							<Tab.Pane eventKey={lis.id} key={lis.id}>
-								<p id={lis.id}>{lis.title}</p>
 								<AllTasks listId={lis.id} />
 							</Tab.Pane>
 						))}
