@@ -1,34 +1,17 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { checkATask, uncheckATask } from "../../store/tasks";
 import './Tasks.css';
 
 function Task({ task }) {
-  const test = (e) => {
-    const allTasks = document.querySelectorAll(".task-checkbox");
-    const masterCheckbox = document.querySelectorAll(".master-checkbox");
+  const dispatch = useDispatch();
 
-    let checkedCounter = 0;
-    let uncheckedCounter = 0;
-
-    allTasks.forEach((task) => {
-      if (task.checked) {
-        checkedCounter++;
-      } else {
-        uncheckedCounter++;
-      }
-    });
-
-    if (checkedCounter > 0 && uncheckedCounter > 0) {
-      masterCheckbox.forEach((checkbox) => checkbox.indeterminate = true);
-    } else if (checkedCounter === 0) {
-      masterCheckbox.forEach((checkbox) => checkbox.indeterminate = false);
-      masterCheckbox.forEach((checkbox) => checkbox.checked = false);
-    } else if (uncheckedCounter === 0) {
-      masterCheckbox.forEach((checkbox) => checkbox.indeterminate = false);
-      masterCheckbox.forEach((checkbox) => checkbox.checked = true);
+  const test = async (e) => {
+    if (e.target.checked) {
+      await dispatch(checkATask(e.target.value));
+    } else {
+      await dispatch(uncheckATask(e.target.value));
     }
-
-    console.log("list of checkboxes:", allTasks);
-    console.log("checked:::", checkedCounter, " unchecked:::", uncheckedCounter);
   };
   return (
     <div className="task-container">

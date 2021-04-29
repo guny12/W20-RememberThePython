@@ -78,7 +78,7 @@ const AllTasks = ({ listId }) => {
 				className={`master-checkbox master-checkbox-listId-${listId}`}
 				onClick={(e) => taskSelect(e)}
 			/>
-			{/* <form onSubmit={handleSubmit}>
+			<form onSubmit={handleSubmit}>
 				<input
 					type="text"
 					placeholder="Add a task..."
@@ -87,7 +87,7 @@ const AllTasks = ({ listId }) => {
 					onChange={(e) => setContent(e.target.value)}
 				></input>
 				<button type="submit">Add Task</button>
-			</form> */}
+			</form>
 			<div className="task-list-container">
 				{tasksDiv?.map((task) => (
 					<Task task={task} key={task.id} />

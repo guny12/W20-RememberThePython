@@ -168,9 +168,7 @@ const SideNavigation = () => {
 						{lists?.map((lis) => (
 							<Tab.Pane eventKey={lis.id} key={lis.id}>
 								<p id={lis.id}>{lis.title}</p>
-								<Tab.Pane>
-									<AllTasks listId={lis.id} />
-								</Tab.Pane>
+								<AllTasks listId={lis.id} />
 							</Tab.Pane>
 						))}
 						<Tab.Pane eventKey="search">
