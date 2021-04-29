@@ -25,6 +25,8 @@
 	border: 1px solid black;
 	border-radius: 5px;
 	height: auto;
+	max-height: 85vh;
 	width: auto;
 	padding: 10px;
+	overflow-y: auto;
 }

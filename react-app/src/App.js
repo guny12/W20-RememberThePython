@@ -9,7 +9,6 @@ import Landing from "./components/Landing";
 import Home from "./components/Home";
 
 import * as sessionActions from "./store/session";
-import * as taskActions from "./store/tasks";
 import * as listActions from "./store/lists";
 
 function App() {
@@ -29,7 +28,7 @@ function App() {
 			}
 			setLoaded(true);
 		})();
-	}, [dispatch]);
+	}, [dispatch, allCurrentLists]);
 
 	if (!loaded) return null;
 

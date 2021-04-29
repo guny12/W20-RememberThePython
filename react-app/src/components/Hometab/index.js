@@ -29,7 +29,7 @@ const Hometab = () => {
 				</Card.Body>
 				<Card.Footer>
 					<Button className="card-footer-Tasks" onClick={() => listTab(list)}>{`${list?.numTasks} tasks`}</Button>
-					<QuickLookModal listId={list.id} />
+					{list?.numTasks > 0 && <QuickLookModal listId={list.id} />}
 				</Card.Footer>
 			</Card>
 		</div>
