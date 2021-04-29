@@ -45,9 +45,8 @@
 	border-color: transparent;
 }
 
-#sideNav-tabpane-home {
+#sideNav-tabpane-home[aria-hidden="false"] {
 	display: flex;
-	/* flex-direction: row; */
 	flex-wrap: wrap;
 	justify-content: space-between;
 	align-content: space-between;
@@ -57,11 +56,3 @@
 	padding: 0px;
 	margin: 0px;
 }
-
-/* #sideNav-tabpane-home {
-	display: grid;
-	grid-template-columns: ;
-	overflow-y: auto;
-	overscroll-behavior: none;
-	height: 90vh;
-} */
