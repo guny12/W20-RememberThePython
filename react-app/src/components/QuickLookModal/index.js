@@ -4,7 +4,7 @@ import { Modal } from "../../context/Modal";
 import QuickLook from "./QuickLook";
 import { Button } from "react-bootstrap";
 
-function QuickLookModal() {
+function QuickLookModal({ listId }) {
 	const [showModal, setShowModal] = useState(false);
 
 	return (
@@ -14,7 +14,7 @@ function QuickLookModal() {
 			</Button>
 			{showModal && (
 				<Modal onClose={() => setShowModal(false)}>
-					<QuickLook />
+					<QuickLook listId={listId} />
 				</Modal>
 			)}
 		</>

@@ -1,61 +1,62 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+// import { useHistory } from "react-router-dom";
 import * as taskActions from "../../store/tasks";
-import * as sessionActions from "../../store/session";
-import * as listActions from "../../store/lists";
-import { useDispatch } from "react-redux";
+// import * as listActions from "../../store/lists";
+import { useDispatch, useSelector } from "react-redux";
 import "./QuickLook.css";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Toast, Row, Col } from "react-bootstrap";
+import AllTasks from "../SideNavigation/allTasks";
 
-const QuickLook = () => {
-	const history = useHistory();
+const QuickLook = ({ listId }) => {
+	// const history = useHistory();
 	const dispatch = useDispatch();
-	const [errors, setErrors] = useState([]);
-	const [credential, setCredential] = useState("");
-	const [password, setPassword] = useState("");
 	const close = document.querySelector("#modal-background");
+	useEffect(async () => {
+		await dispatch(taskActions.getListTasks(listId));
+	}, [dispatch]);
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		const data = await dispatch(sessionActions.login({ credential, password }));
-		if (data?.errors) {
-			setErrors(["Invalid Credentials"]);
-		} else {
-			history.go(0);
-			close.click();
-			return;
+	const tasksQuery = useSelector((state) => state.search.results);
+	const tasks = useSelector((state) => state.tasks.allTasks);
+	const listTasks = {};
+
+	if (listId > 0) {
+		for (const task in tasks) {
+			if (tasks[task].listId === listId) {
+				listTasks[task] = tasks[task];
+			}
 		}
-	};
+	} else if (listId === -1 && tasksQuery) {
+		for (const key in tasksQuery.taskResults) {
+			listTasks[key] = tasksQuery.taskResults[key];
+		}
+	}
+	let tasksDiv;
+	if (listId > 0) {
+		tasksDiv = Object.values(listTasks);
+	} else if (listId === -1 && tasksQuery) {
+		tasksDiv = Object.values(listTasks);
+	} else {
+		tasksDiv = Object.values(tasks);
+	}
 
+	let taskId = false;
+	let complete = (taskId) => {
+		console.log("completed");
+		taskId = "true";
+	};
 	return (
-		<Form onSubmit={handleSubmit} className="loginform__Form">
-			{errors.length > 0 && <h2>{errors} </h2>}
-			<Form.Group controlId="formBasicEmail">
-				<Form.Label>Username or Email</Form.Label>
-				<Form.Control
-					type="text"
-					autoComplete="username"
-					value={credential}
-					onChange={(e) => setCredential(e.target.value)}
-					required
-					placeholder="Enter Username or Email"
-				/>
-			</Form.Group>
-			<Form.Group controlId="formGroupPassword">
-				<Form.Label>Password</Form.Label>
-				<Form.Control
-					type="password"
-					autoComplete="current-password"
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
-					required
-					placeholder="Enter Password"
-				/>
-			</Form.Group>
-			<Button variant="primary" type="submit">
-				Log In
-			</Button>
-		</Form>
+		<div>
+			{tasksDiv?.map((task) => (
+				<Toast onClose={() => complete(task.id)}>
+					<Toast.Header>
+						<strong className="mr-auto">{`Priority: ${task.priority ? task.priority : "None"}`}</strong>
+						<small>{`Due Date: ${task.dueDate ? task.dueDate : "None"}`}</small>
+					</Toast.Header>
+					<Toast.Body>{`${task.content}`}</Toast.Body>
+				</Toast>
+			))}
+		</div>
 	);
+	// <AllTasks listId={listId} />;
 };
 export default QuickLook;
