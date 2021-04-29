@@ -13,6 +13,7 @@ const NewListForm = () => {
 	const close = document.querySelector("#modal-background");
 
 	const handleSubmit = async (e) => {
+		e.stopImmediatePropagation();
 		e.preventDefault();
 		let newErrors = [];
 		const submission = {

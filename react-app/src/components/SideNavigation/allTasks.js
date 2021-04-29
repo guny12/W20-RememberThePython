@@ -4,7 +4,7 @@ import Task from "../Tasks/index";
 import AddTask from "../Tasks/AddTask";
 import EditTasks from "../Tasks/EditTasks";
 
-import "./AllTasks.css"
+import "./AllTasks.css";
 
 const AllTasks = ({ listId }) => {
 	const tasks = useSelector((state) => state.tasks.allTasks);
@@ -43,16 +43,17 @@ const AllTasks = ({ listId }) => {
 	const test = (task) => {
 		setSelectedTask(task);
 		setSelected(!selected);
-	}
+	};
 
 	return (
 		<div className="outer-shell">
 			<div className="task-page-container">
 				<EditTasks listId={listId} />
-				{listId > 0 &&
+				{listId > 0 && (
 					<div className="task-form-container">
 						<AddTask listId={listId} />
-					</div>}
+					</div>
+				)}
 				<div className="task-list-container">
 					{tasksDiv?.map((task) => (
 						<div onClick={() => test(task)}>
@@ -63,7 +64,7 @@ const AllTasks = ({ listId }) => {
 			</div>
 
 			<div className="task-sub-container">
-				{!selected &&
+				{!selected && (
 					<div>
 						<h4>{currentList && currentList.title}</h4>
 						<div className="num-display">
@@ -91,8 +92,9 @@ const AllTasks = ({ listId }) => {
 							<div className="dropdown-list">
 								<label>list</label>
 								<select>
-									{lists?.map(list => (<option value={list.id}>{list.title}</option>)
-									)}
+									{lists?.map((list) => (
+										<option value={list.id}>{list.title}</option>
+									))}
 								</select>
 							</div>
 						</div>

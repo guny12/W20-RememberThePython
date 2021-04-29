@@ -5,12 +5,12 @@ const UNCHECK_TASK = "task/UNCHECK_TASK";
 
 export const checkTask = (taskId) => ({
 	type: CHECK_TASK,
-	payload: taskId
+	payload: taskId,
 });
 
 export const uncheckTask = (taskId) => ({
 	type: UNCHECK_TASK,
-	payload: taskId
+	payload: taskId,
 });
 
 const loadAllTasks = (tasks) => ({
@@ -62,7 +62,7 @@ export const newTask = (taskDetails) => async (dispatch) => {
 	});
 	const data = await response.json();
 	if (data.errors) return data;
-	dispatch(getTasks());
+	dispatch(getListTasks(listId));
 };
 
 // edit task
