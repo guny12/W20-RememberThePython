@@ -124,23 +124,36 @@ const AllTasks = ({ listId }) => {
 				{!selected &&				
 					<div>
 						<h4>{currentList && currentList.title}</h4>
-						<p>{Object.keys(tasks).length} tasks</p>
-						<p>0 completed</p>
+						<div className="num-display">
+							<div className="num-tasks">
+								<h5>{Object.keys(tasks).length}</h5>
+								<p>tasks</p>
+							</div>
+							<div className="num-completed">
+								<h5>0</h5>
+								<p>completed</p>
+							</div>
+						</div>
 					</div>
 				}
 				{selected &&
 					<div className="task-details-page">
 						<h2>{selectedTask.content}</h2>
-						<label>due</label>
-						<select>
-							<option>{selectedTask.dueDate}due date</option>
-						</select>
-						<label>list</label>
-						<select>
-							{lists?.map(list =>(<option value={list.id}>{list.title}</option>)
-								)}
-							{/* <option>{lists[selectedTask.listId].title}</option> */}
-						</select>
+						<div className="dropdowns">
+							<div className="dropdown-due-date">
+								<label>due</label>
+								<select>
+									<option>{selectedTask.dueDate}due date</option>
+								</select>
+							</div>
+							<div className="dropdown-list">
+								<label>list</label>
+								<select>
+									{lists?.map(list =>(<option value={list.id}>{list.title}</option>)
+										)}
+								</select>
+							</div>
+						</div>
 					</div>
 				}
 			</div>

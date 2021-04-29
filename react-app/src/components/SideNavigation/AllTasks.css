@@ -1,4 +1,4 @@
-.outer {
+.outer-shell {
   display: flex;
   flex-direction: row;
 }
@@ -22,6 +22,9 @@
   background-color: white;
   border-radius: 8px;
   width: 400px;
+  border-style: solid;
+  border-width: thin medium thick;
+  border-color: #C0C0C0;
 }
 
 
@@ -50,4 +53,46 @@
 
 .task-details-page select {
   width: 200px;
+}
+
+.task-details-page h2 {
+  padding-left: 20px;
+  padding-top: 25px;
+}
+
+
+.task-sub-container h4 {
+  margin-left: 15px;
+  padding-top: 20px;
+}
+
+.num-display {
+  display: flex;
+  flex-direction: row;
+}
+
+.num-tasks {
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+}
+
+.num-completed {
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+}
+
+label {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.dropdowns {
+  padding-left: 30px;
+  padding-bottom: 20px;
+}
+
+.dropdown-due-date select {
+  margin-left: -5px;
 }
