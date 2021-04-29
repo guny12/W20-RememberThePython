@@ -30,6 +30,12 @@ const SideNavigation = () => {
 	const loadTasks = async (list) => {
 		await dispatch(clearAllTasks());
 
+		// this is for unchecking all "master checkboxes"
+		document.querySelectorAll(".master-checkbox").forEach((checkbox) => {
+			checkbox.checked = false
+			checkbox.indeterminate = false
+		});
+
 		if (list !== "search") {
 			await dispatch(clearAllResults());
 		}
@@ -162,9 +168,7 @@ const SideNavigation = () => {
 						{lists?.map((lis) => (
 							<Tab.Pane eventKey={lis.id} key={lis.id}>
 								<p id={lis.id}>{lis.title}</p>
-								<Tab.Pane>
-									<AllTasks listId={lis.id} />
-								</Tab.Pane>
+								<AllTasks listId={lis.id} />
 							</Tab.Pane>
 						))}
 						<Tab.Pane eventKey="search">

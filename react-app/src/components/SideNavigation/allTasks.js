@@ -61,8 +61,23 @@ const AllTasks = ({ listId }) => {
 		tasksDiv = Object.values(tasks);
 	}
 
+	const taskSelect = (e) => {
+		const allTasks = document.querySelectorAll(".task-checkbox");
+
+		if (e.target.checked) {
+			allTasks.forEach((task) => task.checked = true);
+		} else {
+			allTasks.forEach((task) => task.checked = false);
+		}
+	};
+
 	return (
 		<div className="task-page-container">
+			<input
+				type="checkbox"
+				className={`master-checkbox master-checkbox-listId-${listId}`}
+				onClick={(e) => taskSelect(e)}
+			/>
 			<form onSubmit={handleSubmit}>
 				<input
 					type="text"
