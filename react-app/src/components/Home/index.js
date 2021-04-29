@@ -1,17 +1,9 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import "./Home.css";
 
-import { getAllLists } from "../../store/lists";
-
-const Home = () => {
-	const dispatch = useDispatch();
-	const currentUser = useSelector((state) => state.session.user?.firstName);
-
-	useEffect(() => {
-		(async () => {
-			await dispatch(getAllLists());
-		})();
-	}, [dispatch]);
+const Home = ({ listLoaded }) => {
+	// console.log(listLoaded);
+	if (listLoaded) document.querySelector("#sideNav-tab-home").click();
 
 	return <></>;
 };

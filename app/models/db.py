@@ -31,9 +31,7 @@ class User(db.Model, UserMixin):
     userList = relationship("List", backref="listUser", cascade="all, delete")
     userTask = relationship("Task", backref="taskUser", cascade="all, delete")
     userNote = relationship("Note", backref="noteUser", cascade="all, delete")
-    userGive = relationship(
-        "Task", secondary=giveToUser, back_populates="taskGive", cascade="all, delete"
-    )
+    userGive = relationship("Task", secondary=giveToUser, back_populates="taskGive", cascade="all, delete")
 
     @property
     def password(self):
@@ -65,16 +63,11 @@ class List(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
+            "userId": self.userId,
             "title": self.title,
-        }
-
-    def to_dict(self):
-        return {
-            'id': self.id,
-            'userId': self.userId,
-            'title': self.title,
-            'createdAt': self.createdAt,
-            'updatedAt': self.updatedAt
+            "createdAt": self.createdAt,
+            "updatedAt": self.updatedAt,
+            "listTasks": [task.to_dict() for task in self.listTask],
         }
 
 
@@ -100,16 +93,16 @@ class Task(db.Model):
 
     def to_dict(self):
         return {
-            'id': self.id,
-            'creatorId': self.creatorId,
-            'listId': self.listId,
-            'content': self.content,
-            'completed': self.completed,
-            'startDate': self.startDate,
-            'dueDate': self.dueDate,
-            'priority': self.priority,
-            'createdAt': self.createdAt,
-            'updatedAt': self.updatedAt
+            "id": self.id,
+            "creatorId": self.creatorId,
+            "listId": self.listId,
+            "content": self.content,
+            "completed": self.completed,
+            "startDate": self.startDate,
+            "dueDate": self.dueDate,
+            "priority": self.priority,
+            "createdAt": self.createdAt,
+            "updatedAt": self.updatedAt,
         }
 
 
@@ -125,10 +118,10 @@ class Note(db.Model):
 
     def to_dict(self):
         return {
-            'id': self.id,
-            'userId': self.userId,
-            'taskId': self.taskId,
-            'content': self.content,
-            'createdAt': self.createdAt,
-            'updatedAt': self.updatedAt
+            "id": self.id,
+            "userId": self.userId,
+            "taskId": self.taskId,
+            "content": self.content,
+            "createdAt": self.createdAt,
+            "updatedAt": self.updatedAt,
         }
