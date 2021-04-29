@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as taskActions from "../../store/tasks";
+import * as listActions from "../../store/lists";
 import Task from "../Tasks/index";
 
 const AllTasks = ({ listId }) => {
@@ -47,7 +48,8 @@ const AllTasks = ({ listId }) => {
 			dueDate,
 			priority,
 		};
-		const newTask = await dispatch(taskActions.newTask(payload));
+		await dispatch(taskActions.newTask(payload));
+		await dispatch(listActions.getAllLists());
 	};
 
 	let tasksDiv;

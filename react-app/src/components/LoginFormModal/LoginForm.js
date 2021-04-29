@@ -19,7 +19,7 @@ const LoginForm = () => {
 		if (data?.errors) {
 			setErrors(["Invalid Credentials"]);
 		} else {
-			history.push("/home");
+			history.go(0);
 			close.click();
 			return;
 		}

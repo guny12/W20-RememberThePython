@@ -35,7 +35,6 @@ const Navigation = () => {
 
 	if (sessionUser) {
 		sessionLinks = (
-			// if logged in links
 			<>
 				<ProfileButton user={sessionUser} />
 			</>

@@ -28,7 +28,6 @@
 	font-size: 11px;
 	width: auto;
 	background-color: #6da2ce91;
-	/* background-color: rgb(255, 255, 255); */
 	border-color: transparent;
 }
 
@@ -48,11 +47,12 @@
 #sideNav-tabpane-home[aria-hidden="false"] {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-between;
-	align-content: space-between;
+	justify-content: flex-start;
+	align-content: flex-start;
 	overflow-y: auto;
 	overscroll-behavior: none;
 	height: 90vh;
 	padding: 0px;
 	margin: 0px;
+	min-width: 200px;
 }
