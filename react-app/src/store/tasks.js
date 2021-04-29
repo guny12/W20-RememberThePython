@@ -1,4 +1,4 @@
-const LOAD_ALL_TASKS = "task/LOAD_ALL_TASKS";
+export const LOAD_ALL_TASKS = "task/LOAD_ALL_TASKS";
 const CLEAR_TASKS = "task/CLEAR_TASKS";
 
 const loadAllTasks = (tasks) => ({
@@ -7,7 +7,7 @@ const loadAllTasks = (tasks) => ({
 });
 
 const clearTasks = () => ({
-	type: CLEAR_TASKS
+	type: CLEAR_TASKS,
 });
 
 // load all Tasks
@@ -34,7 +34,6 @@ export const getListTasks = (listId) => async (dispatch) => {
 // create a new task
 export const newTask = (taskDetails) => async (dispatch) => {
 	const { listId, content, completed, startDate, dueDate, priority } = taskDetails;
-	console.log(typeof listId)
 	const response = await fetch("/api/task/", {
 		method: "POST",
 		headers: {
