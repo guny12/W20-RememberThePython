@@ -50,8 +50,9 @@ const AllTasks = ({ listId }) => {
 	const [startDate, setStartDate] = useState(null);
 	const [dueDate, setDueDate] = useState(null);
 	const [priority, setPriority] = useState(null);
-	const [selected, setSelected] = useState(true)
+	const [selected, setSelected] = useState(false)
 	const [selectedTask, setSelectedTask] = useState({})
+	const [inputSelected, setInputSelected] = useState(false)
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -91,18 +92,24 @@ const AllTasks = ({ listId }) => {
 	// }
 
 	return (
-		<div className="outer">
+		<div className="outer-shell">
+
 			<div className="task-page-container">
-				<form onSubmit={handleSubmit}>
-					<input
-						type="text"
-						placeholder="Add a task..."
-						required
-						value={content}
-						onChange={(e) => setContent(e.target.value)}
-					></input>
-					<button type="submit">Add Task</button>
-				</form>
+				<div className="task-form-container">
+					<form onSubmit={handleSubmit}>
+						<input
+							type="text"
+							placeholder="Add a task..."
+							required
+							value={content}
+							onChange={(e) => setContent(e.target.value)}
+							onClick={(e) => setInputSelected(!inputSelected)}
+						></input>
+						{inputSelected &&
+							<button type="submit">Add Task</button>
+						}
+					</form>
+				</div>
 
 				<div className="task-list-container">
 					{tasksDiv?.map((task) => (
@@ -124,9 +131,11 @@ const AllTasks = ({ listId }) => {
 				{selected &&
 					<div className="task-details-page">
 						<h2>{selectedTask.content}</h2>
+						<label>due</label>
 						<select>
 							<option>{selectedTask.dueDate}due date</option>
 						</select>
+						<label>list</label>
 						<select>
 							{lists?.map(list =>(<option value={list.id}>{list.title}</option>)
 								)}
@@ -135,6 +144,7 @@ const AllTasks = ({ listId }) => {
 					</div>
 				}
 			</div>
+
 		</div>
 	);
 };

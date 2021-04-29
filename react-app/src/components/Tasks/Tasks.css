@@ -7,25 +7,32 @@
 	margin-top: 15px;
 }
 
-.task-list-container {
+/* .task-list-container {
 	max-height: 80vh;
 	overflow-y: scroll;
-}
+} */
 
 .task-page-container > .task-container {
 	margin: 10px;
-	border-bottom: 1px solid black;
+	border-bottom: 1px dotted #D0D3D6;
 	height: 30px;
 	overflow: hidden;
 }
 
 .task-container {
+  background-color: white;
 	display: flex;
   flex-direction: row;
 	border-bottom: 1px dotted black;
   padding-top: 4px;
+  cursor: pointer;
+}
+
+.task-container input{
+  margin-top: 1px;
 }
 
 .task-container h1 {
 	font-size: small;
+  margin-left: 5px;
 }

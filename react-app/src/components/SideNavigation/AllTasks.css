@@ -3,17 +3,51 @@
   flex-direction: row;
 }
 
+.task-form-container {
+  margin-bottom: 5px;
+}
+
+.task-form-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.task-form-container form input {
+ width: 100%;
+}
+
 .task-sub-container {
+  /* display: flex; */
   margin-top: 15px;
   background-color: white;
   border-radius: 8px;
   width: 400px;
 }
 
-.task-page-container input {
-  
+
+.task-form-container form button{
+ background-color: #87ceeb;
+ justify-items: right;
+ width: fit-content;
+ align-self: flex-end;
+ margin-top: 5px;
+ border-radius: 5px;
 }
 
-/* .task-list-container {
-  border-style: dotted;
-} */
+
+
+
+.task-details-page {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.task-details-page label {
+  padding-top: 5px;
+  margin-top: 5px;
+}
+
+.task-details-page select {
+  width: 200px;
+}
