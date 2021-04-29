@@ -9,7 +9,7 @@ faker = Faker()
 def seed_notes():
     for i in range(500):
         demo = Note(
-            userId=faker.pyint(min_value=1, max_value=51),
+            userId=1,
             taskId=faker.pyint(min_value=1, max_value=80),
             content=faker.paragraph(nb_sentences=10)
         )
