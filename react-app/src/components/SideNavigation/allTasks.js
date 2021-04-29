@@ -1,13 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as taskActions from "../../store/tasks";
-import * as listActions from "../../store/lists";
 import Task from "../Tasks/index";
+import "./AllTasks.css"
 import AddTask from "../Tasks/AddTask";
+
 
 const AllTasks = ({ listId }) => {
 	const dispatch = useDispatch();
 	const tasks = useSelector((state) => state.tasks.allTasks);
+	const lists = useSelector((state) => state.lists.allLists);
+	console.log(lists, "LISTS!!!!!")
+	
+	let currentList;
+	// const [currentList] = lists?.filter(list => list.id === listId)
+	// console.log(currentList)
+	// const list = lists.map(listId => listId ===list.)
+
 	const tasksQuery = useSelector((state) => state.search.results);
 	const checkedTasks = useSelector((state) => state.tasks.checkedTasks);
 	const currentListTasks = useSelector((state) => state.lists.currentListTasks);
@@ -19,6 +28,8 @@ const AllTasks = ({ listId }) => {
 				listTasks[task] = tasks[task];
 			}
 		}
+		currentList = lists.filter(list => list.id === listId)
+		currentList = currentList[0]
 	} else if (listId === -1 && tasksQuery) {
 		for (const key in tasksQuery.taskResults) {
 			listTasks[key] = tasksQuery.taskResults[key];
@@ -39,7 +50,8 @@ const AllTasks = ({ listId }) => {
 	const [startDate, setStartDate] = useState(null);
 	const [dueDate, setDueDate] = useState(null);
 	const [priority, setPriority] = useState(null);
-
+	const [selected, setSelected] = useState(false)
+	const [selectedTask, setSelectedTask] = useState({})
 
 
 	let tasksDiv;
@@ -51,46 +63,76 @@ const AllTasks = ({ listId }) => {
 		tasksDiv = Object.values(tasks);
 	}
 
-	// // WIP. need to refactor to ONLY use state instead of grabbing
-	// // DOM elements...
-	// const taskSelect = async (e, checkedTasks, currentListTasks) => {
-	// 	const allTasks = document.querySelectorAll(".task-checkbox");
-	// 	if (e.target.value > 0 && !currentListTasks.length) {
-	// 		await dispatch(listActions.getListTaskIds(e.target.value));
-	// 	}
+	const test = (task) => {
+		console.log(task)
+		setSelectedTask(task)
+		setSelected(!selected)
+		// currentList = lists.filter(list => list.id === listId)
+		// currentList = currentList[0]
+		// console.log(currentList)
+	}
 
-	// 	if (e.target.checked) {
-	// 		allTasks.forEach((task) => task.checked = true);
-	// 		if (e.target.value > 0) {
-	// 			for (const key in currentListTasks) {
-	// 				console.log(key)
-	// 				await dispatch(taskActions.checkATask(key));
-	// 			}
-	// 		}
-	// 	} else {
-	// 		allTasks.forEach((task) => task.checked = false);
-	// 		if (e.target.value > 0) {
-	// 			for (const key in currentListTasks) {
-	// 				await dispatch(taskActions.uncheckATask(key));
-	// 			}
-	// 		}
-	// 	}
-	// };
+	// onChange = (e) => {
+	// 	e.preventDefault()
+
+	// 	dispatch(editTask(e.target.value, taskId))
+	// }
 
 	return (
-		<div className="task-page-container">
-			<input
-				type="checkbox"
-				className={`master-checkbox master-checkbox-listId-${listId}`}
-				value={listId}
-			// onClick={(e) => taskSelect(e, checkedTasks, currentListTasks)}
-			/>
-			{listId > 0 && <AddTask listId={listId} />}
-			<div className="task-list-container">
-				{tasksDiv?.map((task) => (
-					<Task task={task} key={task.id} />
-				))}
+		<div className="outer-shell">
+
+			<div className="task-page-container">
+				<div className="task-form-container">
+					<AddTask listId={listId}/>
+				</div>
+
+				<div className="task-list-container">
+					{tasksDiv?.map((task) => (
+						<div onClick={() => test(task)}>
+							<Task task={task} key={task.id} />
+						</div>
+					))}
+				</div>
 			</div>
+				
+			<div className="task-sub-container">
+				{!selected &&				
+					<div>
+						<h4>{currentList && currentList.title}</h4>
+						<div className="num-display">
+							<div className="num-tasks">
+								<h5>{Object.keys(tasks).length}</h5>
+								<p>tasks</p>
+							</div>
+							<div className="num-completed">
+								<h5>0</h5>
+								<p>completed</p>
+							</div>
+						</div>
+					</div>
+				}
+				{selected &&
+					<div className="task-details-page">
+						<h2>{selectedTask.content}</h2>
+						<div className="dropdowns">
+							<div className="dropdown-due-date">
+								<label>due</label>
+								<select>
+									<option>{selectedTask.dueDate}due date</option>
+								</select>
+							</div>
+							<div className="dropdown-list">
+								<label>list</label>
+								<select>
+									{lists?.map(list =>(<option value={list.id}>{list.title}</option>)
+										)}
+								</select>
+							</div>
+						</div>
+					</div>
+				}
+			</div>
+
 		</div>
 	);
 };

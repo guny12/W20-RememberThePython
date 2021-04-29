@@ -1,0 +1,98 @@
+.outer-shell {
+  display: flex;
+  flex-direction: row;
+}
+
+.task-form-container {
+  margin-bottom: 5px;
+}
+
+.task-form-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.task-form-container form input {
+ width: 100%;
+}
+
+.task-sub-container {
+  /* display: flex; */
+  margin-top: 15px;
+  background-color: white;
+  border-radius: 8px;
+  width: 400px;
+  border-style: solid;
+  border-width: thin medium thick;
+  border-color: #C0C0C0;
+}
+
+
+.task-form-container form button{
+ background-color: #87ceeb;
+ justify-items: right;
+ width: fit-content;
+ align-self: flex-end;
+ margin-top: 5px;
+ border-radius: 5px;
+}
+
+
+
+
+.task-details-page {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.task-details-page label {
+  padding-top: 5px;
+  margin-top: 5px;
+}
+
+.task-details-page select {
+  width: 200px;
+}
+
+.task-details-page h2 {
+  padding-left: 20px;
+  padding-top: 25px;
+}
+
+
+.task-sub-container h4 {
+  margin-left: 15px;
+  padding-top: 20px;
+}
+
+.num-display {
+  display: flex;
+  flex-direction: row;
+}
+
+.num-tasks {
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+}
+
+.num-completed {
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+}
+
+label {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.dropdowns {
+  padding-left: 30px;
+  padding-bottom: 20px;
+}
+
+.dropdown-due-date select {
+  margin-left: -5px;
+}
