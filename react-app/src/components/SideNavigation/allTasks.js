@@ -84,6 +84,12 @@ const AllTasks = ({ listId }) => {
 		// console.log(currentList)
 	}
 
+	// onChange = (e) => {
+	// 	e.preventDefault()
+
+	// 	dispatch(editTask(e.target.value, newListId))
+	// }
+
 	return (
 		<div className="outer">
 			<div className="task-page-container">
@@ -122,18 +128,13 @@ const AllTasks = ({ listId }) => {
 							<option>{selectedTask.dueDate}due date</option>
 						</select>
 						<select>
-							{lists?.map(list =>(<option>{list.title}</option>)
+							{lists?.map(list =>(<option value={list.id}>{list.title}</option>)
 								)}
 							{/* <option>{lists[selectedTask.listId].title}</option> */}
 						</select>
-						<p>Notes </p>
-						<input type="text" placeholder="Add a Note.."></input>
-						<p>Note 1</p>
 					</div>
 				}
 			</div>
-
-			{/* {selected && <TaskSub />} */}
 		</div>
 	);
 };
