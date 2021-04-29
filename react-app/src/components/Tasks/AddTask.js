@@ -19,15 +19,24 @@ function AddTask({ listId }) {
     await dispatch(listActions.getAllLists());
   };
 
+  const focusMethod = () => {
+    document.getElementById("add-task-id").focus()
+    if (!inputSelected) setInputSelected(true)
+  }
+
+  // onClick to anywhere on the DOM other than input field
+  // if (inputSelected) setInputSelected(false)
+
   return (
     <form onSubmit={handleSubmit}>
       <input
+        id="add-task-id"
         type="text"
         placeholder="Add a task..."
         required
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        onClick={(e) => setInputSelected(!inputSelected)}
+        onClick={(e) => focusMethod()}
       ></input>
       {inputSelected &&
         <button type="submit">Add Task</button>

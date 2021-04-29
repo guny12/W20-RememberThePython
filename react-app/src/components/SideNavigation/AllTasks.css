@@ -21,10 +21,14 @@
   margin-top: 15px;
   background-color: white;
   border-radius: 8px;
-  width: 400px;
   border-style: solid;
   border-width: thin medium thick;
   border-color: #C0C0C0;
+  min-width: 350px;
+}
+
+.task-page-container {
+  min-width: 350px;
 }
 
 
