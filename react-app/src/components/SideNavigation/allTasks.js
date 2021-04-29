@@ -3,11 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import * as taskActions from "../../store/tasks";
 import * as listActions from "../../store/lists";
 import Task from "../Tasks/index";
+import AddTask from "../Tasks/AddTask";
 
 const AllTasks = ({ listId }) => {
 	const dispatch = useDispatch();
 	const tasks = useSelector((state) => state.tasks.allTasks);
 	const tasksQuery = useSelector((state) => state.search.results);
+	const checkedTasks = useSelector((state) => state.tasks.checkedTasks);
+	const currentListTasks = useSelector((state) => state.lists.currentListTasks);
 	const listTasks = {};
 
 	if (listId > 0) {
@@ -32,25 +35,12 @@ const AllTasks = ({ listId }) => {
 	//   return history.push("/lists");
 	// };
 
-	const [content, setContent] = useState("");
 	const [completed, setCompleted] = useState(false);
 	const [startDate, setStartDate] = useState(null);
 	const [dueDate, setDueDate] = useState(null);
 	const [priority, setPriority] = useState(null);
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		const payload = {
-			content,
-			listId,
-			completed,
-			startDate,
-			dueDate,
-			priority,
-		};
-		await dispatch(taskActions.newTask(payload));
-		await dispatch(listActions.getAllLists());
-	};
+
 
 	let tasksDiv;
 	if (listId > 0) {
@@ -61,33 +51,41 @@ const AllTasks = ({ listId }) => {
 		tasksDiv = Object.values(tasks);
 	}
 
-	const taskSelect = (e) => {
-		const allTasks = document.querySelectorAll(".task-checkbox");
+	// // WIP. need to refactor to ONLY use state instead of grabbing
+	// // DOM elements...
+	// const taskSelect = async (e, checkedTasks, currentListTasks) => {
+	// 	const allTasks = document.querySelectorAll(".task-checkbox");
+	// 	if (e.target.value > 0 && !currentListTasks.length) {
+	// 		await dispatch(listActions.getListTaskIds(e.target.value));
+	// 	}
 
-		if (e.target.checked) {
-			allTasks.forEach((task) => task.checked = true);
-		} else {
-			allTasks.forEach((task) => task.checked = false);
-		}
-	};
+	// 	if (e.target.checked) {
+	// 		allTasks.forEach((task) => task.checked = true);
+	// 		if (e.target.value > 0) {
+	// 			for (const key in currentListTasks) {
+	// 				console.log(key)
+	// 				await dispatch(taskActions.checkATask(key));
+	// 			}
+	// 		}
+	// 	} else {
+	// 		allTasks.forEach((task) => task.checked = false);
+	// 		if (e.target.value > 0) {
+	// 			for (const key in currentListTasks) {
+	// 				await dispatch(taskActions.uncheckATask(key));
+	// 			}
+	// 		}
+	// 	}
+	// };
 
 	return (
 		<div className="task-page-container">
 			<input
 				type="checkbox"
 				className={`master-checkbox master-checkbox-listId-${listId}`}
-				onClick={(e) => taskSelect(e)}
+				value={listId}
+			// onClick={(e) => taskSelect(e, checkedTasks, currentListTasks)}
 			/>
-			<form onSubmit={handleSubmit}>
-				<input
-					type="text"
-					placeholder="Add a task..."
-					required
-					value={content}
-					onChange={(e) => setContent(e.target.value)}
-				></input>
-				<button type="submit">Add Task</button>
-			</form>
+			{listId > 0 && <AddTask listId={listId} />}
 			<div className="task-list-container">
 				{tasksDiv?.map((task) => (
 					<Task task={task} key={task.id} />
