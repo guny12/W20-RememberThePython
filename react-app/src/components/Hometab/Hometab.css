@@ -1,0 +1,58 @@
+.card-body {
+	overflow: hidden;
+}
+
+.card {
+	padding: 0px;
+	margin: 9px;
+	background-clip: padding-box;
+	background-size: cover;
+	box-sizing: border-box;
+	position: relative;
+	height: auto;
+	flex: 0 1 40%;
+	background-color: rgb(255, 255, 255);
+	z-index: 0;
+	width: 200px;
+	border-radius: 20px;
+}
+
+.card-footer {
+	background-color: transparent;
+	display: flex;
+	justify-content: space-between;
+	align-content: space-between;
+}
+
+.card-footer-Quicklook {
+	font-size: 11px;
+	width: auto;
+	background-color: #6da2ce91;
+	/* background-color: rgb(255, 255, 255); */
+	border-color: transparent;
+}
+
+.card-footer-Tasks {
+	font-size: 11px;
+	background-color: #6da2ce91;
+	border-color: transparent;
+}
+
+.card-footer-Quicklook:hover,
+.card-footer-Tasks:hover {
+	background-color: #4f7899dc;
+	color: white;
+	border-color: transparent;
+}
+
+#sideNav-tabpane-home[aria-hidden="false"] {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-content: space-between;
+	overflow-y: auto;
+	overscroll-behavior: none;
+	height: 90vh;
+	padding: 0px;
+	margin: 0px;
+}

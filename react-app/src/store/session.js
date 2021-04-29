@@ -38,8 +38,9 @@ export const restoreUser = () => async (dispatch) => {
 		},
 	});
 	const data = await response.json();
-	if (data.errors) return;
+	if (data.errors) return { message: "failed" };
 	dispatch(setSessionUser(data));
+	return { message: "success" };
 };
 
 export const signUp = (user) => async (dispatch) => {
@@ -68,7 +69,7 @@ export const logout = () => async (dispatch) => {
 
 export const deleteUser = () => async (dispatch) => {
 	await fetch("/api/users/", {
-		method: "DELETE"
+		method: "DELETE",
 	});
 };
 
