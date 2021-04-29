@@ -47,10 +47,13 @@ const QuickLook = ({ listId }) => {
 	return (
 		<div>
 			{tasksDiv?.map((task) => (
-				<Toast onClose={() => complete(task.id)}>
-					<Toast.Header>
+				<Toast>
+					<Toast.Header closeLabel="complete" closeButton={false}>
 						<strong className="mr-auto">{`Priority: ${task.priority ? task.priority : "None"}`}</strong>
 						<small>{`Due Date: ${task.dueDate ? task.dueDate : "None"}`}</small>
+						<button onClick={() => complete(task.id)} className="quick-look__complete">
+							<i class="fas fa-check-square"></i>
+						</button>
 					</Toast.Header>
 					<Toast.Body>{`${task.content}`}</Toast.Body>
 				</Toast>

@@ -1,3 +1,19 @@
 .toast-body {
 	word-wrap: break-word;
 }
+
+.quick-look__complete {
+	border: 0px solid #6da2ced2;
+	background: transparent;
+	color: #6091bac7;
+	font-size: 15px;
+	width: auto;
+	height: auto;
+	margin-left: 10px;
+	border-radius: 50px;
+}
+
+.quick-look__complete:hover {
+	background-color: #4f7899dc;
+	color: white;
+}
