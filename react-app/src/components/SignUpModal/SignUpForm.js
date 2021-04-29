@@ -27,7 +27,7 @@ const SignUpForm = () => {
 			const response = await dispatch(sessionActions.signUp({ email, username, password, firstName, lastName }));
 			if (response.errors) return setErrors(response.errors);
 			else {
-				history.push("/home");
+				history.go(0);
 				close.click();
 				return;
 			}

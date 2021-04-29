@@ -67,7 +67,8 @@ class List(db.Model):
             "title": self.title,
             "createdAt": self.createdAt,
             "updatedAt": self.updatedAt,
-            "listTasks": [task.to_dict() for task in self.listTask],
+            "numTasks": len(self.listTask)
+            # "listTasks": [task.to_dict() for task in self.listTask],
         }
 
 

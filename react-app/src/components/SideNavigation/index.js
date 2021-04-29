@@ -125,7 +125,7 @@ const SideNavigation = () => {
 						<div className={styles.lists_container} id="lists_container">
 							{lists?.map((lis) => (
 								<Nav.Item key={lis.id} className={`${styles.list_div} ${styles.navItem}`}>
-									<Nav.Link onClick={() => loadTasks(`${lis.title}`)} eventKey={lis.title} className={styles.listName}>
+									<Nav.Link onClick={() => loadTasks(`${lis.title}`)} eventKey={lis.id} className={styles.listName}>
 										{lis.title}
 									</Nav.Link>
 									<div className={styles.editBtn}>
@@ -166,7 +166,7 @@ const SideNavigation = () => {
 							<p> test</p>
 						</Tab.Pane>
 						{lists?.map((lis) => (
-							<Tab.Pane eventKey={lis.title} key={lis.id}>
+							<Tab.Pane eventKey={lis.id} key={lis.id}>
 								<p id={lis.id}>{lis.title}</p>
 								<Tab.Pane>
 									<AllTasks listId={lis.id} />

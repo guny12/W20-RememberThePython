@@ -1,12 +1,15 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Card, Button } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import QuickLookModal from "../QuickLookModal";
 import "./Hometab.css";
 
 const Hometab = () => {
-	// const dispatch = useDispatch();
 	const allCurrentLists = useSelector((state) => state?.lists?.allLists);
+
+	const listTab = (list) => {
+		document.querySelector(`#sideNav-tab-${list.id}`).click();
+	};
 
 	let cards = Object.values(allCurrentLists).map((list) => (
 		<div key={`card-list#${list.id}`}>
@@ -15,9 +18,8 @@ const Hometab = () => {
 					<Card.Title>{list.title}</Card.Title>
 				</Card.Body>
 				<Card.Footer>
-					{/* <small className="text-muted">{`${list?.listTasks.length} tasks`}</small> */}
-					<Button className="card-footer-Tasks">{`${list?.listTasks.length} tasks`}</Button>
-					<Button className="card-footer-Quicklook">Quick Look</Button>
+					<Button className="card-footer-Tasks" onClick={() => listTab(list)}>{`${list?.numTasks} tasks`}</Button>
+					<QuickLookModal listId={list.id} />
 				</Card.Footer>
 			</Card>
 		</div>

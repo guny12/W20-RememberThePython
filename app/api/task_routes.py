@@ -31,8 +31,7 @@ def get_task_info():
 @login_required
 def get_all_tasks():
     userId = current_user.id
-    tasks = Task.query.filter(
-        Task.creatorId == userId).order_by(Task.createdAt).all()
+    tasks = Task.query.filter(Task.creatorId == userId).order_by(Task.createdAt).all()
     return {"tasks": [task.to_dict() for task in tasks]}
 
 
@@ -42,9 +41,7 @@ def get_all_tasks():
 def get_all_list_tasks(listId):
     userId = current_user.id
 
-    tasks = Task.query.filter(
-        Task.creatorId == userId,
-        Task.listId == listId).order_by(Task.createdAt).all()
+    tasks = Task.query.filter(Task.creatorId == userId, Task.listId == listId).order_by(Task.createdAt).all()
 
     return {"tasks": [task.to_dict() for task in tasks]}
 
@@ -63,10 +60,10 @@ def create_task():
         if targetList.userId != current_user.id:
             return {"errors": "Must be List creator to create a Task there"}, 401
         newContent = body["content"]
-        newCompleted = body["completed"] if "completed" in body else False
-        newStartDate = body["startDate"] if "startDate" in body else None
-        newDueDate = body["dueDate"] if "dueDate" in body else None
-        newPriority = body["priority"] if "priority" in body else None
+        newCompleted = body["completed"] if "completed" in body else ""
+        newStartDate = body["startDate"] if "startDate" in body else ""
+        newDueDate = body["dueDate"] if "dueDate" in body else ""
+        newPriority = body["priority"] if "priority" in body else ""
 
         newTask = Task(
             creatorId=current_user.id,
