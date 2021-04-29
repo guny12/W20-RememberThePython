@@ -4,8 +4,7 @@ import Task from "../Tasks/index";
 import AddTask from "../Tasks/AddTask";
 import EditTasks from "../Tasks/EditTasks";
 
-import "./AllTasks.css"
-
+import "./AllTasks.css";
 
 const AllTasks = ({ listId }) => {
 	const tasks = useSelector((state) => state.tasks.allTasks);
@@ -24,8 +23,8 @@ const AllTasks = ({ listId }) => {
 				listTasks[task] = tasks[task];
 			}
 		}
-		currentList = lists.filter(list => list.id === listId)
-		currentList = currentList[0]
+		currentList = lists.filter((list) => list.id === listId);
+		currentList = currentList[0];
 	} else if (listId === -1 && tasksQuery) {
 		for (const key in tasksQuery.taskResults) {
 			listTasks[key] = tasksQuery.taskResults[key];
@@ -44,17 +43,17 @@ const AllTasks = ({ listId }) => {
 	const test = (task) => {
 		setSelectedTask(task);
 		setSelected(!selected);
-	}
+	};
 
 	return (
 		<div className="outer-shell">
-
 			<div className="task-page-container">
 				<EditTasks listId={listId} />
-				{listId > 0 &&
+				{listId > 0 && (
 					<div className="task-form-container">
 						<AddTask listId={listId} />
-					</div>}
+					</div>
+				)}
 				<div className="task-list-container">
 					{tasksDiv?.map((task) => (
 						<div onClick={() => test(task)}>
@@ -65,7 +64,7 @@ const AllTasks = ({ listId }) => {
 			</div>
 
 			<div className="task-sub-container">
-				{!selected &&
+				{!selected && (
 					<div>
 						<h4>{currentList && currentList.title}</h4>
 						<div className="num-display">
@@ -79,8 +78,8 @@ const AllTasks = ({ listId }) => {
 							</div>
 						</div>
 					</div>
-				}
-				{selected &&
+				)}
+				{selected && (
 					<div className="task-details-page">
 						<h2 className="task-content-header">{selectedTask.content}</h2>
 						<div className="dropdowns">
@@ -93,15 +92,15 @@ const AllTasks = ({ listId }) => {
 							<div className="dropdown-list">
 								<label>list</label>
 								<select>
-									{lists?.map(list => (<option value={list.id}>{list.title}</option>)
-									)}
+									{lists?.map((list) => (
+										<option value={list.id}>{list.title}</option>
+									))}
 								</select>
 							</div>
 						</div>
 					</div>
-				}
+				)}
 			</div>
-
 		</div>
 	);
 };

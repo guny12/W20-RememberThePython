@@ -1,4 +1,4 @@
-import React /*{ useEffect, useState }*/ from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Nav, Button, Tab, Col, Row } from "react-bootstrap";
 import { getAllLists, deleteList } from "../../store/lists";
@@ -10,6 +10,7 @@ import { getTasks, clearAllTasks, getListTasks } from "../../store/tasks";
 import { clearAllResults } from "../../store/search";
 import { resetCheckboxState } from "../../store/checkboxes";
 import Hometab from "../Hometab";
+import * as listActions from "../../store/lists";
 
 import styles from "./SideNavigation.module.css";
 import "./SideNavigation.css";
@@ -18,6 +19,7 @@ const SideNavigation = () => {
 	const dispatch = useDispatch();
 	const sessionUser = useSelector((state) => state.session.user);
 	const lists = useSelector((state) => state.lists.allLists);
+	const [listLoaded, setListLoaded] = useState(false);
 
 	const handleDelete = async (e) => {
 		e.preventDefault();
@@ -43,26 +45,37 @@ const SideNavigation = () => {
 
 		switch (list) {
 			case "home":
+				if (!listLoaded) {
+					let lists = await dispatch(listActions.getAllLists());
+					if (lists) setListLoaded(true);
+				}
 				return;
-			case "inbox":
-				return;
+			// case "inbox":
+			// 	return;
 			case "allTasks":
 				await dispatch(getTasks());
+				setListLoaded(false);
 				return;
 			case "today":
+				setListLoaded(false);
 				return;
 			case "tomorrow":
+				setListLoaded(false);
 				return;
 			case "thisWeek":
+				setListLoaded(false);
 				return;
-			case "givenToOthers":
-				return;
+			// case "givenToOthers":
+			// 	setListLoaded(false);
+			// 	return;
 			case "trash":
+				setListLoaded(false);
 				return;
 			default:
 				if (list === "search") return;
 				const [currentList] = lists.filter((singleList) => singleList.title === list);
 				await dispatch(getListTasks(currentList.id));
+				setListLoaded(false);
 				return;
 		}
 	};
@@ -143,7 +156,7 @@ const SideNavigation = () => {
 				<Col sm={8} id="tabs-center">
 					<Tab.Content>
 						<Tab.Pane eventKey="home">
-							<Hometab />
+							<Hometab listLoaded={listLoaded} />
 						</Tab.Pane>
 						{/* <Tab.Pane eventKey="inbox">
 							<p> test</p>

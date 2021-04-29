@@ -2,20 +2,20 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Card, Button } from "react-bootstrap";
 import QuickLookModal from "../QuickLookModal";
-import * as listActions from "../../store/lists";
+// import * as listActions from "../../store/lists";
 import "./Hometab.css";
 
-const Hometab = () => {
+const Hometab = ({ listLoaded }) => {
 	const dispatch = useDispatch();
 	const allCurrentLists = useSelector((state) => state?.lists?.allLists);
-	const [listLoaded, setListLoaded] = useState(false);
+	// const [listLoaded, setListLoaded] = useState(false);
 
-	useEffect(() => {
-		(async () => {
-			let lists = await dispatch(listActions.getAllLists());
-			if (lists) setListLoaded(true);
-		})();
-	}, [dispatch]);
+	// useEffect(() => {
+	// 	(async () => {
+	// 		let lists = await dispatch(listActions.getAllLists());
+	// 		if (lists) setListLoaded(true);
+	// 	})();
+	// }, [dispatch]);
 
 	const listTab = (list) => {
 		document.querySelector(`#sideNav-tab-${list.id}`).click();
