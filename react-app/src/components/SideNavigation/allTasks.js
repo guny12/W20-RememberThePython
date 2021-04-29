@@ -2,16 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as taskActions from "../../store/tasks";
 import Task from "../Tasks/index";
-import "./AllTasks.css"
+import "./AllTasks.css";
 import AddTask from "../Tasks/AddTask";
-
 
 const AllTasks = ({ listId }) => {
 	const dispatch = useDispatch();
 	const tasks = useSelector((state) => state.tasks.allTasks);
 	const lists = useSelector((state) => state.lists.allLists);
-	console.log(lists, "LISTS!!!!!")
-	
+
 	let currentList;
 	// const [currentList] = lists?.filter(list => list.id === listId)
 	// console.log(currentList)
@@ -28,8 +26,8 @@ const AllTasks = ({ listId }) => {
 				listTasks[task] = tasks[task];
 			}
 		}
-		currentList = lists.filter(list => list.id === listId)
-		currentList = currentList[0]
+		currentList = lists.filter((list) => list.id === listId);
+		currentList = currentList[0];
 	} else if (listId === -1 && tasksQuery) {
 		for (const key in tasksQuery.taskResults) {
 			listTasks[key] = tasksQuery.taskResults[key];
@@ -50,9 +48,8 @@ const AllTasks = ({ listId }) => {
 	const [startDate, setStartDate] = useState(null);
 	const [dueDate, setDueDate] = useState(null);
 	const [priority, setPriority] = useState(null);
-	const [selected, setSelected] = useState(false)
-	const [selectedTask, setSelectedTask] = useState({})
-
+	const [selected, setSelected] = useState(false);
+	const [selectedTask, setSelectedTask] = useState({});
 
 	let tasksDiv;
 	if (listId > 0) {
@@ -64,13 +61,13 @@ const AllTasks = ({ listId }) => {
 	}
 
 	const test = (task) => {
-		console.log(task)
-		setSelectedTask(task)
-		setSelected(!selected)
+		console.log(task);
+		setSelectedTask(task);
+		setSelected(!selected);
 		// currentList = lists.filter(list => list.id === listId)
 		// currentList = currentList[0]
 		// console.log(currentList)
-	}
+	};
 
 	// onChange = (e) => {
 	// 	e.preventDefault()
@@ -80,10 +77,9 @@ const AllTasks = ({ listId }) => {
 
 	return (
 		<div className="outer-shell">
-
 			<div className="task-page-container">
 				<div className="task-form-container">
-					<AddTask listId={listId}/>
+					<AddTask listId={listId} />
 				</div>
 
 				<div className="task-list-container">
@@ -94,9 +90,9 @@ const AllTasks = ({ listId }) => {
 					))}
 				</div>
 			</div>
-				
+
 			<div className="task-sub-container">
-				{!selected &&				
+				{!selected && (
 					<div>
 						<h4>{currentList && currentList.title}</h4>
 						<div className="num-display">
@@ -110,8 +106,8 @@ const AllTasks = ({ listId }) => {
 							</div>
 						</div>
 					</div>
-				}
-				{selected &&
+				)}
+				{selected && (
 					<div className="task-details-page">
 						<h2>{selectedTask.content}</h2>
 						<div className="dropdowns">
@@ -124,15 +120,15 @@ const AllTasks = ({ listId }) => {
 							<div className="dropdown-list">
 								<label>list</label>
 								<select>
-									{lists?.map(list =>(<option value={list.id}>{list.title}</option>)
-										)}
+									{lists?.map((list) => (
+										<option value={list.id}>{list.title}</option>
+									))}
 								</select>
 							</div>
 						</div>
 					</div>
-				}
+				)}
 			</div>
-
 		</div>
 	);
 };
