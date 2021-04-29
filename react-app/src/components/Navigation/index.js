@@ -22,7 +22,7 @@ const Navigation = () => {
 
 	const handleSubmit = async () => {
 		await dispatch(sessionActions.login({ credential: "demoUser@user.io", password: "password" }));
-		history.push("/home");
+		history.go(0);
 	};
 
 	const handleSearch = async (e) => {
