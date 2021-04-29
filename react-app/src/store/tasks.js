@@ -131,10 +131,11 @@ const taskReducer = (taskState = initialState, action) => {
 			}, {});
 			return { ...taskState, allTasks: normalizeAllTasks };
 		case CLEAR_TASKS:
-			return initialState;
+			newState = Object.assign({ allTasks: {}, selectedTasks: {}, checkedTasks: {} });
+			return newState;
 		case CHECK_TASK:
 			newState = Object.assign({}, taskState);
-			newState.checkedTasks[action.payload] = action.payload;
+			newState.checkedTasks[action.payload] = parseInt(action.payload, 10);
 			return newState;
 		case UNCHECK_TASK:
 			newState = Object.assign({}, taskState);

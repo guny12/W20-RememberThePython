@@ -31,7 +31,8 @@ def get_task_info():
 @login_required
 def get_all_tasks():
     userId = current_user.id
-    tasks = Task.query.filter(Task.creatorId == userId).order_by(Task.createdAt).all()
+    tasks = Task.query.filter(
+        Task.creatorId == userId).order_by(Task.createdAt).all()
     return {"tasks": [task.to_dict() for task in tasks]}
 
 
@@ -41,7 +42,8 @@ def get_all_tasks():
 def get_all_list_tasks(listId):
     userId = current_user.id
 
-    tasks = Task.query.filter(Task.creatorId == userId, Task.listId == listId).order_by(Task.createdAt).all()
+    tasks = Task.query.filter(
+        Task.creatorId == userId, Task.listId == listId).order_by(Task.createdAt).all()
 
     return {"tasks": [task.to_dict() for task in tasks]}
 
@@ -69,10 +71,10 @@ def create_task():
             creatorId=current_user.id,
             listId=currentListId,
             content=newContent,
-            completed=newCompleted,
-            startDate=newStartDate,
-            dueDate=newDueDate,
-            priority=newPriority,
+            # completed=newCompleted,
+            # startDate=newStartDate,
+            # dueDate=newDueDate,
+            # priority=newPriority,
         )
 
         db.session.add(newTask)
