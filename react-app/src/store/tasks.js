@@ -99,7 +99,7 @@ export const removeTask = (taskId) => async (dispatch) => {
 
 	const data = await response.json();
 	if (data.errors) return data;
-	dispatch(getTasks());
+	dispatch(getListTasks(data.listId));
 };
 
 // clear all tasks
