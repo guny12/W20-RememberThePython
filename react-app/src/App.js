@@ -1,38 +1,44 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import SideNavigation from "./components/SideNavigation";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
-import Home from "./components/Home";
 import Search from "./components/Search";
 import Landing from "./components/Landing";
+import Home from "./components/Home";
 
 import * as sessionActions from "./store/session";
+import * as taskActions from "./store/tasks";
+import * as listActions from "./store/lists";
 
 function App() {
 	const dispatch = useDispatch();
 	const [loaded, setLoaded] = useState(false);
+	const [listLoaded, setListLoaded] = useState(false);
 
 	useEffect(() => {
 		(async () => {
-			await dispatch(sessionActions.restoreUser());
+			let response = await dispatch(sessionActions.restoreUser());
+			if (response.message === "success") {
+				(async () => {
+					let lists = await dispatch(listActions.getAllLists());
+					if (lists) setListLoaded(true);
+				})();
+			}
 			setLoaded(true);
 		})();
 	}, [dispatch]);
 
-	if (!loaded) {
-		return null;
-	}
+	if (!loaded) return null;
 
-	// PLEASE DO NOT COMMENT OUT HOME COMPONENT
 	return (
 		<BrowserRouter>
 			<Navigation />
 			<SideNavigation />
 			<Switch>
 				<ProtectedRoute path="/home" exact={true}>
-					<Home />
+					<Home listLoaded={listLoaded} />
 				</ProtectedRoute>
 				<Route path="/home/search/:query" exact={true}>
 					<Search />

@@ -1,3 +1,4 @@
+import { LOAD_ALL_TASKS } from "./tasks";
 const ALL_LISTS = "lists/ALL_LISTS";
 const GET_LIST = "lists/GET_LIST";
 
@@ -28,7 +29,7 @@ export const createList = (newList) => async (dispatch) => {
 		body: JSON.stringify({ title, userId }),
 	});
 	const newLi = await res.json();
-	dispatch(loadOne(newLi));
+	// dispatch(getAllLists());
 	return newLi;
 };
 
@@ -44,7 +45,7 @@ export const editList = (editedList) => async (dispatch) => {
 	});
 
 	const list = await res.json();
-	dispatch(loadOne(list));
+	// dispatch(getAllLists());
 	return list;
 };
 
@@ -58,7 +59,7 @@ export const deleteList = (list) => async (dispatch) => {
 		}),
 	});
 	const deletedList = await res.json();
-	dispatch(loadOne(deletedList));
+	// dispatch(getAllLists());
 	return deletedList;
 };
 

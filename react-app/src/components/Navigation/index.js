@@ -22,20 +22,19 @@ const Navigation = () => {
 
 	const handleSubmit = async () => {
 		await dispatch(sessionActions.login({ credential: "demoUser@user.io", password: "password" }));
-		history.push("/home");
+		history.go(0);
 	};
 
 	const handleSearch = async (e) => {
 		e.preventDefault();
 		await dispatch(searchQuery(search));
-		document.querySelector("#left-tabs-example-tab-search").click();
+		document.querySelector("#sideNav-tab-search").click();
 		document.querySelector("#search-bar").value = "";
 		document.querySelector("#search-bar").blur();
 	};
 
 	if (sessionUser) {
 		sessionLinks = (
-			// if logged in links
 			<>
 				<ProfileButton user={sessionUser} />
 			</>

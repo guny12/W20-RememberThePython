@@ -1,5 +1,17 @@
-const LOAD_ALL_TASKS = "task/LOAD_ALL_TASKS";
+export const LOAD_ALL_TASKS = "task/LOAD_ALL_TASKS";
 const CLEAR_TASKS = "task/CLEAR_TASKS";
+const CHECK_TASK = "task/CHECK_TASK";
+const UNCHECK_TASK = "task/UNCHECK_TASK";
+
+const checkTask = (taskId) => ({
+	type: CHECK_TASK,
+	payload: taskId
+});
+
+const uncheckTask = (taskId) => ({
+	type: UNCHECK_TASK,
+	payload: taskId
+});
 
 const loadAllTasks = (tasks) => ({
 	type: LOAD_ALL_TASKS,
@@ -7,7 +19,7 @@ const loadAllTasks = (tasks) => ({
 });
 
 const clearTasks = () => ({
-	type: CLEAR_TASKS
+	type: CLEAR_TASKS,
 });
 
 // load all Tasks
@@ -34,7 +46,6 @@ export const getListTasks = (listId) => async (dispatch) => {
 // create a new task
 export const newTask = (taskDetails) => async (dispatch) => {
 	const { listId, content, completed, startDate, dueDate, priority } = taskDetails;
-	console.log(typeof listId)
 	const response = await fetch("/api/task/", {
 		method: "POST",
 		headers: {
@@ -96,10 +107,22 @@ export const clearAllTasks = () => async (dispatch) => {
 	dispatch(clearTasks());
 };
 
+// check task
+export const checkATask = (taskId) => async (dispatch) => {
+	dispatch(checkTask(taskId));
+};
+
+// uncheck task
+export const uncheckATask = (taskId) => async (dispatch) => {
+	dispatch(uncheckTask(taskId));
+};
+
 //========== TASK slice of state reducer
-const initialState = { allTasks: {}, selectedTasks: {} };
+const initialState = { allTasks: {}, selectedTasks: {}, checkedTasks: {} };
 
 const taskReducer = (taskState = initialState, action) => {
+	let newState;
+
 	switch (action.type) {
 		case LOAD_ALL_TASKS:
 			let { tasks } = action.payload;
@@ -109,6 +132,14 @@ const taskReducer = (taskState = initialState, action) => {
 			return { ...taskState, allTasks: normalizeAllTasks };
 		case CLEAR_TASKS:
 			return initialState;
+		case CHECK_TASK:
+			newState = Object.assign({}, taskState);
+			newState.checkedTasks[action.payload] = action.payload;
+			return newState;
+		case UNCHECK_TASK:
+			newState = Object.assign({}, taskState);
+			delete newState.checkedTasks[action.payload];
+			return newState;
 		default:
 			return taskState;
 	}

@@ -87,7 +87,7 @@ const AllTasks = ({ listId }) => {
 	// onChange = (e) => {
 	// 	e.preventDefault()
 
-	// 	dispatch(editTask(e.target.value, newListId))
+	// 	dispatch(editTask(e.target.value, taskId))
 	// }
 
 	return (

@@ -9,7 +9,7 @@ faker = Faker()
 def seed_lists():
     for i in range(100):
         demo = List(
-            userId=faker.pyint(min_value=1, max_value=51),
+            userId=1,
             title=faker.sentence()
         )
 
