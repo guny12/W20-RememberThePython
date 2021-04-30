@@ -96,6 +96,8 @@ def update_task():
         tasksList = [Task.query.get(taskId) for taskId in tasksDict]
 
         for task in tasksList:
+            if task.creatorId != userId:
+                return {"message": "You are not the owner"}
             task.completed = not task.completed
             task.updatedAt = datetime.now()
             getTasks[task.id] = task.to_dict()
