@@ -53,6 +53,7 @@ function EditTasks({ listId }) {
 
 	const updateSelected = async (arg) => {
 		if (Object.keys(checkedTasks).length) {
+			console.log(checkedTasks, "CHECKED TASKS");
 			if (arg === "completed") {
 				await dispatch(taskActions.updateCheckedTasks(checkedTasks, arg));
 			} else if (arg === "priority") {

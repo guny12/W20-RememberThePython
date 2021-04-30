@@ -7,7 +7,6 @@ import "./QuickLook.css";
 import { Toast } from "react-bootstrap";
 
 const QuickLook = ({ listId }) => {
-	// const history = useHistory();
 	const dispatch = useDispatch();
 	// const close = document.querySelector("#modal-background");
 	useEffect(() => {
@@ -17,42 +16,40 @@ const QuickLook = ({ listId }) => {
 	}, [dispatch, listId]);
 
 	const tasks = useSelector((state) => state.tasks.allTasks);
+
 	const listTasks = {};
-
 	if (listId > 0) {
-		for (const task in tasks) {
-			if (tasks[task].listId === listId) {
-				listTasks[task] = tasks[task];
-			}
-		}
+		for (const task in tasks) if (tasks[task].listId === listId) listTasks[task] = tasks[task];
 	}
 
-	let tasksDiv;
-	if (listId > 0) {
-		tasksDiv = Object.values(listTasks);
-	} else {
-		tasksDiv = Object.values(tasks);
-	}
+	const tasksDiv = listId > 0 ? Object.values(listTasks) : Object.values(tasks);
 
 	let complete = async (taskId) => {
-		await dispatch(taskActions.editedTask({ taskId: taskId, completed: true }));
+		let taskIdObj = {};
+		taskIdObj[`${taskId}`] = taskId;
+		await dispatch(taskActions.updateCheckedTasks(taskIdObj, "completed"));
+		await dispatch(taskActions.getListTasks(listId));
 	};
 
 	return (
 		<div>
-			{tasksDiv?.map((task) => (
-				<Toast>
-					<Toast.Header closeLabel="complete" closeButton={false}>
-						<strong className="mr-auto">{`Priority: ${task.priority ? task.priority : "None"}`}</strong>
-						<small>{`Due Date: ${task.dueDate ? task.dueDate : "None"}`}</small>
-						<small>{`Completed: ${task.completed}`}</small>
-						<button onClick={() => complete(task.id)} className="quick-look__complete">
-							<i className="fas fa-check-square"></i>
-						</button>
-					</Toast.Header>
-					<Toast.Body>{`${task.content}`}</Toast.Body>
-				</Toast>
-			))}
+			{tasksDiv?.map((task) => {
+				if (task.completed === false) {
+					return (
+						<Toast key={`toast-${task.id}`}>
+							<Toast.Header closeLabel="complete" closeButton={false}>
+								<strong className="mr-auto">{`Priority: ${task.priority ? task.priority : "None"}`}</strong>
+								<small className="toast-small-header">{`Due Date: ${task.dueDate ? task.dueDate : "None"}`}</small>
+								<small className="toast-small-header">{`Completed: ${task.completed}`}</small>
+								<button onClick={() => complete(task.id)} className="quick-look__complete">
+									<i className="fas fa-check-square"></i>
+								</button>
+							</Toast.Header>
+							<Toast.Body>{`${task.content}`}</Toast.Body>
+						</Toast>
+					);
+				}
+			})}
 		</div>
 	);
 };
