@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import * as taskActions from "../../store/tasks";
-import * as listActions from "../../store/lists";
 
 function AddTask({ listId }) {
 	const dispatch = useDispatch();
@@ -16,7 +15,6 @@ function AddTask({ listId }) {
 		};
 		setContent("");
 		await dispatch(taskActions.newTask(payload));
-		// await dispatch(listActions.getAllLists());
 	};
 
 	return (

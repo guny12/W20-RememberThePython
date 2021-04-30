@@ -1,39 +1,36 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
 import { searchQuery } from "../../store/search";
 import AllTasks from "../SideNavigation/allTasks";
 
 function Search() {
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const { query } = useParams();
-  const [linksOut, setLinksOut] = useState([]);
+	const dispatch = useDispatch();
+	const history = useHistory();
+	const { query } = useParams();
+	const [linksOut, setLinksOut] = useState([]);
 
-  const navOut = () => {
-    document.querySelector("#search-bar").value = "";
-    history.push("/");
-  };
+	const navOut = () => {
+		document.querySelector("#search-bar").value = "";
+		history.push("/");
+	};
 
-  useEffect(() => {
-    const searchBar = document.querySelector("#search-bar");
+	useEffect(() => {
+		const searchBar = document.querySelector("#search-bar");
 
-    if (!searchBar.value) {
-      (async () => await dispatch(searchQuery(query)))();
-      searchBar.value = query
-    }
+		if (!searchBar.value) {
+			(async () => await dispatch(searchQuery(query)))();
+			searchBar.value = query;
+		}
 
-    setLinksOut(document.querySelectorAll('a'));
+		setLinksOut(document.querySelectorAll("a"));
+	}, [dispatch, query]);
 
-  }, [dispatch]);
+	linksOut.forEach((element) => {
+		element.addEventListener("click", navOut);
+	});
 
-  linksOut.forEach((element) => {
-    element.addEventListener("click", navOut);
-  });
-
-  return (
-    <AllTasks />
-  )
+	return <AllTasks />;
 }
 
 export default Search;

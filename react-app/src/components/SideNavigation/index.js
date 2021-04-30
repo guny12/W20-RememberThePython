@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Nav, Button, Tab, Col, Row } from "react-bootstrap";
 import { getAllLists, deleteList } from "../../store/lists";
@@ -20,6 +20,7 @@ const SideNavigation = () => {
 	const sessionUser = useSelector((state) => state.session.user);
 	const lists = useSelector((state) => state.lists.allLists);
 	const [listLoaded, setListLoaded] = useState(false);
+	const [tasksLoaded, setTasksLoaded] = useState(false);
 
 	const handleDelete = async (e) => {
 		e.preventDefault();
@@ -31,7 +32,7 @@ const SideNavigation = () => {
 	};
 
 	const loadTasks = async (list) => {
-		await dispatch(clearAllTasks());
+		// await dispatch(clearAllTasks()); moved to line 44, inside conditional
 
 		// this is for unchecking all "master checkboxes"
 		document.querySelectorAll(".master-checkbox").forEach((checkbox) => {
@@ -39,43 +40,46 @@ const SideNavigation = () => {
 			checkbox.indeterminate = false;
 		});
 
-		if (list !== "search") {
+		if (list !== "search" && tasksLoaded === false) {
+			setTasksLoaded(true);
+			await dispatch(clearAllTasks());
 			await dispatch(clearAllResults());
 		}
 
 		switch (list) {
 			case "home":
 				if (!listLoaded) {
-					let lists = await dispatch(listActions.getAllLists());
-					if (lists) setListLoaded(true);
+					setListLoaded(true);
+					await dispatch(listActions.getAllLists());
 				}
 				return;
-			// case "inbox":
-			// 	return;
 			case "allTasks":
 				await dispatch(getTasks());
 				setListLoaded(false);
+				setTasksLoaded(false);
 				return;
 			case "today":
 				setListLoaded(false);
+				setTasksLoaded(false);
 				return;
 			case "tomorrow":
 				setListLoaded(false);
+				setTasksLoaded(false);
 				return;
 			case "thisWeek":
 				setListLoaded(false);
+				setTasksLoaded(false);
 				return;
-			// case "givenToOthers":
-			// 	setListLoaded(false);
-			// 	return;
 			case "trash":
 				setListLoaded(false);
+				setTasksLoaded(false);
 				return;
 			default:
 				if (list === "search") return;
 				const [currentList] = lists.filter((singleList) => singleList.title === list);
 				await dispatch(getListTasks(currentList.id));
 				setListLoaded(false);
+				setTasksLoaded(false);
 				return;
 		}
 	};
