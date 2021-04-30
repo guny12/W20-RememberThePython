@@ -31,3 +31,25 @@
 	font-size: small;
   margin-left: 5px;
 }
+
+.edit-container {
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px dotted rgba(128, 128, 128, 0.556);
+}
+
+.edit-container button {
+	margin-right: 5px;
+	margin-left: 5px;
+	background: none;
+	border: 1px solid rgba(128, 128, 128, 0.419);
+	border-radius: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	color: rgba(0, 0, 0, 0.467);
+	transition: 0.3s;
+}
+
+.edit-container button:hover {
+	color: black;
+}
