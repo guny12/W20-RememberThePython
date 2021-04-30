@@ -2,6 +2,8 @@ export const LOAD_ALL_TASKS = "task/LOAD_ALL_TASKS";
 const CLEAR_TASKS = "task/CLEAR_TASKS";
 const CHECK_TASK = "task/CHECK_TASK";
 const UNCHECK_TASK = "task/UNCHECK_TASK";
+const UPDATE_SELECTED_TASKS = "task/UPDATE_SELECTED_TASKS";
+const DELETE_SELECTED_TASKS = "task/DELETE_SELECTED_TASKS";
 
 export const checkTask = (taskId) => ({
 	type: CHECK_TASK,
@@ -11,6 +13,16 @@ export const checkTask = (taskId) => ({
 export const uncheckTask = (taskId) => ({
 	type: UNCHECK_TASK,
 	payload: taskId,
+});
+
+export const updateSelectedTasks = (tasksObj) => ({
+	type: UPDATE_SELECTED_TASKS,
+	payload: tasksObj
+});
+
+export const deleteSelectedTasks = (tasksObj) => ({
+	type: DELETE_SELECTED_TASKS,
+	payload: tasksObj
 });
 
 const loadAllTasks = (tasks) => ({
@@ -89,23 +101,6 @@ export const editedTask = (taskDetails) => async (dispatch) => {
 	return data;
 };
 
-// for deletetask
-export const removeTask = (taskId) => async (dispatch) => {
-	const response = await fetch("/api/task/", {
-		method: "DELETE",
-		headers: {
-			"Content-Type": "application/json",
-		},
-		body: JSON.stringify({
-			taskId,
-		}),
-	});
-
-	const data = await response.json();
-	if (data.errors) return data;
-	dispatch(getListTasks(data.listId));
-};
-
 // clear all tasks
 export const clearAllTasks = () => async (dispatch) => {
 	dispatch(clearTasks());
@@ -119,6 +114,38 @@ export const checkATask = (taskId) => async (dispatch) => {
 // uncheck task
 export const uncheckATask = (taskId) => async (dispatch) => {
 	dispatch(uncheckTask(taskId));
+};
+
+export const updateCheckedTasks = (tasksObj, updateType) => async (dispatch) => {
+	const response = await fetch("/api/task/", {
+		method: "PATCH",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({
+			tasksObj,
+			updateType
+		})
+	});
+	const data = await response.json();
+	console.log(data);
+	if (response.ok) dispatch(updateSelectedTasks(data));
+	if (!response.ok) return { message: "error updating tasks" };
+};
+
+export const deleteCheckedTasks = (tasksObj) => async (dispatch) => {
+	const response = await fetch("/api/task/", {
+		method: "DELETE",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({
+			tasksObj
+		})
+	});
+
+	if (response.ok) dispatch(deleteSelectedTasks(tasksObj));
+	if (!response.ok) return { message: "error deleting tasks" };
 };
 
 //========== TASK slice of state reducer
@@ -140,6 +167,19 @@ const taskReducer = (taskState = initialState, action) => {
 		case CHECK_TASK:
 			newState = Object.assign({}, taskState);
 			newState.checkedTasks[action.payload] = parseInt(action.payload, 10);
+			return newState;
+		case UPDATE_SELECTED_TASKS:
+			newState = Object.assign({}, taskState);
+			for (const key in action.payload) {
+				newState.allTasks[key] = action.payload[key];
+			}
+			return newState;
+		case DELETE_SELECTED_TASKS:
+			newState = Object.assign({}, taskState);
+			for (const key in newState.checkedTasks) {
+				delete newState.checkedTasks[key];
+				delete newState.allTasks[key];
+			}
 			return newState;
 		case UNCHECK_TASK:
 			newState = Object.assign({}, taskState);

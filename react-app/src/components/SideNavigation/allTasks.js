@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Task from "../Tasks/index";
 import AddTask from "../Tasks/AddTask";
@@ -32,6 +32,7 @@ const AllTasks = ({ listId }) => {
 	}
 
 	let tasksDiv;
+
 	if (listId > 0) {
 		tasksDiv = Object.values(listTasks);
 	} else if (listId === -1 && tasksQuery) {
