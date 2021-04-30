@@ -55,6 +55,5 @@ const QuickLook = ({ listId }) => {
 			))}
 		</div>
 	);
-	// <AllTasks listId={listId} />;
 };
 export default QuickLook;
