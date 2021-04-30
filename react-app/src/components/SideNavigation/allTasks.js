@@ -57,7 +57,7 @@ const AllTasks = ({ listId }) => {
 				)}
 				<div className="task-list-container">
 					{tasksDiv?.map((task) => (
-						<div onClick={() => test(task)}>
+						<div key={`${task.id}-task-list-container`} onClick={() => test(task)}>
 							<Task task={task} key={task.id} />
 						</div>
 					))}
