@@ -89,7 +89,6 @@ def update_task():
     form = TaskForm()
     form["csrf_token"].data = request.cookies["csrf_token"]
     if form.validate_on_submit():
-
         # newUserId for adding a user to a task
         # can be 0 to signify no new user is being added
         # to a task

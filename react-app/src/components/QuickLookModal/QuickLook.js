@@ -34,11 +34,10 @@ const QuickLook = ({ listId }) => {
 		tasksDiv = Object.values(tasks);
 	}
 
-	let taskId = false;
-	let complete = (taskId) => {
-		taskId = true;
-		console.log(taskId);
+	let complete = async (taskId) => {
+		await dispatch(taskActions.editedTask({ taskId: taskId, completed: true }));
 	};
+
 	return (
 		<div>
 			{tasksDiv?.map((task) => (
@@ -46,6 +45,7 @@ const QuickLook = ({ listId }) => {
 					<Toast.Header closeLabel="complete" closeButton={false}>
 						<strong className="mr-auto">{`Priority: ${task.priority ? task.priority : "None"}`}</strong>
 						<small>{`Due Date: ${task.dueDate ? task.dueDate : "None"}`}</small>
+						<small>{`Completed: ${task.completed}`}</small>
 						<button onClick={() => complete(task.id)} className="quick-look__complete">
 							<i className="fas fa-check-square"></i>
 						</button>

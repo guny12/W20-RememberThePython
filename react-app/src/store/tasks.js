@@ -67,15 +67,19 @@ export const newTask = (taskDetails) => async (dispatch) => {
 
 // edit task
 export const editedTask = (taskDetails) => async (dispatch) => {
-	const { content, taskId } = taskDetails;
+	const { taskId, content, completed, startDate, dueDate, priority } = taskDetails;
 	const response = await fetch("/api/task", {
 		method: "PATCH",
 		headers: {
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify({
-			content,
 			taskId,
+			content,
+			completed,
+			startDate,
+			dueDate,
+			priority,
 		}),
 	});
 
