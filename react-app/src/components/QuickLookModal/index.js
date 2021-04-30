@@ -10,7 +10,7 @@ function QuickLookModal({ listId }) {
 	return (
 		<>
 			<Button id="QuickLookButton" className="card-footer-Quicklook" variant="dark" onClick={() => setShowModal(true)}>
-				Quick Look
+				Uncompleted
 			</Button>
 			{showModal && (
 				<Modal onClose={() => setShowModal(false)}>
