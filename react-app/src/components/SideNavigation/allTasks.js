@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Task from "../Tasks/index";
 import AddTask from "../Tasks/AddTask";
@@ -32,6 +32,7 @@ const AllTasks = ({ listId }) => {
 	}
 
 	let tasksDiv;
+
 	if (listId > 0) {
 		tasksDiv = Object.values(listTasks);
 	} else if (listId === -1 && tasksQuery) {
@@ -56,7 +57,7 @@ const AllTasks = ({ listId }) => {
 				)}
 				<div className="task-list-container">
 					{tasksDiv?.map((task) => (
-						<div onClick={() => test(task)}>
+						<div key={`${task.id}-task-list-container`} onClick={() => test(task)}>
 							<Task task={task} key={task.id} />
 						</div>
 					))}

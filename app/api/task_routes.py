@@ -86,70 +86,38 @@ def create_task():
 @task_routes.route("/", methods=["PATCH"])
 @login_required
 def update_task():
-    form = TaskForm()
-    form["csrf_token"].data = request.cookies["csrf_token"]
-    if form.validate_on_submit():
-        # newUserId for adding a user to a task
-        # can be 0 to signify no new user is being added
-        # to a task
-        newUserId = request.json["newUserId"]
+    userId = current_user.id
+    tasksDict = request.json["tasksObj"]
+    updateType = request.json["updateType"]
+    tasksList = []
+    getTasks = {}
 
-        # assignedUserId for determining if task owner
-        # would like to unassign task from currently
-        # assigned user
-        assignedUserId = request.json["assignedUserId"]
+    if updateType == "completed":
+        tasksList = [Task.query.get(taskId) for taskId in tasksDict]
 
-        userId = current_user.id
-        taskId = request.json["taskId"]
-        content = request.json["content"]
-        completed = request.json["completed"]
-        startDate = request.json["startDate"]
-        dueDate = request.json["dueDate"]
-        priority = request.json["priority"]
+        for task in tasksList:
+            task.completed = not task.completed
+            task.updatedAt = datetime.now()
+            getTasks[task.id] = task.to_dict()
 
-        currentTask = Task.query.get(taskId)
+    db.session.commit()
 
-        if content:
-            currentTask.content = content
-        if completed is not None:
-            currentTask.completed = completed
-        if startDate:
-            currentTask.startDate = startDate
-        if dueDate:
-            currentTask.dueDate = dueDate
-        if priority:
-            currentTask.priority = priority
-        if assignedUserId > 0 and newUserId == 0:
-            # unassigning task from currently assigned user
-            db.session.execute(
-                f"""DELETE FROM givetousers
-            WHERE user_id={assignedUserId} AND task_id={taskId};"""
-            )
-        if assignedUserId > 0 and newUserId > 0:
-            # assigning task to a new user
-            db.session.execute(
-                f"""INSERT INTO givetousers (user_id, task_id)
-            VALUES ({newUserId}, {taskId});"""
-            )
-
-        currentTask.updatedAt = datetime.now()
-
-        db.session.commit()
-
-        return {"task": currentTask.to_dict()}
-    return {"errors": validation_errors_to_error_messages(form.errors)}, 401
+    return getTasks
+    # return {"errors": validation_errors_to_error_messages(form.errors)}, 401
 
 
 # DELETE Task
 @task_routes.route("/", methods=["DELETE"])
 @login_required
 def del_task():
-    taskId = request.json["taskId"]
-    oldTask = Task.query.get(taskId)
+    tasksDict = request.json["tasksObj"]
+    oldTask = [Task.query.get(task) for task in tasksDict]
 
-    if oldTask.creatorId != current_user.id:
-        return {"errors": "Must be Task creator to delete a Task"}, 401
+    # if oldTask.creatorId != current_user.id:
+    #     return {"errors": "Must be Task creator to delete a Task"}, 401
 
-    db.session.delete(oldTask)
+    for task in oldTask:
+        db.session.delete(task)
+
     db.session.commit()
-    return {"message": "Task deleted", "listId": oldTask.listId}
+    return {"message": "Task deleted"}
