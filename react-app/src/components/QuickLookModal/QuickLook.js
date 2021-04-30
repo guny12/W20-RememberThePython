@@ -39,8 +39,8 @@ const QuickLook = ({ listId }) => {
 						<Toast key={`toast-${task.id}`}>
 							<Toast.Header closeLabel="complete" closeButton={false}>
 								<strong className="mr-auto">{`Priority: ${task.priority ? task.priority : "None"}`}</strong>
-								<small>{`Due Date: ${task.dueDate ? task.dueDate : "None"}`}</small>
-								<small>{`Completed: ${task.completed}`}</small>
+								<small className="toast-small-header">{`Due Date: ${task.dueDate ? task.dueDate : "None"}`}</small>
+								<small className="toast-small-header">{`Completed: ${task.completed}`}</small>
 								<button onClick={() => complete(task.id)} className="quick-look__complete">
 									<i className="fas fa-check-square"></i>
 								</button>
