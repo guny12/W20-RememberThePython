@@ -74,7 +74,7 @@ const AllTasks = ({ listId }) => {
 								<p>tasks</p>
 							</div>
 							<div className="num-completed">
-								<h5>0</h5>
+								<h5>THIS IS A HARDCODED VALUE</h5>
 								<p>completed</p>
 							</div>
 						</div>

@@ -18,3 +18,7 @@
 	background-color: #4f7899dc;
 	color: white;
 }
+
+.toast-small-header {
+	margin: 5px;
+}
