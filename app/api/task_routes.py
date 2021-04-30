@@ -103,17 +103,19 @@ def update_task():
         userId = current_user.id
         taskId = request.json["taskId"]
         content = request.json["content"]
+        dueDate = request.json["dueDate"]
+        listId = request.json["listId"]
         # completed = request.json["completed"]
         # startDate = request.json["startDate"]
-        dueDate = request.json["dueDate"]
         # priority = request.json["priority"]
         print("WE ARE IN THE BACKEND ROUTE!!!!")
 
         print(userId, taskId, content, dueDate, "OTHER STUFFF")
 
-        listId = request.json("listId")
+
         print(userId, taskId, content, dueDate, "OTHER OTHER STUFFF")
         print(listId, "LIST ID!!!")
+
         currentTask = Task.query.get(taskId)
 
         if content:
@@ -124,6 +126,8 @@ def update_task():
         #     currentTask.startDate = startDate
         if dueDate:
             currentTask.dueDate = dueDate
+        if listId:
+            currentTask.listId = listId
         # if priority:
         #     currentTask.priority = priority
         # if assignedUserId > 0 and newUserId == 0:

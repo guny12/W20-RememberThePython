@@ -24,8 +24,9 @@ const TaskDisplay = ({lists, selectedTask, currentList}) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    const change = {taskId:selectedTask.id, listId:currentList.id, dueDate, content:selectedTask.content}
+    const change = {taskId:selectedTask.id, listId:newListId, dueDate, content:selectedTask.content}
     await dispatch(editedTaskDropdown(change))
+
     return
   }
 
