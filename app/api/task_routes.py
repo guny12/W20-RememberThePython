@@ -97,6 +97,7 @@ def update_task():
     # to a task
     # newUserId = request.json["newUserId"]
 
+
     # assignedUserId for determining if task owner
     # would like to unassign task from currently
     # assigned user
