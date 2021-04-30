@@ -5,15 +5,17 @@ import {editedTaskDropdown} from "../../store/tasks"
 
 const TaskDisplay = ({lists, selectedTask, currentList}) => {
 
+  
 
   const dispatch = useDispatch()
-  const [dueDate, setDueDate] = useState("2020-08-0")
-  const [newListId, setNewListId] = useState()
+  const [dueDate, setDueDate] = useState(selectedTask.dueDate)
+  console.log(dueDate, "DUE DATE!!!!")
+  const [newListId, setNewListId] = useState(selectedTask.id)
   console.log(selectedTask, "SELECTED TASK!!!")
 
   // useEffect(() => {
   //   console.log(dueDate, "DUE DATE!!!!")
-    const change = {taskId:selectedTask.id, listId:currentList.id, dueDate, content:selectedTask.content}
+    // const change = {taskId:selectedTask.id, listId:currentList.id, dueDate, content:selectedTask.content}
   //   dispatch(editedTaskDropdown(change))
   // }, [dispatch])
 
@@ -21,6 +23,10 @@ const TaskDisplay = ({lists, selectedTask, currentList}) => {
   //   const change = {taskId:selectedTask.id, listId:newListId, dueDate}
   //   dispatch(editedTaskDropdown(change))
   // }, [newListId, dispatch])
+
+  useEffect(() => {
+
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
