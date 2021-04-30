@@ -34,11 +34,8 @@ const SideNavigation = () => {
 	const loadTasks = async (list) => {
 		// await dispatch(clearAllTasks()); moved to line 44, inside conditional
 
-		// this is for unchecking all "master checkboxes"
-		document.querySelectorAll(".master-checkbox").forEach((checkbox) => {
-			checkbox.checked = false;
-			checkbox.indeterminate = false;
-		});
+		// this is for unchecking all "primary checkboxes"
+		await dispatch(resetCheckboxState());
 
 		if (list !== "search" && tasksLoaded === false) {
 			setTasksLoaded(true);
