@@ -4,20 +4,20 @@ import * as taskActions from "../../store/tasks";
 import * as listActions from "../../store/lists";
 
 function AddTask({ listId }) {
-  const dispatch = useDispatch();
-  const [content, setContent] = useState("");
-	const [inputSelected, setInputSelected] = useState(false)
+	const dispatch = useDispatch();
+	const [content, setContent] = useState("");
+	const [inputSelected, setInputSelected] = useState(false);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const payload = {
-      content,
-      listId,
-    };
-    setContent("");
-    await dispatch(taskActions.newTask(payload));
-    await dispatch(listActions.getAllLists());
-  };
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		const payload = {
+			content,
+			listId,
+		};
+		setContent("");
+		await dispatch(taskActions.newTask(payload));
+		// await dispatch(listActions.getAllLists());
+	};
 
   const focusMethod = () => {
     document.getElementById("add-task-id").focus()

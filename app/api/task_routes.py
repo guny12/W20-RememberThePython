@@ -31,8 +31,7 @@ def get_task_info():
 @login_required
 def get_all_tasks():
     userId = current_user.id
-    tasks = Task.query.filter(
-        Task.creatorId == userId).order_by(Task.createdAt).all()
+    tasks = Task.query.filter(Task.creatorId == userId).order_by(Task.createdAt).all()
     return {"tasks": [task.to_dict() for task in tasks]}
 
 
@@ -42,8 +41,7 @@ def get_all_tasks():
 def get_all_list_tasks(listId):
     userId = current_user.id
 
-    tasks = Task.query.filter(
-        Task.creatorId == userId, Task.listId == listId).order_by(Task.createdAt).all()
+    tasks = Task.query.filter(Task.creatorId == userId, Task.listId == listId).order_by(Task.createdAt).all()
 
     return {"tasks": [task.to_dict() for task in tasks]}
 
@@ -95,45 +93,51 @@ def update_task():
         # newUserId for adding a user to a task
         # can be 0 to signify no new user is being added
         # to a task
-        newUserId = request.json["newUserId"]
+        # newUserId = request.json["newUserId"]
 
         # assignedUserId for determining if task owner
         # would like to unassign task from currently
         # assigned user
-        assignedUserId = request.json["assignedUserId"]
+        # assignedUserId = request.json["assignedUserId"]
 
         userId = current_user.id
         taskId = request.json["taskId"]
         content = request.json["content"]
-        completed = request.json["completed"]
-        startDate = request.json["startDate"]
+        # completed = request.json["completed"]
+        # startDate = request.json["startDate"]
         dueDate = request.json["dueDate"]
-        priority = request.json["priority"]
+        # priority = request.json["priority"]
+        print("WE ARE IN THE BACKEND ROUTE!!!!")
 
+        print(userId, taskId, content, dueDate, "OTHER STUFFF")
+
+        listId = request.json("listId")
+        print(userId, taskId, content, dueDate, "OTHER OTHER STUFFF")
+        print(listId, "LIST ID!!!")
         currentTask = Task.query.get(taskId)
 
         if content:
             currentTask.content = content
-        if completed is not None:
-            currentTask.completed = completed
-        if startDate:
-            currentTask.startDate = startDate
+        # if completed is not None:
+        #     currentTask.completed = completed
+        # if startDate:
+        #     currentTask.startDate = startDate
         if dueDate:
             currentTask.dueDate = dueDate
-        if priority:
-            currentTask.priority = priority
-        if assignedUserId > 0 and newUserId == 0:
-            # unassigning task from currently assigned user
-            db.session.execute(
-                f"""DELETE FROM givetousers
-            WHERE user_id={assignedUserId} AND task_id={taskId};"""
-            )
-        if assignedUserId > 0 and newUserId > 0:
-            # assigning task to a new user
-            db.session.execute(
-                f"""INSERT INTO givetousers (user_id, task_id)
-            VALUES ({newUserId}, {taskId});"""
-            )
+        # if priority:
+        #     currentTask.priority = priority
+        # if assignedUserId > 0 and newUserId == 0:
+        #     # unassigning task from currently assigned user
+        #     db.session.execute(
+        #         f"""DELETE FROM givetousers
+        #     WHERE user_id={assignedUserId} AND task_id={taskId};"""
+        #     )
+        # if assignedUserId > 0 and newUserId > 0:
+        #     # assigning task to a new user
+        #     db.session.execute(
+        #         f"""INSERT INTO givetousers (user_id, task_id)
+        #     VALUES ({newUserId}, {taskId});"""
+        #     )
 
         currentTask.updatedAt = datetime.now()
 
@@ -155,4 +159,4 @@ def del_task():
 
     db.session.delete(oldTask)
     db.session.commit()
-    return {"message": "Task deleted"}
+    return {"message": "Task deleted", "listId": oldTask.listId}

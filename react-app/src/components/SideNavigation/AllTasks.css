@@ -20,9 +20,14 @@
   /* display: flex; */
   margin-top: 15px;
   background-color: white;
+  border: none;
   border-radius: 8px;
   border-style: solid;
   border-width: thin medium thick;
+  width: 800px;
+  margin-left: 5px;
+  /* border-style: solid; */
+  /* border-width: thin medium thick; */
   border-color: #C0C0C0;
   min-width: 350px;
 }
@@ -31,6 +36,14 @@
   min-width: 350px;
 }
 
+.task-content-header {
+  font-size: 1rem;
+}
+
+.task-list-container {
+  height: 70vh;
+  overflow-y: auto;
+}
 
 .task-form-container form button{
  background-color: #87ceeb;
@@ -41,11 +54,9 @@
  border-radius: 5px;
 }
 
-
-
-
 .task-details-page {
   margin-top: 10px;
+  padding-right: 20px;
   display: flex;
   flex-direction: column;
 }

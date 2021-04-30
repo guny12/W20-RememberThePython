@@ -8,5 +8,5 @@ class TaskForm(FlaskForm):
     content = StringField("content", validators=[DataRequired()])
     completed = BooleanField("completed", default=False)
     # startDate = DateField("startDate", default="")
-    # dueDate = DateField("dueDate", default="")
+    dueDate = DateField("dueDate", default="2020-04-30")
     # priority = IntegerField("priority", default="")
