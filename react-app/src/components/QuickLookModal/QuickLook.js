@@ -6,25 +6,25 @@ import { useDispatch, useSelector } from "react-redux";
 import "./QuickLook.css";
 import { Toast } from "react-bootstrap";
 
-const QuickLook = ({ tasksDiv, listId }) => {
+const QuickLook = ({ listId }) => {
 	const dispatch = useDispatch();
-	// const [isLoaded, setLoaded] = useState(false);
+	const [isLoaded, setLoaded] = useState(false);
 
-	// useEffect(() => {
-	// 	(async () => {
-	// 		await dispatch(taskActions.getListTasks(listId));
-	// 		setLoaded(true);
-	// 	})();
-	// }, [dispatch, listId]);
+	useEffect(() => {
+		(async () => {
+			await dispatch(taskActions.getListTasks(listId));
+			setLoaded(true);
+		})();
+	}, [dispatch, listId]);
 
-	// const tasks = useSelector((state) => state.tasks.allTasks);
+	const tasks = useSelector((state) => state.tasks.allTasks);
 
-	// const listTasks = {};
-	// if (listId > 0) {
-	// 	for (const task in tasks) if (tasks[task].listId === listId) listTasks[task] = tasks[task];
-	// }
+	const listTasks = {};
+	if (listId > 0) {
+		for (const task in tasks) if (tasks[task].listId === listId) listTasks[task] = tasks[task];
+	}
 
-	// const tasksDiv = listId > 0 ? Object.values(listTasks) : Object.values(tasks);
+	const tasksDiv = listId > 0 ? Object.values(listTasks) : Object.values(tasks);
 
 	let complete = async (taskId) => {
 		let taskIdObj = {};
@@ -62,6 +62,7 @@ const QuickLook = ({ tasksDiv, listId }) => {
 		);
 	}
 
+	if (!isLoaded) return null;
 	return <div>{uncompleted}</div>;
 };
 export default QuickLook;
