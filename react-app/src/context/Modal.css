@@ -22,14 +22,13 @@
 	position: absolute;
 	background-color: white;
 	size: Large;
-	border: 1px solid black;
-	border-radius: 5px;
+	border-radius: 10px;
 	height: auto;
 	max-height: 85vh;
 	width: auto;
 	padding: 10px;
 	overflow-y: auto;
-	animation: fade-in 1s;
+	animation: fade-in 2s;
 }
 
 @keyframes fade-in {
@@ -44,6 +43,5 @@
 	}
 	to {
 		background-color: white;
-		border: 1px solid black;
 	}
 }
