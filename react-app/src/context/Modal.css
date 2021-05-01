@@ -18,15 +18,30 @@
 	background: #4f789969;
 }
 
-#modal-content {
+.modal__content {
 	position: absolute;
 	background-color: white;
 	size: Large;
-	border: 1px solid black;
-	border-radius: 5px;
+	border-radius: 10px;
 	height: auto;
 	max-height: 85vh;
 	width: auto;
 	padding: 10px;
 	overflow-y: auto;
+	animation: fade-in 2s;
+}
+
+@keyframes fade-in {
+	from {
+		background-color: transparent;
+		background: transparent;
+		hidden: true;
+		border: none;
+		border-color: transparent;
+		color: transparent;
+		box-shadow: none;
+	}
+	to {
+		background-color: white;
+	}
 }
