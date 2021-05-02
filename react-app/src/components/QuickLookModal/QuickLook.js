@@ -63,7 +63,6 @@ const QuickLook = ({ listId }) => {
 	}
 
 	if (!isLoaded) return null;
-
 	return <div>{uncompleted}</div>;
 };
 export default QuickLook;

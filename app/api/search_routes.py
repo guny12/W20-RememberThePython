@@ -43,6 +43,12 @@ def get_searchDate_results(query):
         tomorrow = today + datetime.timedelta(days=1)
         tomorrow = tomorrow.strftime("%Y-%m-%d 00:00:00")
         taskResults = Task.query.filter(Task.creatorId == userId, Task.dueDate == tomorrow).all()
+    elif query == "ThisWeek":
+        endOfWeek = today + datetime.timedelta(days=7)
+        endOfWeek = endOfWeek.strftime("%Y-%m-%d 00:00:00")
+        taskResults = Task.query.filter(
+            Task.creatorId == userId, Task.dueDate >= Today, Task.dueDate <= endOfWeek
+        ).all()
 
     results = {"taskResults": {}}
 
