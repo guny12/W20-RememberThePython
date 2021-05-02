@@ -114,11 +114,11 @@ const SideNavigation = () => {
 								Due Within a Week
 							</Nav.Link>
 						</Nav.Item>
-						<Nav.Item className={styles.navItem}>
+						{/* <Nav.Item className={styles.navItem}>
 							<Nav.Link onClick={() => loadTasks("trash")} eventKey="trash">
 								Trash
 							</Nav.Link>
-						</Nav.Item>
+						</Nav.Item> */}
 						<Nav.Item className={styles.navItem}>
 							<Nav.Link onClick={() => loadTasks("search")} eventKey="search">
 								Search
