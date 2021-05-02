@@ -1,8 +1,9 @@
 from flask import Blueprint
 from flask_login import login_required, current_user
 from app.models import User, List, Task, Note, db
-from datetime import datetime
 
+# from datetime import datetime, timedelta
+import datetime
 
 search_routes = Blueprint("search", __name__)
 
@@ -33,11 +34,15 @@ def get_search_results(query):
 def get_searchDate_results(query):
     userId = current_user.id
 
-    today = datetime.now()
-    today = today.strftime("%Y-%m-%d 00:00:00")
+    today = datetime.datetime.now()
+    Today = today.strftime("%Y-%m-%d 00:00:00")
 
     if query == "Today":
-        taskResults = Task.query.filter(Task.creatorId == userId, Task.dueDate == today).all()
+        taskResults = Task.query.filter(Task.creatorId == userId, Task.dueDate == Today).all()
+    elif query == "Tomorrow":
+        tomorrow = today + datetime.timedelta(days=1)
+        tomorrow = tomorrow.strftime("%Y-%m-%d 00:00:00")
+        taskResults = Task.query.filter(Task.creatorId == userId, Task.dueDate == tomorrow).all()
 
     results = {"taskResults": {}}
 

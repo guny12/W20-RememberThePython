@@ -59,6 +59,7 @@ const SideNavigation = () => {
 				setTasksLoaded(false);
 				return;
 			case "tomorrow":
+				(async () => await dispatch(searchDateQuery("Tomorrow")))();
 				setListLoaded(false);
 				setTasksLoaded(false);
 				return;
@@ -155,7 +156,7 @@ const SideNavigation = () => {
 							<AllTasks listId={-1} />
 						</Tab.Pane>
 						<Tab.Pane eventKey="tomorrow">
-							<p> test</p>
+							<AllTasks listId={-1} />
 						</Tab.Pane>
 						<Tab.Pane eventKey="thisWeek">
 							<p> test</p>
