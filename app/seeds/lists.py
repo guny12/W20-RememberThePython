@@ -7,15 +7,13 @@ faker = Faker()
 
 
 def seed_lists():
-    for i in range(100):
-        demo = List(
-            userId=1,
-            title=faker.sentence()
-        )
+    for i in range(25):
+        demo = List(userId=1, title=faker.sentence())
 
         db.session.add(demo)
 
     db.session.commit()
+
 
 # Uses a raw SQL query to TRUNCATE the lists table.
 # SQLAlchemy doesn't have a built in function to do this
@@ -24,7 +22,9 @@ def seed_lists():
 
 
 def undo_lists():
-    db.session.execute('''TRUNCATE TABLE lists
-    CASCADE;''')
-    db.session.execute('''ALTER SEQUENCE lists_id_seq RESTART WITH 1;''')
+    db.session.execute(
+        """TRUNCATE TABLE lists
+    CASCADE;"""
+    )
+    db.session.execute("""ALTER SEQUENCE lists_id_seq RESTART WITH 1;""")
     db.session.commit()

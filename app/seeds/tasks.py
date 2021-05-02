@@ -7,16 +7,27 @@ faker = Faker()
 
 
 def seed_tasks():
-    for i in range(500):
+    for i in range(100):
         demo = Task(
             creatorId=1,
-            listId=faker.pyint(min_value=1, max_value=80),
+            listId=faker.pyint(min_value=1, max_value=25),
             content=faker.paragraph(nb_sentences=10),
             completed=faker.boolean(chance_of_getting_true=50),
             priority=faker.pyint(min_value=0, max_value=5),
-            dueDate=faker.future_date(end_date="+1000d"),
+            dueDate=faker.future_date(end_date="+7d"),
         )
         db.session.add(demo)
+    for i in range(100):
+        demo = Task(
+            creatorId=1,
+            listId=faker.pyint(min_value=1, max_value=25),
+            content=faker.paragraph(nb_sentences=10),
+            completed=faker.boolean(chance_of_getting_true=50),
+            priority=faker.pyint(min_value=0, max_value=5),
+            dueDate=faker.future_date(end_date="+100d"),
+        )
+        db.session.add(demo)
+
     db.session.commit()
 
 
