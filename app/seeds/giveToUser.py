@@ -6,9 +6,11 @@ faker = Faker()
 
 # Adds a demo giveToUser, you can add other giveToUsers here if you want
 def seed_giveToUsers():
-    for i in range(50):
-        db.session.execute(f'''INSERT INTO givetousers (user_id, task_id)
-      VALUES ({i + 1}, {i + 1});''')
+    for i in range(10):
+        db.session.execute(
+            f"""INSERT INTO givetousers (user_id, task_id)
+      VALUES ({i + 1}, {i + 1});"""
+        )
 
     db.session.commit()
 
@@ -18,5 +20,5 @@ def seed_giveToUsers():
 # TRUNCATE Removes all the data from the table, and ALTER SEQUENCE resets
 # the auto incrementing primary key
 def undo_giveToUsers():
-    db.session.execute('''TRUNCATE TABLE giveToUsers;''')
+    db.session.execute("""TRUNCATE TABLE giveToUsers;""")
     db.session.commit()
