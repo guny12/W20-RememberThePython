@@ -11,6 +11,7 @@ import { clearAllResults } from "../../store/search";
 import { resetCheckboxState } from "../../store/checkboxes";
 import Hometab from "../Hometab";
 import * as listActions from "../../store/lists";
+import { searchDateQuery } from "../../store/search";
 
 import styles from "./SideNavigation.module.css";
 import "./SideNavigation.css";
@@ -32,9 +33,6 @@ const SideNavigation = () => {
 	};
 
 	const loadTasks = async (list) => {
-		// await dispatch(clearAllTasks()); moved to line 44, inside conditional
-
-		// this is for unchecking all "primary checkboxes"
 		await dispatch(resetCheckboxState());
 
 		if (list !== "search" && tasksLoaded === false) {
@@ -56,10 +54,12 @@ const SideNavigation = () => {
 				setTasksLoaded(false);
 				return;
 			case "today":
+				(async () => await dispatch(searchDateQuery("Today")))();
 				setListLoaded(false);
 				setTasksLoaded(false);
 				return;
 			case "tomorrow":
+				(async () => await dispatch(searchDateQuery("Tomorrow")))();
 				setListLoaded(false);
 				setTasksLoaded(false);
 				return;
@@ -93,11 +93,6 @@ const SideNavigation = () => {
 								Home
 							</Nav.Link>
 						</Nav.Item>
-						{/* <Nav.Item className={styles.navItem}>
-							<Nav.Link onClick={() => loadTasks("inbox")} eventKey="inbox">
-								Inbox
-							</Nav.Link>
-						</Nav.Item> */}
 						<Nav.Item className={styles.navItem}>
 							<Nav.Link onClick={() => loadTasks("allTasks")} eventKey="allTasks">
 								All Tasks
@@ -118,11 +113,6 @@ const SideNavigation = () => {
 								This Week
 							</Nav.Link>
 						</Nav.Item>
-						{/* <Nav.Item className={styles.navItem}>
-							<Nav.Link onClick={() => loadTasks("givenToOthers")} eventKey="givenToOthers">
-								Given to others
-							</Nav.Link>
-						</Nav.Item> */}
 						<Nav.Item className={styles.navItem}>
 							<Nav.Link onClick={() => loadTasks("trash")} eventKey="trash">
 								Trash
@@ -159,24 +149,18 @@ const SideNavigation = () => {
 						<Tab.Pane eventKey="home">
 							<Hometab listLoaded={listLoaded} />
 						</Tab.Pane>
-						{/* <Tab.Pane eventKey="inbox">
-							<p> test</p>
-						</Tab.Pane> */}
 						<Tab.Pane eventKey="allTasks">
 							<AllTasks listId={0} />
 						</Tab.Pane>
 						<Tab.Pane eventKey="today">
-							<p> test</p>
+							<AllTasks listId={-1} />
 						</Tab.Pane>
 						<Tab.Pane eventKey="tomorrow">
-							<p> test</p>
+							<AllTasks listId={-1} />
 						</Tab.Pane>
 						<Tab.Pane eventKey="thisWeek">
 							<p> test</p>
 						</Tab.Pane>
-						{/* <Tab.Pane eventKey="givenToOthers">
-							<p> test</p>
-						</Tab.Pane> */}
 						<Tab.Pane eventKey="trash">
 							<p> test</p>
 						</Tab.Pane>

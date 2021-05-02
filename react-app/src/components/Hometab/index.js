@@ -6,7 +6,7 @@ import QuickLookModal from "../QuickLookModal";
 import "./Hometab.css";
 
 const Hometab = ({ listLoaded }) => {
-	const dispatch = useDispatch();
+	// const dispatch = useDispatch();
 	const allCurrentLists = useSelector((state) => state?.lists?.allLists);
 
 	const listTab = (list) => {
