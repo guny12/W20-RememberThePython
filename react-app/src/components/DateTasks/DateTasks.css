@@ -1,0 +1,55 @@
+.task-page-container {
+	background-color: white;
+	padding: 20px;
+	width: 1000px;
+	max-height: 100vh;
+	border-radius: 10px;
+	margin-top: 15px;
+}
+
+.task-page-container > .task-container {
+	margin: 10px;
+	border-bottom: 1px dotted #D0D3D6;
+	height: 30px;
+	overflow: hidden;
+}
+
+.task-container {
+  background-color: white;
+	display: flex;
+  flex-direction: row;
+	border-bottom: 1px dotted black;
+  padding-top: 4px;
+  cursor: pointer;
+}
+
+.task-container input{
+  margin-top: 1px;
+}
+
+.task-container h1 {
+	font-size: small;
+  margin-left: 5px;
+}
+
+.edit-container {
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+	border-bottom: 1px dotted rgba(128, 128, 128, 0.556);
+}
+
+.edit-container button {
+	margin-right: 5px;
+	margin-left: 5px;
+	background: none;
+	border: 1px solid rgba(128, 128, 128, 0.419);
+	border-radius: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	color: rgba(0, 0, 0, 0.467);
+	transition: 0.3s;
+}
+
+.edit-container button:hover {
+	color: black;
+}

@@ -3,17 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { checkATask, uncheckATask } from "../../store/tasks";
 import "./Tasks.css";
 
-function Task({ task }) {
+function DateTask({ task }) {
 	const dispatch = useDispatch();
 	const checkTask = useSelector((state) => state.tasks.checkedTasks);
 	const primaryCheckbox = useSelector((state) => state.checkboxes.parentCheckbox);
 	const [isChecked, setIsChecked] = useState(false);
 
 	// useEffect(() => {
-	//   console.log('TEEEEEEEEEEEEEEST')
-	//   if (checkTask[task.id]) {
-	//     setIsChecked(!isChecked);
-	//   }
+	// 	// console.log('TEEEEEEEEEEEEEEST')
+	// 	if (checkTask[task.id]) {
+	// 		setIsChecked(!isChecked);
+	// 	}
 	// }, [checkTask]);
 
 	const test = async (e) => {
@@ -47,4 +47,4 @@ function Task({ task }) {
 	);
 }
 
-export default Task;
+export default DateTask;

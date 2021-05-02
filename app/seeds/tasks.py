@@ -10,7 +10,7 @@ def seed_tasks():
     for i in range(100):
         demo = Task(
             creatorId=1,
-            listId=faker.pyint(min_value=1, max_value=25),
+            listId=faker.pyint(min_value=1, max_value=15),
             content=faker.paragraph(nb_sentences=10),
             completed=faker.boolean(chance_of_getting_true=50),
             priority=faker.pyint(min_value=0, max_value=5),
@@ -20,7 +20,7 @@ def seed_tasks():
     for i in range(100):
         demo = Task(
             creatorId=1,
-            listId=faker.pyint(min_value=1, max_value=25),
+            listId=faker.pyint(min_value=1, max_value=15),
             content=faker.paragraph(nb_sentences=10),
             completed=faker.boolean(chance_of_getting_true=50),
             priority=faker.pyint(min_value=0, max_value=5),

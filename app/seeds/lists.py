@@ -7,7 +7,7 @@ faker = Faker()
 
 
 def seed_lists():
-    for i in range(25):
+    for i in range(15):
         demo = List(userId=1, title=faker.sentence())
 
         db.session.add(demo)
