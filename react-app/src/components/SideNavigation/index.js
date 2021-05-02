@@ -64,13 +64,14 @@ const SideNavigation = () => {
 				setTasksLoaded(false);
 				return;
 			case "thisWeek":
+				(async () => await dispatch(searchDateQuery("ThisWeek")))();
 				setListLoaded(false);
 				setTasksLoaded(false);
 				return;
-			case "trash":
-				setListLoaded(false);
-				setTasksLoaded(false);
-				return;
+			// case "trash":
+			// 	setListLoaded(false);
+			// 	setTasksLoaded(false);
+			// 	return;
 			default:
 				if (list === "search") return;
 				const [currentList] = lists.filter((singleList) => singleList.title === list);
@@ -100,17 +101,17 @@ const SideNavigation = () => {
 						</Nav.Item>
 						<Nav.Item className={styles.navItem}>
 							<Nav.Link onClick={() => loadTasks("today")} eventKey="today">
-								Today
+								Due Today
 							</Nav.Link>
 						</Nav.Item>
 						<Nav.Item className={styles.navItem}>
 							<Nav.Link onClick={() => loadTasks("tomorrow")} eventKey="tomorrow">
-								Tomorrow
+								Due Tomorrow
 							</Nav.Link>
 						</Nav.Item>
 						<Nav.Item className={styles.navItem}>
 							<Nav.Link onClick={() => loadTasks("thisWeek")} eventKey="thisWeek">
-								This Week
+								Due Within a Week
 							</Nav.Link>
 						</Nav.Item>
 						<Nav.Item className={styles.navItem}>
@@ -159,11 +160,11 @@ const SideNavigation = () => {
 							<AllTasks listId={-1} />
 						</Tab.Pane>
 						<Tab.Pane eventKey="thisWeek">
-							<p> test</p>
+							<AllTasks listId={-1} />
 						</Tab.Pane>
-						<Tab.Pane eventKey="trash">
+						{/* <Tab.Pane eventKey="trash">
 							<p> test</p>
-						</Tab.Pane>
+						</Tab.Pane> */}
 						{lists?.map((lis) => (
 							<Tab.Pane eventKey={lis.id} key={lis.id}>
 								<AllTasks listId={lis.id} />
