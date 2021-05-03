@@ -36,6 +36,7 @@ const AllTasks = ({ listId }) => {
 	}
 
 	let tasksDiv;
+
 	if (listId > 0) {
 		tasksDiv = Object.values(listTasks);
 	} else if (listId === -1 && tasksQuery) {

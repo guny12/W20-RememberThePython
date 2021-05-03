@@ -16,19 +16,22 @@ function App() {
 	const [loaded, setLoaded] = useState(false);
 	const [listLoaded, setListLoaded] = useState(false);
 	const allCurrentLists = useSelector((state) => state?.lists?.allLists);
+	const loggedIn = useSelector((state) => state?.session?.user);
 
 	useEffect(() => {
 		(async () => {
-			let response = await dispatch(sessionActions.restoreUser());
-			if (response.message === "success" && allCurrentLists?.length === 0) {
-				(async () => {
-					let lists = await dispatch(listActions.getAllLists());
-					if (lists) setListLoaded(true);
-				})();
+			if (!loggedIn) {
+				let response = await dispatch(sessionActions.restoreUser());
+				if (response.message === "success" && allCurrentLists?.length === 0) {
+					(async () => {
+						let lists = await dispatch(listActions.getAllLists());
+						if (lists) setListLoaded(true);
+					})();
+				}
+				setLoaded(true);
 			}
-			setLoaded(true);
 		})();
-	}, [dispatch, allCurrentLists]);
+	}, [dispatch, allCurrentLists, loggedIn]);
 
 	if (!loaded) return null;
 

@@ -8,14 +8,6 @@ import "./Hometab.css";
 const Hometab = ({ listLoaded }) => {
 	const dispatch = useDispatch();
 	const allCurrentLists = useSelector((state) => state?.lists?.allLists);
-	// const [listLoaded, setListLoaded] = useState(false);
-
-	// useEffect(() => {
-	// 	(async () => {
-	// 		let lists = await dispatch(listActions.getAllLists());
-	// 		if (lists) setListLoaded(true);
-	// 	})();
-	// }, [dispatch]);
 
 	const listTab = (list) => {
 		document.querySelector(`#sideNav-tab-${list.id}`).click();

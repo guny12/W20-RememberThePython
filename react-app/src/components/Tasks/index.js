@@ -1,36 +1,41 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { checkATask, uncheckATask } from "../../store/tasks";
-import './Tasks.css';
+import "./Tasks.css";
 
 function Task({ task }) {
-  const dispatch = useDispatch();
-  const checkedTasks = useSelector((state) => state.tasks.checkedTasks);
+	const dispatch = useDispatch();
+	const checkTask = useSelector((state) => state.tasks.checkedTasks);
+	const primaryCheckbox = useSelector((state) => state.checkboxes.parentCheckbox);
+	const [isChecked, setIsChecked] = useState(false);
 
-  useEffect(() => {
+	const test = async (e) => {
+		console.log(Boolean(checkTask[task.id]));
+		if (e.target.checked) {
+			setIsChecked(true);
+			await dispatch(checkATask(e.target.value));
+		} else {
+			setIsChecked(false);
+			await dispatch(uncheckATask(e.target.value));
+		}
+	};
 
-  }, [checkedTasks[task.id]]);
+	const checkCheckbox = async (e) => {
+		setIsChecked(!isChecked);
+	};
 
-  const test = async (e) => {
-    if (e.target.checked) {
-      await dispatch(checkATask(e.target.value));
-    } else {
-      await dispatch(uncheckATask(e.target.value));
-    }
-  };
-
-  return (
-    <div className="task-container">
-      <input
-        type="checkbox"
-        id={`checkbox-taskId-${task.id}`}
-        value={task.id}
-        className="task-checkbox"
-        onClick={(e) => test(e)}
-      />
-      <h1>{task.content}</h1>
-    </div>
-  )
+	return (
+		<div onClick={checkCheckbox} className="task-container">
+			<input
+				type="checkbox"
+				id={`checkbox-taskId-${task.id}`}
+				value={task.id}
+				className="task-checkbox"
+				onClick={(e) => test(e)}
+			/>
+			<h1>{task.content}</h1>
+		</div>
+	);
 }
 
 export default Task;

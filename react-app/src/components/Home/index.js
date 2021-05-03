@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./Home.css";
 
 const Home = ({ listLoaded }) => {
-	if (listLoaded) document.querySelector("#sideNav-tab-home").click();
+	useEffect(() => {
+		if (listLoaded) document.querySelector("#sideNav-tab-home").click();
+	}, [listLoaded]);
 
 	return <></>;
 };
