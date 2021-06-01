@@ -5,15 +5,13 @@ import listsReducer from "./lists";
 import searchReducer from "./search";
 import taskReducer from "./tasks";
 import checkboxesReducer from "./checkboxes";
-import modalsReducer from "./modals";
 
 const rootReducer = combineReducers({
 	session: sessionReducer,
 	lists: listsReducer,
 	search: searchReducer,
 	tasks: taskReducer,
-	checkboxes: checkboxesReducer,
-	modals: modalsReducer
+	checkboxes: checkboxesReducer
 });
 
 let enhancer;
