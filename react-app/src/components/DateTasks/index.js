@@ -9,15 +9,7 @@ function DateTask({ task }) {
 	const primaryCheckbox = useSelector((state) => state.checkboxes.parentCheckbox);
 	const [isChecked, setIsChecked] = useState(false);
 
-	// useEffect(() => {
-	// 	// console.log('TEEEEEEEEEEEEEEST')
-	// 	if (checkTask[task.id]) {
-	// 		setIsChecked(!isChecked);
-	// 	}
-	// }, [checkTask]);
-
 	const test = async (e) => {
-		console.log(Boolean(checkTask[task.id]));
 		if (e.target.checked) {
 			setIsChecked(true);
 			await dispatch(checkATask(e.target.value));
