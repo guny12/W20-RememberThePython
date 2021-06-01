@@ -34,34 +34,6 @@
   transition: background-color 0.5s ease;
 }
 
-.profile-dropdown {
-  list-style: none;
-  height: 155px;
-  width: 150px;
-  background-color: white;
-  box-shadow: 0px 0px 5px 1px gray;
-}
-
-.profile-dropdown > li {
-  margin: 0;
-  padding: 0;
-  margin-left: -37.5px;
-  margin-right: 2px;
-  padding-top: 8px;
-  padding-bottom: 5px;
-  text-align: center;
-}
-
-.profile-dropdown > li > button {
-  border: none;
-  background-color: transparent;
-}
-
-.profile-dropdown > li:hover {
-  background-color: #d7e7f5;
-  cursor: default;
-}
-
 .nav-search-bar > input:focus {
   background-color: white;
 }
@@ -77,4 +49,12 @@
   width: 100vw;
   display: flex;
   justify-content: space-between;
+}
+
+#profile-dropdown {
+  margin-right: -10px;
+}
+
+#profile-menu {
+  margin-right: 170px;
 }
