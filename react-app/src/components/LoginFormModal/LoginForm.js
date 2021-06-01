@@ -25,6 +25,11 @@ const LoginForm = () => {
 		}
 	};
 
+	const handleDemoLogIn = async () => {
+		await dispatch(sessionActions.login({ credential: "demoUser@user.io", password: "password" }));
+		history.go(0);
+	};
+
 	return (
 		<Form onSubmit={handleSubmit} className="loginform__Form">
 			{errors.length > 0 && <h2>{errors} </h2>}
@@ -52,6 +57,9 @@ const LoginForm = () => {
 			</Form.Group>
 			<Button variant="primary" type="submit">
 				Log In
+			</Button>
+			<Button variant="secondary" onClick={handleDemoLogIn} className="demo_login">
+				Demo User
 			</Button>
 		</Form>
 	);
