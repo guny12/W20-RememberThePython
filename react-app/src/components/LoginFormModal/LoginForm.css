@@ -1,3 +1,7 @@
 .loginform__Form {
 	background-color: white;
 }
+
+.loginform__Form > button.demo_login {
+	margin-left: 15px;
+}

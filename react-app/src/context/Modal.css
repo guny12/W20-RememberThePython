@@ -28,7 +28,11 @@
 	width: auto;
 	padding: 10px;
 	overflow-y: auto;
-	animation: fade-in 2s;
+
+	/* advised to speed up animation */
+	/* 2s apparently too long */
+	/* remove property or...? */
+	animation: fade-in 0.25s;
 }
 
 @keyframes fade-in {

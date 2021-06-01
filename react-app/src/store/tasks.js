@@ -128,7 +128,6 @@ export const updateCheckedTasks = (tasksObj, updateType) => async (dispatch) => 
 		}),
 	});
 	const data = await response.json();
-	console.log(data);
 	if (response.ok) dispatch(updateSelectedTasks(data));
 	if (!response.ok) return { message: "error updating tasks" };
 };

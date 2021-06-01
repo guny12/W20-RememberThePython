@@ -28,7 +28,6 @@ const EditListForm = (id) => {
       }
       return newError;
     });
-    console.log(newError);
     if (newError) {
       setErrors(newError);
     } else {
