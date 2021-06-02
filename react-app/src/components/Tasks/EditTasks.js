@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { OverlayTrigger } from "react-bootstrap";
+import { checkTooltip, priorityTooltip, deleteTooltip } from "./tooltip";
 
 import * as checkboxActions from "../../store/checkboxes";
 import * as taskActions from "../../store/tasks";
@@ -73,15 +75,33 @@ function EditTasks({ listId }) {
         value={listId}
         onClick={(e) => taskSelect(e)}
       />
-      <button onClick={() => updateSelected("completed")}>
-        <i className="fas fa-check"></i>
-      </button>
-      <button onClick={() => updateSelected("priority")}>
-        <i className="fas fa-exclamation-circle"></i>
-      </button>
-      <button onClick={deleteSelected}>
-        <i className="fas fa-trash-alt"></i>
-      </button>
+      <OverlayTrigger
+        placement="auto"
+        delay={{ show: 250, hide: 50 }}
+        overlay={checkTooltip}
+      >
+        <button onClick={() => updateSelected("completed")}>
+          <i className="fas fa-check"></i>
+        </button>
+      </OverlayTrigger>
+      <OverlayTrigger
+        placement="auto"
+        delay={{ show: 250, hide: 50 }}
+        overlay={priorityTooltip}
+      >
+        <button onClick={() => updateSelected("priority")}>
+          <i className="fas fa-exclamation-circle"></i>
+        </button>
+      </OverlayTrigger>
+      <OverlayTrigger
+        placement="auto"
+        delay={{ show: 250, hide: 50 }}
+        overlay={deleteTooltip}
+      >
+        <button onClick={deleteSelected}>
+          <i className="fas fa-trash-alt"></i>
+        </button>
+      </OverlayTrigger>
     </div>
   );
 }
