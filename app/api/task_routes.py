@@ -31,7 +31,8 @@ def get_task_info():
 @login_required
 def get_all_tasks():
     userId = current_user.id
-    tasks = Task.query.filter(Task.creatorId == userId).order_by(Task.createdAt).all()
+    tasks = Task.query.filter(
+        Task.creatorId == userId).order_by(Task.createdAt).all()
     return {"tasks": [task.to_dict() for task in tasks]}
 
 
@@ -41,7 +42,8 @@ def get_all_tasks():
 def get_all_list_tasks(listId):
     userId = current_user.id
 
-    tasks = Task.query.filter(Task.creatorId == userId, Task.listId == listId).order_by(Task.createdAt).all()
+    tasks = Task.query.filter(
+        Task.creatorId == userId, Task.listId == listId).order_by(Task.createdAt).all()
 
     return {"tasks": [task.to_dict() for task in tasks]}
 
@@ -92,13 +94,18 @@ def update_task():
     tasksList = []
     getTasks = {}
 
-    if updateType == "completed":
+    if updateType == "completed" or updateType == "incomplete":
+        completed = False
+
+        if updateType == "completed":
+            completed = True
+
         tasksList = [Task.query.get(taskId) for taskId in tasksDict]
 
         for task in tasksList:
             if task.creatorId != userId:
                 return {"message": "You are not the owner"}
-            task.completed = not task.completed
+            task.completed = completed
             task.updatedAt = datetime.now()
             getTasks[task.id] = task.to_dict()
 

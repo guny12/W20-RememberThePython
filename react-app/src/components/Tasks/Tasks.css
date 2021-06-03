@@ -68,3 +68,8 @@
 	font-size: large;
 	cursor: pointer;
 }
+
+.task-container > h1.task-complete {
+	text-decoration: line-through;
+	color: gray;
+}

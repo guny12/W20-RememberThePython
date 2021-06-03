@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { checkATask, uncheckATask } from "../../store/tasks";
 import { checkMainCheckbox, uncheckMainCheckbox, indeterminateMainCheckbox } from "../../store/checkboxes";
@@ -9,6 +9,7 @@ function Task({ task }) {
 	const currentTask = useSelector((state) => state.tasks.checkedTasks[task.id]);
 	const checkedTasks = useSelector((state) => state.tasks.checkedTasks);
 	const allTasks = useSelector((state) => state.tasks.allTasks);
+	const isComplete = useSelector((state) => state.tasks.allTasks[task.id].completed);
 
 	const handleCheck = () => {
 		if (currentTask) {
@@ -44,7 +45,12 @@ function Task({ task }) {
 					className="far fa-check-square"
 				/>
 			}
-			<h1>{task.content}</h1>
+			{isComplete &&
+				<h1 className="task-complete">{task.content}</h1>
+			}
+			{!isComplete &&
+				<h1>{task.content}</h1>
+			}
 		</div>
 	);
 }
