@@ -9,7 +9,9 @@ function Task({ task }) {
 	const currentTask = useSelector((state) => state.tasks.checkedTasks[task.id]);
 	const checkedTasks = useSelector((state) => state.tasks.checkedTasks);
 	const allTasks = useSelector((state) => state.tasks.allTasks);
-	const isComplete = useSelector((state) => state.tasks.allTasks[task.id].completed);
+	const isComplete = useSelector((state) => state.tasks.allTasks[task.id]?.completed);
+
+	if (!allTasks[task.id]) return null;
 
 	const handleCheck = () => {
 		if (currentTask) {
@@ -23,13 +25,13 @@ function Task({ task }) {
 
 		if (checkedTasksArr.length && checkedTasksArr.length !== allTasksArr.length) {
 			// do dispatch to set primary checkbox to a line in box (undetermined)
-			dispatch(indeterminateMainCheckbox(task.id));
+			dispatch(indeterminateMainCheckbox(task.listId));
 		} else if (!checkedTasksArr.length) {
 			// do dispatch to set primary checkbox to unchecked status
-			dispatch(uncheckMainCheckbox(task.id));
+			dispatch(uncheckMainCheckbox(task.listId));
 		} else if (checkedTasksArr.length === allTasksArr.length) {
 			// do dispatch to check primary checkbox
-			dispatch(checkMainCheckbox(task.id));
+			dispatch(checkMainCheckbox(task.listId));
 		}
 	};
 

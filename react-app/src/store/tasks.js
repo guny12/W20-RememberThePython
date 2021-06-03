@@ -202,7 +202,7 @@ const taskReducer = (taskState = initialState, action) => {
 			return newState;
 		case DELETE_SELECTED_TASKS:
 			newState = Object.assign({}, taskState);
-			for (const key in newState.checkedTasks) {
+			for (const key in action.payload) {
 				delete newState.checkedTasks[key];
 				delete newState.allTasks[key];
 			}

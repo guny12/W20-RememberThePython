@@ -23,8 +23,8 @@ function EditTasks({ listId }) {
 
   const deleteSelected = async (e) => {
     if (Object.keys(checkedTasks).length) {
-      let { message } = await dispatch(taskActions.deleteCheckedTasks(checkedTasks));
-      if (message === "Task deleted") document.querySelector(`#sideNav-tab-${listId}`).click();
+      handleUncheck();
+      await dispatch(taskActions.deleteCheckedTasks(checkedTasks));
     }
   };
 
