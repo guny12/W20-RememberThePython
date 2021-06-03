@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { OverlayTrigger } from "react-bootstrap";
+import { OverlayTrigger, Dropdown } from "react-bootstrap";
 import { completeTooltip, incompleteTooltip, priorityTooltip, deleteTooltip } from "./tooltip";
 
 import * as checkboxActions from "../../store/checkboxes";
@@ -38,7 +38,7 @@ function EditTasks({ listId }) {
           await dispatch(taskActions.updateCheckedTasks(checkedTasks, arg));
           return;
         default:
-          // this is the priority option case
+          await dispatch(taskActions.updateCheckedTasks(checkedTasks, "priority", arg));
           return;
       }
     }
@@ -92,15 +92,25 @@ function EditTasks({ listId }) {
           <i className="fas fa-times" />
         </button>
       </OverlayTrigger>
-      <OverlayTrigger
-        placement="auto"
-        delay={{ show: 250, hide: 50 }}
-        overlay={priorityTooltip}
-      >
-        <button onClick={() => updateSelected("priority")}>
-          <i className="fas fa-exclamation-circle" />
-        </button>
-      </OverlayTrigger>
+      <Dropdown>
+        <OverlayTrigger
+          placement="auto"
+          delay={{ show: 250, hide: 50 }}
+          overlay={priorityTooltip}
+        >
+          <Dropdown.Toggle id="edit-priority">
+            <i className="fas fa-exclamation-circle" />
+          </Dropdown.Toggle>
+        </OverlayTrigger>
+        <Dropdown.Menu>
+          <Dropdown.Item onClick={() => updateSelected(0)}>0</Dropdown.Item>
+          <Dropdown.Item onClick={() => updateSelected(1)}>1</Dropdown.Item>
+          <Dropdown.Item onClick={() => updateSelected(2)}>2</Dropdown.Item>
+          <Dropdown.Item onClick={() => updateSelected(3)}>3</Dropdown.Item>
+          <Dropdown.Item onClick={() => updateSelected(4)}>4</Dropdown.Item>
+          <Dropdown.Item onClick={() => updateSelected(5)}>5</Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
       <OverlayTrigger
         placement="auto"
         delay={{ show: 250, hide: 50 }}

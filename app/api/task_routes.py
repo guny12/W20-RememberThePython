@@ -109,6 +109,15 @@ def update_task():
             task.updatedAt = datetime.now()
             getTasks[task.id] = task.to_dict()
 
+    if updateType == "priority":
+        tasksList = [Task.query.get(taskId) for taskId in tasksDict]
+
+        for task in tasksList:
+            if task.creatorId != userId:
+                return {"message": "You are not the owner"}
+            task.priority = request.json["priority"]
+            getTasks[task.id] = task.to_dict()
+
     db.session.commit()
 
     return getTasks
