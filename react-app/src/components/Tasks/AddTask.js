@@ -5,7 +5,6 @@ import * as taskActions from "../../store/tasks";
 function AddTask({ listId }) {
   const dispatch = useDispatch();
   const [content, setContent] = useState("");
-  const [inputSelected, setInputSelected] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,9 +24,8 @@ function AddTask({ listId }) {
         required
         value={content}
         onChange={(e) => setContent(e.target.value)}
-        onClick={(e) => setInputSelected(!inputSelected)}
       ></input>
-      {inputSelected &&
+      {content &&
         <button type="submit">Add Task</button>
       }
     </form>
