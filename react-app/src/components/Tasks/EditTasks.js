@@ -14,37 +14,45 @@ function EditTasks({ listId }) {
   const parentCheckbox = useSelector((state) => state.checkboxes.parentCheckbox);
   const [isChecked, setIsChecked] = useState(false);
 
-  useEffect(() => {
-    if (parentCheckbox.currentListId === null) {
-      setIsChecked(false);
-    }
-  }, [parentCheckbox.currentListId]);
+  // useEffect(() => {
+  //   if (parentCheckbox.currentListId === null) {
+  //     setIsChecked(false);
+  //   }
+  // }, [parentCheckbox.currentListId]);
 
-  const taskSelect = async (e) => {
-    await dispatch(checkboxActions.primaryCheckbox(e.target.value));
+  // const taskSelect = async (e) => {
+  //   await dispatch(checkboxActions.primaryCheckbox(e.target.value));
 
-    let currentList;
+  //   let currentList;
 
+  //   if (listId === -1) {
+  //     currentList = listAllTaskResults.taskResults;
+  //   } else {
+  //     currentList = listAllTasks;
+  //   }
+
+  //   if (parentCheckbox.checked) {
+  //     setIsChecked(true);
+  //     // await dispatch(taskActions.bulkCheckTask(currentList));
+  //     for (const key in currentList) {
+  //       await dispatch(taskActions.checkTask(key));
+  //     }
+  //     document.querySelectorAll(".task-checkbox").forEach((ele) => ele.checked = true);
+  //   } else {
+  //     setIsChecked(false);
+  //     // await dispatch(taskActions.bulkUncheckTask(currentList));
+  //     for (const key in currentList) {
+  //       await dispatch(taskActions.uncheckATask(key));
+  //     }
+  //     document.querySelectorAll(".task-checkbox").forEach((ele) => ele.checked = false);
+  //   }
+  // };
+
+  const getCurrentList = () => {
     if (listId === -1) {
-      currentList = listAllTaskResults.taskResults;
+      return listAllTaskResults.taskResults;
     } else {
-      currentList = listAllTasks;
-    }
-
-    if (parentCheckbox.checked) {
-      setIsChecked(true);
-      // await dispatch(taskActions.bulkCheckTask(currentList));
-      for (const key in currentList) {
-        await dispatch(taskActions.checkTask(key));
-      }
-      document.querySelectorAll(".task-checkbox").forEach((ele) => ele.checked = true);
-    } else {
-      setIsChecked(false);
-      // await dispatch(taskActions.bulkUncheckTask(currentList));
-      for (const key in currentList) {
-        await dispatch(taskActions.uncheckATask(key));
-      }
-      document.querySelectorAll(".task-checkbox").forEach((ele) => ele.checked = false);
+      return listAllTasks;
     }
   };
 
@@ -66,15 +74,43 @@ function EditTasks({ listId }) {
     }
   };
 
+  const handleCheck = () => {
+    dispatch(checkboxActions.checkMainCheckbox(listId));
+    dispatch(taskActions.bulkCheckTask(getCurrentList()));
+  };
+
+  const handleUncheck = () => {
+    dispatch(checkboxActions.uncheckMainCheckbox(listId));
+    dispatch(taskActions.bulkUncheckTask());
+  };
+
   return (
     <div className="edit-container">
-      <input
+      {!parentCheckbox.checked && !parentCheckbox.indeterminate &&
+        <i
+          className="far fa-square"
+          onClick={handleCheck}
+        />
+      }
+      {parentCheckbox.indeterminate && !parentCheckbox.checked &&
+        <i
+          className="far fa-minus-square"
+          onClick={handleCheck}
+        />
+      }
+      {parentCheckbox.checked && !parentCheckbox.indeterminate &&
+        <i
+          className="far fa-check-square"
+          onClick={handleUncheck}
+        />
+      }
+      {/* <input
         type="checkbox"
         className={`master-checkbox master-checkbox-listId-${listId}`}
         // checked={isChecked}
         value={listId}
         onClick={(e) => taskSelect(e)}
-      />
+      /> */}
       <OverlayTrigger
         placement="auto"
         delay={{ show: 250, hide: 50 }}

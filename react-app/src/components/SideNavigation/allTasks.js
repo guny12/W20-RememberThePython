@@ -93,8 +93,8 @@ const AllTasks = ({ listId }) => {
 							<div className="dropdown-list">
 								<label>list</label>
 								<select>
-									{lists?.map((list) => (
-										<option value={list.id}>{list.title}</option>
+									{lists?.map((list, idx) => (
+										<option value={list.id} key={idx}>{list.title}</option>
 									))}
 								</select>
 							</div>
