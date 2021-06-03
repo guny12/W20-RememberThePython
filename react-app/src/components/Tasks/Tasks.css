@@ -53,3 +53,18 @@
 .edit-container button:hover {
 	color: black;
 }
+
+.edit-container > i.far.fa-square:hover {
+	font-size: large;
+	cursor: pointer;
+}
+
+.edit-container > i.far.fa-minus-square:hover {
+	font-size: large;
+	cursor: pointer;
+}
+
+.edit-container > i.far.fa-check-square:hover {
+	font-size: large;
+	cursor: pointer;
+}

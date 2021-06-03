@@ -1,8 +1,20 @@
-const PRIMARY_CHECKBOX = "checkboxes/PRIMARY_CHECKBOX";
+const CHECK_MAIN_CHECKBOX = "checkboxes/CHECK_MAIN_CHECKBOX";
+const UNCHECK_MAIN_CHECKBOX = "checkboxes/UNCHECK_MAIN_CHECKBOX";
+const INDETERMINATE_MAIN_CHECKBOX = "checkboxes/INDETERMINATE_MAIN_CHECKBOX";
 const RESET_STATE = "checkboxes/RESET_STATE";
 
-export const primaryCheckbox = (listId) => ({
-  type: PRIMARY_CHECKBOX,
+export const checkMainCheckbox = (listId) => ({
+  type: CHECK_MAIN_CHECKBOX,
+  payload: listId
+});
+
+export const uncheckMainCheckbox = (listId) => ({
+  type: UNCHECK_MAIN_CHECKBOX,
+  payload: listId
+});
+
+export const indeterminateMainCheckbox = (listId) => ({
+  type: INDETERMINATE_MAIN_CHECKBOX,
   payload: listId
 });
 
@@ -11,16 +23,35 @@ export const resetCheckboxState = () => ({
 });
 
 const initialState = {
-  parentCheckbox: { checked: false, indeterminate: false, currentListId: null }
+  parentCheckbox: {
+    checked: false,
+    indeterminate: false,
+    currentListId: null
+  }
 };
 
 const checkboxesReducer = (state = initialState, action) => {
   let newState;
 
   switch (action.type) {
-    case PRIMARY_CHECKBOX:
+    case CHECK_MAIN_CHECKBOX:
       newState = Object.assign({}, state);
-      newState.parentCheckbox.checked = !state.parentCheckbox.checked;
+      newState.parentCheckbox.checked = true;
+      newState.parentCheckbox.indeterminate = false;
+      newState.parentCheckbox.currentListId = parseInt(action.payload, 10);
+
+      return newState;
+    case UNCHECK_MAIN_CHECKBOX:
+      newState = Object.assign({}, state);
+      newState.parentCheckbox.checked = false;
+      newState.parentCheckbox.indeterminate = false;
+      newState.parentCheckbox.currentListId = parseInt(action.payload, 10);
+
+      return newState;
+    case INDETERMINATE_MAIN_CHECKBOX:
+      newState = Object.assign({}, state);
+      newState.parentCheckbox.checked = false;
+      newState.parentCheckbox.indeterminate = true;
       newState.parentCheckbox.currentListId = parseInt(action.payload, 10);
 
       return newState;

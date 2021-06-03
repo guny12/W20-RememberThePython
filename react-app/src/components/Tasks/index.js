@@ -1,29 +1,45 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { checkATask, uncheckATask } from "../../store/tasks";
+import { checkMainCheckbox, uncheckMainCheckbox, indeterminateMainCheckbox } from "../../store/checkboxes";
 import "./Tasks.css";
 
 function Task({ task }) {
 	const dispatch = useDispatch();
-	const checkTask = useSelector((state) => state.tasks.checkedTasks[task.id]);
-	const primaryCheckbox = useSelector((state) => state.checkboxes.parentCheckbox);
+	const currentTask = useSelector((state) => state.tasks.checkedTasks[task.id]);
+	const checkedTasks = useSelector((state) => state.tasks.checkedTasks);
+	const allTasks = useSelector((state) => state.tasks.allTasks);
 
 	const handleCheck = () => {
-		if (checkTask) {
+		if (currentTask) {
 			dispatch(uncheckATask(task.id));
 		} else {
 			dispatch(checkATask(task.id));
+		}
+
+		const checkedTasksArr = Object.values(checkedTasks);
+		const allTasksArr = Object.values(allTasks);
+
+		if (checkedTasksArr.length && checkedTasksArr.length !== allTasksArr.length) {
+			// do dispatch to set primary checkbox to a line in box (undetermined)
+			dispatch(indeterminateMainCheckbox(task.id));
+		} else if (!checkedTasksArr.length) {
+			// do dispatch to set primary checkbox to unchecked status
+			dispatch(uncheckMainCheckbox(task.id));
+		} else if (checkedTasksArr.length === allTasksArr.length) {
+			// do dispatch to check primary checkbox
+			dispatch(checkMainCheckbox(task.id));
 		}
 	};
 
 	return (
 		<div onClick={handleCheck} className="task-container">
-			{!checkTask &&
+			{!currentTask &&
 				<i
 					className="far fa-square"
 				/>
 			}
-			{checkTask &&
+			{currentTask &&
 				<i
 					className="far fa-check-square"
 				/>

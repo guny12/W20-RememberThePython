@@ -1,7 +1,11 @@
+import { deepCopy } from "../services/deepCopy";
+
 export const LOAD_ALL_TASKS = "task/LOAD_ALL_TASKS";
 const CLEAR_TASKS = "task/CLEAR_TASKS";
 const CHECK_TASK = "task/CHECK_TASK";
+const BULK_CHECK_TASK = "task/BULK_CHECK_TASK";
 const UNCHECK_TASK = "task/UNCHECK_TASK";
+const BULK_UNCHECK_TASK = "task/BULK_UNCHECK_TASK";
 const UPDATE_SELECTED_TASKS = "task/UPDATE_SELECTED_TASKS";
 const DELETE_SELECTED_TASKS = "task/DELETE_SELECTED_TASKS";
 
@@ -10,9 +14,18 @@ export const checkTask = (taskId) => ({
 	payload: taskId,
 });
 
+export const bulkCheckTask = (tasks) => ({
+	type: BULK_CHECK_TASK,
+	payload: tasks
+});
+
 export const uncheckTask = (taskId) => ({
 	type: UNCHECK_TASK,
 	payload: taskId,
+});
+
+export const bulkUncheckTask = () => ({
+	type: BULK_UNCHECK_TASK
 });
 
 export const updateSelectedTasks = (tasksObj) => ({
@@ -169,6 +182,18 @@ const taskReducer = (taskState = initialState, action) => {
 			newState = Object.assign({}, taskState);
 			newState.checkedTasks[action.payload] = parseInt(action.payload, 10);
 			return newState;
+		case BULK_CHECK_TASK:
+			newState = Object.assign({}, taskState);
+			newState.checkedTasks = deepCopy(action.payload);
+			return newState;
+		case UNCHECK_TASK:
+			newState = Object.assign({}, taskState);
+			delete newState.checkedTasks[action.payload];
+			return newState;
+		case BULK_UNCHECK_TASK:
+			newState = Object.assign({}, taskState);
+			newState.checkedTasks = {};
+			return newState;
 		case UPDATE_SELECTED_TASKS:
 			newState = Object.assign({}, taskState);
 			for (const key in action.payload) {
@@ -181,10 +206,6 @@ const taskReducer = (taskState = initialState, action) => {
 				delete newState.checkedTasks[key];
 				delete newState.allTasks[key];
 			}
-			return newState;
-		case UNCHECK_TASK:
-			newState = Object.assign({}, taskState);
-			delete newState.checkedTasks[action.payload];
 			return newState;
 		default:
 			return taskState;
