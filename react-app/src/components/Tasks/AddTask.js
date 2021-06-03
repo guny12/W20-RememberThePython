@@ -24,7 +24,7 @@ function AddTask({ listId }) {
         required
         value={content}
         onChange={(e) => setContent(e.target.value)}
-      ></input>
+      />
       {content &&
         <button type="submit">Add Task</button>
       }

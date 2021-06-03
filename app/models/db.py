@@ -31,7 +31,8 @@ class User(db.Model, UserMixin):
     userList = relationship("List", backref="listUser", cascade="all, delete")
     userTask = relationship("Task", backref="taskUser", cascade="all, delete")
     userNote = relationship("Note", backref="noteUser", cascade="all, delete")
-    userGive = relationship("Task", secondary=giveToUser, back_populates="taskGive", cascade="all, delete")
+    userGive = relationship("Task", secondary=giveToUser,
+                            back_populates="taskGive", cascade="all, delete")
 
     @property
     def password(self):
@@ -67,8 +68,8 @@ class List(db.Model):
             "title": self.title,
             "createdAt": self.createdAt,
             "updatedAt": self.updatedAt,
-            "numTasks": len(self.listTask)
-            # "listTasks": [task.to_dict() for task in self.listTask],
+            "numTasks": len(self.listTask),
+            "numCompleted": len([task.to_dict() for task in self.listTask if task.completed == True])
         }
 
 
@@ -76,7 +77,8 @@ class Task(db.Model):
     __tablename__ = "tasks"
 
     id = db.Column(db.Integer, primary_key=True)
-    creatorId = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
+    creatorId = db.Column(
+        db.Integer, db.ForeignKey("users.id"), nullable=False)
     listId = db.Column(db.Integer, db.ForeignKey("lists.id"), nullable=False)
     content = db.Column(db.Text, nullable=False)
     completed = db.Column(db.Boolean, default=False)
@@ -90,7 +92,8 @@ class Task(db.Model):
 
     # associations
     taskNote = relationship("Note", backref="noteTask", cascade="all, delete")
-    taskGive = relationship("User", secondary=giveToUser, back_populates="userGive")
+    taskGive = relationship("User", secondary=giveToUser,
+                            back_populates="userGive")
 
     def to_dict(self):
         return {

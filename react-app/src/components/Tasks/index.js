@@ -16,9 +16,9 @@ function Task({ task }) {
 
 	const handleCheck = () => {
 		if (currentTask) {
-			dispatch(uncheckATask(task.id));
+			dispatch(uncheckATask(task));
 		} else {
-			dispatch(checkATask(task.id));
+			dispatch(checkATask(task));
 		}
 
 		const checkedTasksArr = Object.values(checkedTasks);
