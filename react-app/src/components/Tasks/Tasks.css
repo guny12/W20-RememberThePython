@@ -93,3 +93,23 @@
 	color: black;
 	border: 1px solid rgba(128, 128, 128, 0.419);
 }
+
+.task-container > h1.priority-1 {
+	background-color: #bababa;
+}
+
+.task-container > h1.priority-2 {
+	background-color: #DDDDAC;
+}
+
+.task-container > h1.priority-3 {
+	background-color: #ffff9e;
+}
+
+.task-container > h1.priority-4 {
+	background-color: #FFCF9E;
+}
+
+.task-container > h1.priority-5 {
+	background-color: #ff9e9e;
+}

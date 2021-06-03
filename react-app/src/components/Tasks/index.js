@@ -10,6 +10,7 @@ function Task({ task }) {
 	const checkedTasks = useSelector((state) => state.tasks.checkedTasks);
 	const allTasks = useSelector((state) => state.tasks.allTasks);
 	const isComplete = useSelector((state) => state.tasks.allTasks[task.id]?.completed);
+	const priority = useSelector((state) => state.tasks.allTasks[task.id]?.priority);
 
 	if (!allTasks[task.id]) return null;
 
@@ -51,7 +52,7 @@ function Task({ task }) {
 				<h1 className="task-complete">{task.content}</h1>
 			}
 			{!isComplete &&
-				<h1>{task.content}</h1>
+				<h1 className={`priority-${priority}`}>{task.content}</h1>
 			}
 		</div>
 	);
