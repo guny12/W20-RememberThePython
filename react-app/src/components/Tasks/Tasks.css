@@ -36,6 +36,9 @@
 	margin-bottom: 10px;
 	padding-bottom: 10px;
 	border-bottom: 1px dotted rgba(128, 128, 128, 0.556);
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 }
 
 .edit-container button {
@@ -67,4 +70,46 @@
 .edit-container > i.far.fa-check-square:hover {
 	font-size: large;
 	cursor: pointer;
+}
+
+.task-container > h1.task-complete {
+	text-decoration: line-through;
+	color: gray;
+}
+
+#edit-priority {
+	height: 28px;
+	display: flex;
+	align-items: center;
+}
+
+#edit-priority:hover {
+	background-color: white;
+	border: 1px solid rgba(128, 128, 128, 0.419);
+}
+
+#edit-priority:focus {
+	background-color: white;
+	color: black;
+	border: 1px solid rgba(128, 128, 128, 0.419);
+}
+
+.task-container > h1.priority-1 {
+	background-color: #bababa;
+}
+
+.task-container > h1.priority-2 {
+	background-color: #DDDDAC;
+}
+
+.task-container > h1.priority-3 {
+	background-color: #ffff9e;
+}
+
+.task-container > h1.priority-4 {
+	background-color: #FFCF9E;
+}
+
+.task-container > h1.priority-5 {
+	background-color: #ff9e9e;
 }

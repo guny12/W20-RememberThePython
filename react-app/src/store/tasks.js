@@ -129,7 +129,7 @@ export const uncheckATask = (taskId) => async (dispatch) => {
 	dispatch(uncheckTask(taskId));
 };
 
-export const updateCheckedTasks = (tasksObj, updateType) => async (dispatch) => {
+export const updateCheckedTasks = (tasksObj, updateType, priority) => async (dispatch) => {
 	const response = await fetch("/api/task/", {
 		method: "PATCH",
 		headers: {
@@ -138,6 +138,7 @@ export const updateCheckedTasks = (tasksObj, updateType) => async (dispatch) => 
 		body: JSON.stringify({
 			tasksObj,
 			updateType,
+			priority
 		}),
 	});
 	const data = await response.json();
@@ -202,7 +203,7 @@ const taskReducer = (taskState = initialState, action) => {
 			return newState;
 		case DELETE_SELECTED_TASKS:
 			newState = Object.assign({}, taskState);
-			for (const key in newState.checkedTasks) {
+			for (const key in action.payload) {
 				delete newState.checkedTasks[key];
 				delete newState.allTasks[key];
 			}

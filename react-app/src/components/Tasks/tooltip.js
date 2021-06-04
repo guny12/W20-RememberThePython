@@ -1,9 +1,15 @@
 import React from 'react';
 import { Tooltip } from 'react-bootstrap';
 
-export const checkTooltip = (props) => (
-  <Tooltip id="check-tooltip" {...props}>
-    Mark task complete/incomplete
+export const completeTooltip = (props) => (
+  <Tooltip id="complete-tooltip" {...props}>
+    Mark task complete
+  </Tooltip>
+);
+
+export const incompleteTooltip = (props) => (
+  <Tooltip id="complete-tooltip" {...props}>
+    Mark task incomplete
   </Tooltip>
 );
 
