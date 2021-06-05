@@ -9,7 +9,7 @@ import "./AllTasks.css";
 const AllTasks = ({ listId }) => {
 	const tasks = useSelector((state) => state.tasks.allTasks);
 	const lists = useSelector((state) => state.lists.allLists);
-	const [selected, setSelected] = useState(false);
+	const checkedTasks = useSelector((state) => state.tasks.checkedTasks);
 	const [selectedTask, setSelectedTask] = useState({});
 
 	let currentList;
@@ -41,9 +41,12 @@ const AllTasks = ({ listId }) => {
 		tasksDiv = Object.values(tasks);
 	}
 
+	// DO NOT REMOVE FUNCTION
+	// only used for rerendering stuff
+	// still WIP to remove this function
+	// (only remove if ur actually going to fix it pls)
 	const test = (task) => {
 		setSelectedTask(task);
-		setSelected(!selected);
 	};
 
 	return (
@@ -65,42 +68,60 @@ const AllTasks = ({ listId }) => {
 			</div>
 
 			<div className="task-sub-container">
-				{!selected && (
-					<div>
-						<h4>{currentList && currentList.title}</h4>
-						<div className="num-display">
-							<div className="num-tasks">
-								<h5>{Object.keys(tasks).length}</h5>
-								<p>tasks</p>
-							</div>
-							<div className="num-completed">
-								<h5>THIS IS A HARDCODED VALUE</h5>
-								<p>completed</p>
-							</div>
+				<div>
+					<h4>{currentList && currentList.title}</h4>
+					<div className="num-display">
+						<div className="num-tasks">
+							<h5>{Object.values(tasks).length}</h5>
+							<p>tasks</p>
+						</div>
+						<div className="num-completed">
+							<h5>{Object.values(tasks).filter((task) => task.completed === true).length}</h5>
+							<p>completed</p>
 						</div>
 					</div>
-				)}
-				{selected && (
-					<div className="task-details-page">
-						<h2 className="task-content-header">{selectedTask.content}</h2>
-						<div className="dropdowns">
-							<div className="dropdown-due-date">
-								<label>due</label>
-								<select>
-									<option>{selectedTask.dueDate}due date</option>
-								</select>
-							</div>
-							<div className="dropdown-list">
-								<label>list</label>
-								<select>
-									{lists?.map((list, idx) => (
-										<option value={list.id} key={idx}>{list.title}</option>
-									))}
-								</select>
+				</div>
+				{Object.values(checkedTasks).length === 1 &&
+					Object.values(checkedTasks).map((task) => (
+						<div className="task-details-page">
+							<h2 className="task-content-header">{task.content}</h2>
+							<div className="dropdowns">
+								<div className="dropdown-due-date">
+									<label>due</label>
+									<select>
+										<option>{task.dueDate}due date</option>
+									</select>
+								</div>
+								<div className="dropdown-list">
+									<label>list</label>
+									<select>
+										{lists?.map((list, idx) => (
+											<option value={list.id} key={idx}>{list.title}</option>
+										))}
+									</select>
+								</div>
 							</div>
 						</div>
+					))
+				}
+				{Object.values(checkedTasks).length > 1 &&
+					<div className="dropdowns">
+						<div className="dropdown-due-date">
+							<label>due</label>
+							<select>
+								<option>due date</option>
+							</select>
+						</div>
+						<div className="dropdown-list">
+							<label>list</label>
+							<select>
+								{lists?.map((list, idx) => (
+									<option value={list.id} key={idx}>{list.title}</option>
+								))}
+							</select>
+						</div>
 					</div>
-				)}
+				}
 			</div>
 		</div>
 	);

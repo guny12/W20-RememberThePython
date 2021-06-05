@@ -1,6 +1,7 @@
 .outer-shell {
   display: flex;
   flex-direction: row;
+  width: 75vw;
 }
 
 .task-form-container {
@@ -17,15 +18,12 @@
 }
 
 .task-sub-container {
-  /* display: flex; */
   margin-top: 15px;
   background-color: white;
   border: none;
   border-radius: 8px;
   width: 800px;
   margin-left: 5px;
-  /* border-style: solid; */
-  /* border-width: thin medium thick; */
   border-color: #C0C0C0;
 }
 

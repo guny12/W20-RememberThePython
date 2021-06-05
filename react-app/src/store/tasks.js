@@ -181,7 +181,7 @@ const taskReducer = (taskState = initialState, action) => {
 			return newState;
 		case CHECK_TASK:
 			newState = Object.assign({}, taskState);
-			newState.checkedTasks[action.payload] = parseInt(action.payload, 10);
+			newState.checkedTasks[action.payload.id] = action.payload;
 			return newState;
 		case BULK_CHECK_TASK:
 			newState = Object.assign({}, taskState);
@@ -189,7 +189,7 @@ const taskReducer = (taskState = initialState, action) => {
 			return newState;
 		case UNCHECK_TASK:
 			newState = Object.assign({}, taskState);
-			delete newState.checkedTasks[action.payload];
+			delete newState.checkedTasks[action.payload.id];
 			return newState;
 		case BULK_UNCHECK_TASK:
 			newState = Object.assign({}, taskState);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { checkATask, uncheckATask } from "../../store/tasks";
 import { checkMainCheckbox, uncheckMainCheckbox, indeterminateMainCheckbox } from "../../store/checkboxes";
@@ -16,9 +16,9 @@ function Task({ task }) {
 
 	const handleCheck = () => {
 		if (currentTask) {
-			dispatch(uncheckATask(task.id));
+			dispatch(uncheckATask(task));
 		} else {
-			dispatch(checkATask(task.id));
+			dispatch(checkATask(task));
 		}
 
 		const checkedTasksArr = Object.values(checkedTasks);
