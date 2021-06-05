@@ -132,7 +132,7 @@ Refer to [Deployment](#Deployment) for notes on how to deploy your `MemberBerrie
 ## Authors
 
 * **Jim Nguy**
-   * *Initial work* - [Cook Off](https://github.com/guny12/W16-MeetUpClone.git)
+   * [GitHub](https://github.com/guny12)
    * [LinkedIn](https://www.linkedin.com/in/jim-nguy-b36b16ba/)
 * **Heriberto Montoya**
    * *Initial work* - [Skrrt](https://github.com/montoya1256/skrrt.git)
